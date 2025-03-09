@@ -1,0 +1,17 @@
+
+type Props = React.ComponentPropsWithoutRef<"svg"> & {}
+
+
+export function WhatsappIcon({ ...props }: Props) {
+  return (
+    <svg {...props} width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+      <rect x="0.0999756" y="0.100098" width="45.5" height="45.5" fill="url(#pattern0_45_65)" />
+      <defs>
+        <pattern id="pattern0_45_65" patternContentUnits="objectBoundingBox" width="1" height="1">
+          <use xlinkHref="#image0_45_65" transform="scale(0.0104167)" />
+        </pattern>
+        <image id="image0_45_65" width="96" height="96" xlinkHref="data:image/png;base64,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" />
+      </defs>
+    </svg>
+  )
+}
