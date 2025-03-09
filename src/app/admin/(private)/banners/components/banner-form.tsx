@@ -45,7 +45,7 @@ const BannerForm = React.forwardRef<
           <Form.Input
             label="Título"
             name="title"
-            icon={<TypeIcon size={18} />}
+            leftIcon={<TypeIcon size={18} />}
           />
 
           <div className="flex gap-4 w-full">

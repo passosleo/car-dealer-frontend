@@ -37,7 +37,11 @@ const BrandForm = React.forwardRef<
         />
 
         <div className="flex flex-col gap-2 w-full flex-wrap">
-          <Form.Input label="Nome" name="name" icon={<TypeIcon size={18} />} />
+          <Form.Input
+            label="Nome"
+            name="name"
+            leftIcon={<TypeIcon size={18} />}
+          />
 
           <Form.Switch label="Ativo" name="active" defaultChecked />
 

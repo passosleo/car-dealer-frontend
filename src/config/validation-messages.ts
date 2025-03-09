@@ -1,6 +1,6 @@
 export const validationMessages = {
   required_error: "Campo obrigatório",
-  nonempty_error: "Campo não pode ser vazio",
+  nonempty_error: "Campo obrigatório",
   email_error: "E-mail inválido",
   url_error: "URL inválida",
   number_error: "Número inválido",

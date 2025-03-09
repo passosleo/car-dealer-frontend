@@ -57,13 +57,13 @@ const SellerForm = React.forwardRef<
             <Form.Input
               label="E-mail"
               name="email"
-              icon={<MailIcon size={18} />}
+              leftIcon={<MailIcon size={18} />}
             />
 
             <Form.Input
               label="Telefone"
               name="phone"
-              icon={<PhoneIcon size={18} />}
+              leftIcon={<PhoneIcon size={18} />}
             />
           </div>
 
