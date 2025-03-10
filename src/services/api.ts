@@ -16,9 +16,9 @@ const apiInstanceAdmin = axios.create({
 
 apiInstanceAdmin.interceptors.request.use(
   async (config: CustomInternalAxiosRequestConfig) => {
-    // if (config.skipAuthInterceptor) {
-    //   return config;
-    // } //TODO: validar necessidade
+    if (config.skipAuthInterceptor) {
+      return config;
+    }
 
     const { getCookie } = useCookies();
     const session = useSession();
