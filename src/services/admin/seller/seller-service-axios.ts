@@ -1,14 +1,14 @@
 import { AxiosInstance } from "axios";
 import { Service } from "../../service";
 import {
-  CallbackFns,
   CreateSellerDTO,
   SellerDTO,
-  SellerService,
+  ISellerService,
   UpdateSellerDTO,
 } from "./seller.types";
+import { CallbackFns } from "@/services/types";
 
-export class SellerServiceAxios extends Service implements SellerService {
+export class SellerServiceAxios extends Service implements ISellerService {
   private readonly instance: AxiosInstance;
 
   constructor(baseUrl: string, instance: AxiosInstance) {

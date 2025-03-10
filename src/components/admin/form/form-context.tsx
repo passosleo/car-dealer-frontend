@@ -1,68 +1,53 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import {
   FormProvider,
-  useForm,
   UseFormProps,
   FieldValues,
   UseFormReturn,
 } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
-import { z, ZodSchema } from "zod";
+import { ZodSchema } from "zod";
+import { useCustomFormContext } from "./hooks/use-custom-form-context";
 
-export type FormContextProps<T extends FieldValues> = Omit<
-  React.ComponentProps<"form">,
-  "onSubmit" | "children"
-> & {
+type Props<T extends FieldValues> = {
   onSubmit: (data: T, formMethods: UseFormReturn<T>) => void;
   useFormProps?: Omit<UseFormProps<Partial<T>>, "resolver">;
-  zodSchema: ZodSchema<T>;
-  resetOnSubmit?: boolean;
   children: React.ReactNode | ((form: UseFormReturn<T>) => React.ReactNode);
+  zodSchema?: ZodSchema<T>;
+  resetOnSubmit?: boolean;
+  className?: string;
+  preventEnterSubmit?: boolean;
 };
 
-const FormContext = React.forwardRef(
-  <T extends FieldValues>(
-    {
-      children,
-      className,
-      onSubmit,
-      zodSchema,
-      useFormProps,
-      resetOnSubmit,
-      ...props
-    }: FormContextProps<T>,
-    ref: React.Ref<HTMLFormElement>
-  ) => {
-    const methods = useForm<z.infer<typeof zodSchema | any>>({
-      reValidateMode: "onChange",
-      ...useFormProps,
-      resolver: zodResolver(zodSchema || z.object({})),
-    });
+export function FormContext<T extends FieldValues>({
+  children,
+  className,
+  onSubmit: onSubmitProp,
+  zodSchema,
+  useFormProps,
+  resetOnSubmit,
+  preventEnterSubmit,
+}: Props<T>) {
+  const { methods, onSubmit, onKeyDown } = useCustomFormContext<T>({
+    onSubmit: onSubmitProp,
+    useFormProps,
+    zodSchema,
+    resetOnSubmit,
+    preventEnterSubmit,
+  });
 
-    function handleSubmit(data: T, formMethods: UseFormReturn<T>) {
-      onSubmit(data, formMethods);
-      if (resetOnSubmit) methods.reset(undefined, { keepIsSubmitted: false });
-    }
-
-    return (
-      <FormProvider {...methods}>
-        <form
-          {...props}
-          ref={ref}
-          className={twMerge(
-            "flex flex-col gap-2 p-2 overflow-auto w-full",
-            className
-          )}
-          onSubmit={methods.handleSubmit((data) => handleSubmit(data, methods))}
-        >
-          {typeof children === "function" ? children(methods) : children}
-        </form>
-      </FormProvider>
-    );
-  }
-);
-
-FormContext.displayName = "Form.Context";
-
-export { FormContext };
+  return (
+    <FormProvider {...methods}>
+      <form
+        className={twMerge(
+          "flex flex-col gap-2 p-2 overflow-auto w-full",
+          className
+        )}
+        onSubmit={methods.handleSubmit((data) => onSubmit(data, methods))}
+        onKeyDown={onKeyDown}
+      >
+        {typeof children === "function" ? children(methods) : children}
+      </form>
+    </FormProvider>
+  );
+}

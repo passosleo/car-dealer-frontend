@@ -1,3 +1,5 @@
+import { CallbackFns } from "@/services/types";
+
 export type SellerDTO = {
   id: string;
   name: string;
@@ -23,12 +25,7 @@ export type UpdateSellerDTO = {
   isEnabled: boolean;
 };
 
-export type CallbackFns<T> = {
-  onSuccess?: (data: T) => void;
-  onError?: (error: Error) => void;
-};
-
-export interface SellerService {
+export interface ISellerService {
   getSellers(callbackFns?: CallbackFns<SellerDTO[]>): Promise<SellerDTO[]>;
   getSeller(
     id: number,

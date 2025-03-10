@@ -1,23 +1,34 @@
 export function useCookies() {
-  function setCookie<T>(
+  function setCookie<T extends string>(
     key: string,
     value: T,
-    expirationDate: Date | null = null,
-    path = "/"
+    config: {
+      path?: string;
+      expires?: Date | null;
+      secure?: boolean;
+      httpOnly?: boolean;
+      sameSite?: "strict" | "lax" | "none";
+    } = {
+      path: "/",
+      expires: null,
+      secure: false,
+      httpOnly: false,
+      sameSite: "none",
+    }
   ) {
     try {
       if (typeof document !== "undefined") {
-        let cookieString = `${key}=${encodeURIComponent(
-          JSON.stringify(value)
-        )}`;
-        if (expirationDate !== null) {
-          const cookieExpirationDate = new Date(expirationDate);
-          cookieExpirationDate.setDate(
-            cookieExpirationDate.getDate() + expirationDate.getDate()
-          );
-          cookieString += `; expires=${cookieExpirationDate.toUTCString()}`;
-          cookieString += `; path=${path}`;
+        let cookieString = `${key}=${encodeURIComponent(value)}; path=${
+          config.path
+        }`;
+
+        if (!!config.expires) {
+          cookieString += `; expires=${config.expires.toUTCString()}`;
         }
+
+        if (config.secure) cookieString += "; Secure";
+        if (config.sameSite) cookieString += `; SameSite=${config.sameSite}`;
+
         document.cookie = cookieString;
         return true;
       }

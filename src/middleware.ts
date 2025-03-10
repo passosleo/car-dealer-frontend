@@ -1,78 +1,68 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isTokenValid } from "./utils/jwt";
 
-export async function middleware(req: NextRequest) {
-  const authResponse = await handleAuthentication(req);
-  if (authResponse) {
-    return authResponse;
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Handle logout
+  if (pathname === "/admin/logout") {
+    return block(request);
   }
 
-  const logoutResponse = await handleLogout(req);
-  if (logoutResponse) {
-    return logoutResponse;
-  }
+  // Handle authentication
+  const refreshTokenCookie = request.cookies.get("refreshToken")?.value;
 
-  const headers = addHeaders(req, [["x-path", req.nextUrl.pathname]]);
-
-  return NextResponse.next({
-    request: {
-      headers,
-    },
-  });
-}
-
-function addHeaders(req: NextRequest, headersToAdd: [string, string][] = []) {
-  const headers = new Headers(req.headers);
-
-  headersToAdd.forEach((header) => {
-    headers.set(header[0], header[1]);
-  });
-
-  return headers;
-}
-
-async function handleAuthentication(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-  const cookieName = "auth_token";
-  const authToken = req.cookies.get(cookieName)?.value;
-
-  if (!authToken) {
+  if (!refreshTokenCookie) {
     if (pathname === "/admin/login") {
-      return NextResponse.next();
+      return allow(request);
     }
-    return NextResponse.redirect(new URL("/admin/login", req.url));
+    return block(request);
   }
 
-  try {
-    const isValid = true; //call backend to validate token
-
-    if (!isValid) {
-      return NextResponse.redirect(new URL("/admin/login", req.url));
-    }
-  } catch (error) {
-    console.error("Erro ao validar o token com o backend:", error);
-    return NextResponse.redirect(new URL("/admin/login", req.url));
+  if (!isTokenValid(refreshTokenCookie)) {
+    return block(request);
   }
 
   if (pathname === "/admin" || pathname === "/admin/login") {
-    return NextResponse.redirect(new URL("/admin/dashboard", req.url));
+    return redirect(request, "/dashboard");
   }
 
-  return null;
+  return allow(request);
 }
 
-async function handleLogout(req: NextRequest) {
-  if (req.nextUrl.pathname === "/admin/logout") {
-    const headers = addHeaders(req, [
-      [
-        "Set-Cookie",
-        "auth_token=; Path=/admin; Expires=Thu, 01 Jan 1900 00:00:00 GMT;",
-      ],
-    ]);
-    return NextResponse.redirect(new URL("/admin/login", req.url), {
-      headers,
-    });
-  }
+function redirect(request: NextRequest, path: string) {
+  const res = NextResponse.redirect(new URL(`/admin${path}`, request.url));
+  const { pathname } = request.nextUrl;
+  res.cookies.set("x-path", pathname);
+  return res;
+}
+
+function allow(request: NextRequest) {
+  const res = NextResponse.next();
+  const { pathname } = request.nextUrl;
+  res.cookies.set("x-path", pathname);
+  return res;
+}
+
+function block(request: NextRequest) {
+  const res = NextResponse.redirect(new URL("/admin/login", request.url));
+  // Clear cookies
+  res.cookies.set("accessToken", "", {
+    path: "/admin",
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    expires: new Date(0),
+  });
+  res.cookies.set("refreshToken", "", {
+    path: "/admin",
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+    expires: new Date(0),
+  });
+  return res;
 }
 
 export const config = {

@@ -1,5 +1,4 @@
 "use client";
-
 import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -12,11 +11,26 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
+import { api } from "@/services/api";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/hooks/use-session";
 
 const messages = config.messages.validation;
 
+const createSessionSchema = z.object({
+  email: z
+    .string({ required_error: messages.required_error })
+    .email({ message: messages.email_error }),
+  password: z
+    .string({ required_error: messages.required_error })
+    .nonempty({ message: messages.nonempty_error }),
+  rememberMe: z.boolean(),
+});
+
+type CreateSessionSchema = z.infer<typeof createSessionSchema>;
+
 const LoginForm = React.forwardRef<
-  HTMLFormElement,
+  HTMLDivElement,
   Omit<
     React.ComponentProps<typeof Form.Context>,
     "zodSchema" | "onSubmit" | "children"
@@ -26,52 +40,67 @@ const LoginForm = React.forwardRef<
   const [inputType, setInputType] = React.useState<"password" | "text">(
     "password"
   );
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const session = useSession();
+  const router = useRouter();
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
     setShowPassword((prev) => !prev);
   }
 
+  async function onSubmit(data: CreateSessionSchema) {
+    setIsSubmitting(true);
+
+    await api.admin.auth.createSession(data, {
+      onSuccess: (data) => {
+        setIsSubmitting(false);
+        session.register(data);
+        router.push("/admin/dashboard");
+      },
+      onError: (error) => {
+        console.log(error);
+        setIsSubmitting(false);
+      },
+    });
+  }
+
   return (
-    <Form.Context
-      ref={ref}
-      {...props}
-      zodSchema={z.object({
-        email: z
-          .string({ required_error: messages.required_error })
-          .email({ message: messages.email_error }),
-        password: z
-          .string({ required_error: messages.required_error })
-          .nonempty({ message: messages.nonempty_error }),
-        rememberMe: z.boolean().default(false),
-      })}
-      onSubmit={(data) => console.log(data)}
-    >
-      <Form.Input
-        label="E-mail"
-        name="email"
-        autoFocus
-        leftIcon={<MailIcon size={18} />}
-      />
+    <div ref={ref}>
+      <Form.Context
+        {...props}
+        zodSchema={createSessionSchema}
+        onSubmit={onSubmit}
+      >
+        <Form.Input
+          label="E-mail"
+          name="email"
+          disabled={isSubmitting}
+          autoFocus
+          leftIcon={<MailIcon size={18} />}
+        />
 
-      <Form.Input
-        label="Senha"
-        name="password"
-        type={inputType}
-        leftIcon={<KeyRoundIcon size={18} />}
-        rightIcon={
-          showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
-        }
-        onRightIconClick={togglePasswordVisibility}
-      />
+        <Form.Input
+          label="Senha"
+          name="password"
+          type={inputType}
+          disabled={isSubmitting}
+          leftIcon={<KeyRoundIcon size={18} />}
+          rightIcon={
+            showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
+          }
+          onRightIconClick={togglePasswordVisibility}
+        />
 
-      <Form.Switch label="Lembrar-me" name="rememberMe" />
+        <Form.Switch label="Lembrar-me" name="rememberMe" />
 
-      <Button type="submit" className="w-full">
-        <LogInIcon />
-        Acessar
-      </Button>
-    </Form.Context>
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <LogInIcon />
+          Acessar
+        </Button>
+      </Form.Context>
+    </div>
   );
 });
 LoginForm.displayName = "BannerForm";
