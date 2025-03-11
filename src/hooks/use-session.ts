@@ -1,6 +1,6 @@
 import { SessionDTO } from "@/services/admin/auth/auth.type";
 import { useCookies } from "./use-cookies";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export function useSession() {
   const { getCookie, setCookie } = useCookies();
