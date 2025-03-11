@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
 
   if (!refreshTokenCookie) {
     if (pathname === "/admin/login") {
-      return allow(request);
+      return allow();
     }
     return block(request);
   }
@@ -28,20 +28,13 @@ export async function middleware(request: NextRequest) {
     return redirect(request, "/dashboard");
   }
 
-  return allow(request);
+  return allow();
 }
+
+const allow = () => NextResponse.next();
 
 function redirect(request: NextRequest, path: string) {
   const res = NextResponse.redirect(new URL(`/admin${path}`, request.url));
-  const { pathname } = request.nextUrl;
-  res.cookies.set("x-path", pathname);
-  return res;
-}
-
-function allow(request: NextRequest) {
-  const res = NextResponse.next();
-  const { pathname } = request.nextUrl;
-  res.cookies.set("x-path", pathname);
   return res;
 }
 

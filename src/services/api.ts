@@ -1,4 +1,3 @@
-import { useCookies } from "@/hooks/use-cookies";
 import axios from "axios";
 import { SellerServiceAxios } from "./admin/seller/seller-service-axios";
 import { ISellerService } from "./admin/seller/seller.types";
@@ -20,22 +19,22 @@ apiInstanceAdmin.interceptors.request.use(
       return config;
     }
 
-    const { getCookie } = useCookies();
     const session = useSession();
+    const { accessToken, refreshToken } = session.getTokens();
 
-    const accessToken = getCookie<string>("accessToken");
     if (accessToken && isTokenValid(accessToken)) {
       config.headers.Authorization = `Bearer ${accessToken}`;
       return config;
     }
 
-    const refreshToken = getCookie<string>("refreshToken");
     if (refreshToken && isTokenValid(refreshToken)) {
       const data = await api.admin.auth.refreshSession(refreshToken);
       session.register(data);
       config.headers.Authorization = `Bearer ${data.accessToken}`;
+      return config;
     }
 
+    session.invalidate();
     return config;
   }
 );

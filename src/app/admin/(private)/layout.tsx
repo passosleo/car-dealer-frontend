@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog";
 import { AppSidebar } from "@/components/admin/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { LogOutIcon } from "lucide-react";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 import React from "react";
 
 type AdminPrivateLayoutProps = {
@@ -14,12 +14,10 @@ export default async function AdminPrivateLayout({
 }: Readonly<AdminPrivateLayoutProps>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
-  const currentHeaders = await headers();
-  const currentPath = currentHeaders.get("x-path") || "/";
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
-      <AppSidebar currentPath={currentPath} />
+      <AppSidebar />
       <div className="flex items-center justify-between bg-sidebar h-14 w-full border-b border-sidebar-border fixed top-0 z-10">
         <SidebarTrigger className="ml-2" />
 
