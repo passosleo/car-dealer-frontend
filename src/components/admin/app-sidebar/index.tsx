@@ -6,6 +6,7 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { SidebarMenuOption, SidebarMenuItem } from "./sidebar-menu-item";
+import { AlertDialog } from "../alert-dialog";
 
 const items: SidebarMenuOption[] = [
   {
@@ -60,8 +61,23 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title} {...item} />
               ))}
+              <AlertDialog
+                title="Você tem certeza?"
+                description="Deseja realmente sair?"
+                onConfirmNavigateTo="/admin/logout"
+              >
+                <SidebarMenuItem key="Sair" title="Sair" icon="LogOut" />
+              </AlertDialog>
             </SidebarMenu>
           </SidebarGroupContent>
+          {/* <SidebarGroupContent className="mt-auto mb-4">
+
+              <div className="flex items-center justify-center gap-2 cursor-pointer">
+                <LogOutIcon size={18} className="text-primary" />
+                <span className="text-sm">Sair</span>
+              </div>
+        
+          </SidebarGroupContent> */}
           {/* <SidebarGroupContent className="mt-auto mb-4">
             <Card className="py-2 px-4 flex gap-2 items-center shadow-none rounded-md">
               <div className="flex items-center gap-2">

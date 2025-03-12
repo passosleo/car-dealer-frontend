@@ -13,6 +13,7 @@ import {
   Image,
   Layout,
   LayoutDashboard,
+  LogOut,
   Settings,
   ShieldEllipsis,
   Tags,
@@ -28,13 +29,14 @@ const menuIconMap = {
   ShieldEllipsis,
   Users,
   Settings,
+  LogOut,
 };
 
 type MenuIconMap = keyof typeof menuIconMap;
 
 export type SidebarMenuOption = {
   title: string;
-  url: string;
+  url?: string;
   icon: MenuIconMap;
 };
 
@@ -46,19 +48,27 @@ const SidebarMenuItem = React.forwardRef<HTMLLIElement, Props>(
     const pathname = usePathname();
     const isSelected = (url: string) => pathname === url;
     const IconComponent = menuIconMap[icon as keyof typeof menuIconMap];
+
+    const renderTitle = (title: string) => (
+      <>
+        <IconComponent />
+        <span>{title}</span>
+      </>
+    );
     return (
       <ShadcnSidebarMenuItem
         {...props}
         ref={ref}
         className={twMerge(
-          isSelected(url) ? "bg-sidebar-primary/10 rounded-md" : ""
+          url && isSelected(url) ? "bg-sidebar-primary/10 rounded-md" : ""
         )}
       >
         <SidebarMenuButton asChild>
-          <a href={url}>
-            <IconComponent />
-            <span>{title}</span>
-          </a>
+          {url ? (
+            <a href={url}>{renderTitle(title)}</a>
+          ) : (
+            <span className="cursor-pointer">{renderTitle(title)}</span>
+          )}
         </SidebarMenuButton>
       </ShadcnSidebarMenuItem>
     );
