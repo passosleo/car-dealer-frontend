@@ -1,11 +1,10 @@
 import { AppSidebar } from "@/components/admin/app-sidebar";
+import { UserProfile } from "@/components/admin/user-profile";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { BellIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
-import { twMerge } from "tailwind-merge";
 
 type AdminPrivateLayoutProps = {
   children: React.ReactNode;
@@ -24,28 +23,15 @@ export default async function AdminPrivateLayout({
         <SidebarTrigger className="ml-2" />
 
         <div className="flex items-center gap-2">
-          <Link href="/admin/profile" className="flex items-center gap-2 px-2">
-            <Avatar
-              className={twMerge("w-14 h-14 flex items-center justify-center")}
-            >
-              <AvatarFallback className="text-lg">US</AvatarFallback>
-            </Avatar>
-            <div>
-              <h4 className="text-sm font-semibold">Usuário</h4>
-              <p className="text-xs text-muted-foreground">Administrador</p>
-            </div>
-          </Link>
+          <UserProfile />
 
           <div className="w-[1px] bg-sidebar-border rounded-full h-8" />
 
           <Link
             href="/admin/notifications"
-            className="flex items-center justify-center px-2 h-14"
+            className="flex items-center justify-center px-2 h-10 w-10 rounded-full hover:bg-muted transition-all text-muted-foreground"
           >
-            <BellIcon
-              size={18}
-              className="text-muted-foreground cursor-pointer hover:bg-accent transition-all rounded-full"
-            />
+            <BellIcon size={18} />
           </Link>
 
           {/* <Link

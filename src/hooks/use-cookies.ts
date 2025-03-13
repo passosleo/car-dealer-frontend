@@ -1,7 +1,7 @@
 export function useCookies() {
-  function setCookie<T extends string>(
+  function setCookie(
     key: string,
-    value: T,
+    value: string | number | boolean,
     config: {
       path?: string;
       expires?: Date | null;
@@ -38,7 +38,7 @@ export function useCookies() {
     }
   }
 
-  function getCookie<T>(key: string): T | null {
+  function getCookie(key: string) {
     try {
       if (typeof document !== "undefined") {
         const cookies = document.cookie
@@ -47,7 +47,7 @@ export function useCookies() {
         for (const cookie of cookies) {
           const [cookieKey, cookieValue] = cookie.split("=");
           if (cookieKey === key) {
-            return JSON.parse(decodeURIComponent(cookieValue));
+            return decodeURIComponent(cookieValue);
           }
         }
       }
