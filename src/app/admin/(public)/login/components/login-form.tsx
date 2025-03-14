@@ -12,7 +12,7 @@ import {
   MailIcon,
 } from "lucide-react";
 import { api } from "@/services/api";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useSession } from "@/hooks/use-session";
 
 const messages = config.messages.validation;
@@ -43,7 +43,6 @@ const LoginForm = React.forwardRef<
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const session = useSession();
-  const router = useRouter();
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
@@ -57,7 +56,7 @@ const LoginForm = React.forwardRef<
       onSuccess: (data) => {
         setIsSubmitting(false);
         session.register(data);
-        router.push("/admin/dashboard");
+        redirect("/admin/dashboard");
       },
       onError: (error) => {
         console.log(error);

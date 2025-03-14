@@ -11,16 +11,16 @@ export async function middleware(request: NextRequest) {
   }
 
   // Handle authentication
-  const refreshTokenCookie = request.cookies.get("refreshToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
 
-  if (!refreshTokenCookie) {
+  if (!refreshToken) {
     if (pathname === "/admin/login") {
       return allow();
     }
     return block(request);
   }
 
-  if (!isTokenValid(refreshTokenCookie)) {
+  if (!isTokenValid(refreshToken)) {
     return block(request);
   }
 
