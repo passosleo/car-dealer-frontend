@@ -11,9 +11,9 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
-import { api } from "@/services/api";
 import { redirect } from "next/navigation";
-import { useSession } from "@/hooks/use-session";
+import { useClientSession } from "@/hooks/use-client-session";
+import { apiClientConnection } from "@/services/api-client-connection";
 
 const messages = config.messages.validation;
 
@@ -42,7 +42,7 @@ const LoginForm = React.forwardRef<
   );
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const session = useSession();
+  const session = useClientSession();
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
@@ -52,7 +52,7 @@ const LoginForm = React.forwardRef<
   async function onSubmit(data: CreateSessionSchema) {
     setIsSubmitting(true);
 
-    await api.admin.auth.createSession(data, {
+    await apiClientConnection.admin.auth.createSession(data, {
       onSuccess: (data) => {
         setIsSubmitting(false);
         session.register(data);

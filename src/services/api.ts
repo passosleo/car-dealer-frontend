@@ -1,62 +1,30 @@
-import axios from "axios";
+import { AxiosInstance } from "axios";
 import { SellerServiceAxios } from "./admin/seller/seller-service-axios";
 import { ISellerService } from "./admin/seller/seller.types";
 import { IAuthService } from "./admin/auth/auth.type";
 import { AuthServiceAxios } from "./admin/auth/auth-service-axios";
-import { isTokenValid } from "@/utils/jwt";
-import { useSession } from "@/hooks/use-session";
-import { CustomInternalAxiosRequestConfig } from "./types";
 
-const baseURL = "https://car-dealer-backend-lake.vercel.app/api/v1";
+export const API_BASE_URL = "https://car-dealer-backend-lake.vercel.app/api/v1";
 
-const apiInstanceAdmin = axios.create({
-  baseURL: `${baseURL}/admin`,
-});
+export class APIConnection {
+  protected readonly baseUrl: string;
 
-apiInstanceAdmin.interceptors.request.use(
-  async (config: CustomInternalAxiosRequestConfig) => {
-    if (config.skipAuthInterceptor) {
-      return config;
-    }
-
-    const session = useSession();
-    const { accessToken, refreshToken } = session.getTokens();
-
-    if (accessToken && isTokenValid(accessToken)) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      return config;
-    }
-
-    if (refreshToken && isTokenValid(refreshToken)) {
-      const data = await api.admin.auth.refreshSession(refreshToken);
-      session.register(data);
-      config.headers.Authorization = `Bearer ${data.accessToken}`;
-      return config;
-    }
-
-    session.invalidate();
-    return config;
-  }
-);
-
-// const apiInstancePublic = axios.create({
-//   baseURL: `${baseURL}/public`,
-// });
-
-export const api: {
-  admin: {
+  public readonly admin: {
     auth: IAuthService;
     seller: ISellerService;
   };
-  public: {
+  public readonly public: {
     layout: string;
   };
-} = {
-  admin: {
-    auth: new AuthServiceAxios(apiInstanceAdmin.getUri(), apiInstanceAdmin),
-    seller: new SellerServiceAxios(apiInstanceAdmin.getUri(), apiInstanceAdmin),
-  },
-  public: {
-    layout: "default",
-  },
-};
+
+  constructor(baseUrl: string, axiosInstance: AxiosInstance) {
+    this.baseUrl = baseUrl;
+    this.admin = {
+      auth: new AuthServiceAxios(this.baseUrl, axiosInstance),
+      seller: new SellerServiceAxios(this.baseUrl, axiosInstance),
+    };
+    this.public = {
+      layout: "default",
+    };
+  }
+}

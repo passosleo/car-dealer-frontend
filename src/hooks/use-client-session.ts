@@ -1,9 +1,8 @@
 import { SessionDTO } from "@/services/admin/auth/auth.type";
 import { useCookies } from "./use-cookies";
 
-export function useSession() {
+export function useClientSession() {
   const { getCookie, setCookie } = useCookies();
-  // const router = useRouter();
 
   function getTokens() {
     const accessToken = getCookie("accessToken");
@@ -42,22 +41,21 @@ export function useSession() {
   }
 
   function invalidate() {
-    // setCookie("accessToken", "", {
-    //   path: "/admin",
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: "strict",
-    //   expires: new Date(0),
-    // });
-    // setCookie("refreshToken", "", {
-    //   path: "/admin",
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: "strict",
-    //   expires: new Date(0),
-    // });
-    // redirect("/admin/login?sessionExpired=true");
-    // router.push("/admin/login?sessionExpired=true");
+    setCookie("accessToken", "", {
+      path: "/admin",
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      expires: new Date(0),
+    });
+    setCookie("refreshToken", "", {
+      path: "/admin",
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      expires: new Date(0),
+    });
+    redirect("/admin/login?sessionExpired=true");
   }
 
   return { getTokens, register, invalidate };
