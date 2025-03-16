@@ -29,13 +29,12 @@ const createSessionSchema = z.object({
 
 type CreateSessionSchema = z.infer<typeof createSessionSchema>;
 
-const LoginForm = React.forwardRef<
-  HTMLDivElement,
-  Omit<
+export function LoginForm(
+  props: Omit<
     React.ComponentProps<typeof Form.Context>,
     "zodSchema" | "onSubmit" | "children"
   >
->((props, ref) => {
+) {
   const [showPassword, setShowPassword] = React.useState(false);
   const [inputType, setInputType] = React.useState<"password" | "text">(
     "password"
@@ -66,42 +65,37 @@ const LoginForm = React.forwardRef<
   }
 
   return (
-    <div ref={ref}>
-      <Form.Context
-        {...props}
-        zodSchema={createSessionSchema}
-        onSubmit={onSubmit}
-      >
-        <Form.Input
-          label="E-mail"
-          name="email"
-          disabled={isSubmitting}
-          autoFocus
-          leftIcon={<MailIcon size={18} />}
-        />
+    <Form.Context
+      {...props}
+      zodSchema={createSessionSchema}
+      onSubmit={onSubmit}
+    >
+      <Form.Input
+        label="E-mail"
+        name="email"
+        disabled={isSubmitting}
+        autoFocus
+        leftIcon={<MailIcon size={18} />}
+      />
 
-        <Form.Input
-          label="Senha"
-          name="password"
-          type={inputType}
-          disabled={isSubmitting}
-          leftIcon={<KeyRoundIcon size={18} />}
-          rightIcon={
-            showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
-          }
-          onRightIconClick={togglePasswordVisibility}
-        />
+      <Form.Input
+        label="Senha"
+        name="password"
+        type={inputType}
+        disabled={isSubmitting}
+        leftIcon={<KeyRoundIcon size={18} />}
+        rightIcon={
+          showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
+        }
+        onRightIconClick={togglePasswordVisibility}
+      />
 
-        <Form.Switch label="Lembrar-me" name="rememberMe" />
+      <Form.Switch label="Lembrar-me" name="rememberMe" />
 
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
-          <LogInIcon />
-          Acessar
-        </Button>
-      </Form.Context>
-    </div>
+      <Button type="submit" className="w-full" disabled={isSubmitting}>
+        <LogInIcon />
+        Acessar
+      </Button>
+    </Form.Context>
   );
-});
-LoginForm.displayName = "BannerForm";
-
-export { LoginForm };
+}
