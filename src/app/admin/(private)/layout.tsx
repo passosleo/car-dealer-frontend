@@ -33,13 +33,6 @@ export default async function AdminPrivateLayout({
           >
             <BellIcon size={18} />
           </Link>
-
-          {/* <Link
-            href="/admin/logout"
-            className="text-muted-foreground underline text-xs"
-          >
-            Sair
-          </Link> */}
         </div>
       </div>
       <main className="w-full pt-20 px-6 h-screen flex flex-col">

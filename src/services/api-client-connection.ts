@@ -5,7 +5,7 @@ import { useClientSession } from "@/hooks/use-client-session";
 import { isTokenValid } from "@/utils/jwt";
 import { AuthServiceAxios } from "./admin/auth/auth-service-axios";
 
-const apiClientInstanceAdmin = axios.create({
+export const apiClientInstanceAdmin = axios.create({
   baseURL: `${API_BASE_URL}/admin`,
 });
 

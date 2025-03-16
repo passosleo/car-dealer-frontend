@@ -14,7 +14,6 @@ type UserProfileProps = Omit<
 const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
   async ({ href = "/admin/profile", className, ...props }, ref) => {
     const user = await apiServerConnection.admin.auth.getUserInfo();
-    console.log(" user", user);
     // console.log(" user", user);
     return (
       <Link
@@ -27,8 +26,8 @@ const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
           <AvatarFallback className="text-lg">US</AvatarFallback>
         </Avatar>
         <div>
-          {/* <h4 className="text-sm font-semibold">{user.firstName}</h4>
-          <p className="text-xs text-muted-foreground">{user.profile.name}</p> */}
+          <h4 className="text-sm font-semibold">{user.firstName}</h4>
+          <p className="text-xs text-muted-foreground">{user.profile.name}</p>
         </div>
       </Link>
     );

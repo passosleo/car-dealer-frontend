@@ -1,7 +1,7 @@
 "use client";
 import { AlertDialog } from "@/components/admin/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { api } from "@/services/api";
+import { apiClientConnection } from "@/services/api-client-connection";
 import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -32,7 +32,7 @@ const SellerDeleteButton = React.forwardRef<
 
     async function handleDelete() {
       setDisabled(true);
-      await api.admin.seller.deleteSeller(sellerId, {
+      await apiClientConnection.admin.seller.deleteSeller(sellerId, {
         onSuccess: () => {
           setDisabled(false);
           router.push("/admin/sellers");

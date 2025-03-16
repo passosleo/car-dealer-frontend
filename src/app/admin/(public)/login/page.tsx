@@ -8,7 +8,13 @@ import {
 import { LoginForm } from "./components/login-form";
 import Link from "next/link";
 
-export default function LoginAdminPage() {
+export default async function LoginAdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sessionExpired: boolean }>;
+}) {
+  const { sessionExpired } = await searchParams;
+  console.log(" sessionExpired", sessionExpired);
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="pb-0">

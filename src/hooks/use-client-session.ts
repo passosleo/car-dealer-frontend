@@ -1,5 +1,7 @@
 import { SessionDTO } from "@/services/admin/auth/auth.type";
 import { useCookies } from "./use-cookies";
+import { redirect } from "next/navigation";
+import { getTokenExpirationDate } from "@/utils/jwt";
 
 export function useClientSession() {
   const { getCookie, setCookie } = useCookies();
@@ -10,19 +12,9 @@ export function useClientSession() {
     return { accessToken, refreshToken };
   }
 
-  function register({
-    accessToken,
-    accessTokenExpiresIn,
-    refreshToken,
-    refreshTokenExpiresIn,
-  }: SessionDTO) {
-    const accessTokenExpirationDate = new Date(
-      Date.now() + accessTokenExpiresIn * 1000
-    );
-
-    const refreshTokenExpirationDate = new Date(
-      Date.now() + refreshTokenExpiresIn * 1000
-    );
+  function register({ accessToken, refreshToken }: SessionDTO) {
+    const [accessTokenExpirationDate, refreshTokenExpirationDate] =
+      getTokenExpirationDate(accessToken, refreshToken);
 
     setCookie("accessToken", accessToken, {
       path: "/admin",
@@ -40,23 +32,9 @@ export function useClientSession() {
     });
   }
 
-  function invalidate() {
-    setCookie("accessToken", "", {
-      path: "/admin",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      expires: new Date(0),
-    });
-    setCookie("refreshToken", "", {
-      path: "/admin",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      expires: new Date(0),
-    });
-    redirect("/admin/login?sessionExpired=true");
+  function expire() {
+    redirect("/api/logout?sessionExpired=true");
   }
 
-  return { getTokens, register, invalidate };
+  return { getTokens, register, invalidate: expire };
 }

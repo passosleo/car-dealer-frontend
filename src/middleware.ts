@@ -1,60 +1,126 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { isTokenValid } from "./utils/jwt";
+import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
+import { AuthServiceAxios } from "./services/admin/auth/auth-service-axios";
+import { apiServerInstanceAdmin } from "./services/api-server-connection";
+import { SessionDTO } from "./services/admin/auth/auth.type";
 
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+const authService = new AuthServiceAxios(
+  apiServerInstanceAdmin.getUri(),
+  apiServerInstanceAdmin
+);
 
-  // Handle logout
-  if (pathname === "/admin/logout") {
-    return block(request);
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const res = NextResponse.next();
+
+  const accessToken = req.cookies.get("accessToken")?.value;
+  const refreshToken = req.cookies.get("refreshToken")?.value;
+
+  if (!accessToken && !refreshToken) {
+    return handleNoTokens(pathname, res, req);
   }
 
-  // Handle authentication
-  const refreshToken = request.cookies.get("refreshToken")?.value;
-
-  if (!refreshToken) {
-    if (pathname === "/admin/login") {
-      return allow();
-    }
-    return block(request);
+  if (accessToken && isTokenValid(accessToken)) {
+    return handleValidAccessToken(pathname, res, req);
   }
 
-  if (!isTokenValid(refreshToken)) {
-    return block(request);
+  if (!refreshToken || !isTokenValid(refreshToken)) {
+    return block(req);
   }
 
-  if (pathname === "/admin" || pathname === "/admin/login") {
-    return redirect(request, "/dashboard");
-  }
-
-  return allow();
+  return await handleTokenRefresh(refreshToken, res, pathname, req);
 }
 
-const allow = () => NextResponse.next();
+function handleNoTokens(pathname: string, res: NextResponse, req: NextRequest) {
+  return pathname === "/admin/login" ? res : block(req);
+}
 
-function redirect(request: NextRequest, path: string) {
-  const res = NextResponse.redirect(new URL(`/admin${path}`, request.url));
+function handleValidAccessToken(
+  pathname: string,
+  res: NextResponse,
+  req: NextRequest
+) {
+  if (pathname === "/admin" || pathname === "/admin/login") {
+    return redirect(req, "/dashboard");
+  }
   return res;
 }
 
-function block(request: NextRequest) {
-  const res = NextResponse.redirect(new URL("/admin/login", request.url));
-  // Clear cookies
-  res.cookies.set("accessToken", "", {
+async function handleTokenRefresh(
+  refreshToken: string,
+  res: NextResponse,
+  pathname: string,
+  req: NextRequest
+) {
+  try {
+    const session = await authService.refreshSession(refreshToken);
+    if (session) {
+      return handleSessionRefresh(session, res, pathname, req);
+    }
+  } catch (error) {
+    console.error("Error refreshing tokens", error);
+  }
+
+  return block(req);
+}
+
+function handleSessionRefresh(
+  session: SessionDTO,
+  res: NextResponse,
+  pathname: string,
+  req: NextRequest
+) {
+  const [accessTokenExpirationDate, refreshTokenExpirationDate] =
+    getTokenExpirationDate(session.accessToken, session.refreshToken);
+
+  setCookies(
+    res,
+    session.accessToken,
+    session.refreshToken,
+    accessTokenExpirationDate,
+    refreshTokenExpirationDate
+  );
+
+  if (pathname === "/admin" || pathname === "/admin/login") {
+    return redirect(req, "/dashboard");
+  }
+
+  return res;
+}
+
+function setCookies(
+  res: NextResponse,
+  accessToken: string,
+  refreshToken: string,
+  accessTokenExpirationDate: Date,
+  refreshTokenExpirationDate: Date
+) {
+  res.cookies.set("accessToken", accessToken, {
     path: "/admin",
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    expires: new Date(0),
+    expires: accessTokenExpirationDate,
   });
-  res.cookies.set("refreshToken", "", {
+  res.cookies.set("refreshToken", refreshToken, {
     path: "/admin",
     httpOnly: true,
     secure: true,
     sameSite: "strict",
-    expires: new Date(0),
+    expires: refreshTokenExpirationDate,
   });
+}
+
+function redirect(req: NextRequest, path: string) {
+  const res = NextResponse.redirect(new URL(`/admin${path}`, req.url));
+  return res;
+}
+
+function block(req: NextRequest) {
+  const res = NextResponse.redirect(
+    new URL("/admin/login?sessionExpired=true", req.url)
+  );
   return res;
 }
 

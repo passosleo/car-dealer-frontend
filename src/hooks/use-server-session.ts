@@ -1,63 +1,16 @@
-import { SessionDTO } from "@/services/admin/auth/auth.type";
 import { cookies } from "next/headers";
 
 export async function useServerSession() {
-  const { get: getCookie, set: setCookie } = await cookies();
+  const cookieStore = await cookies();
 
   async function getTokens() {
-    const accessToken = getCookie("accessToken");
-    const refreshToken = getCookie("refreshToken");
-    return { accessToken, refreshToken };
+    const accessToken = cookieStore.get("accessToken");
+    const refreshToken = cookieStore.get("refreshToken");
+    return {
+      accessToken: accessToken?.value,
+      refreshToken: refreshToken?.value,
+    };
   }
 
-  function register({
-    accessToken,
-    accessTokenExpiresIn,
-    refreshToken,
-    refreshTokenExpiresIn,
-  }: SessionDTO) {
-    const accessTokenExpirationDate = new Date(
-      Date.now() + accessTokenExpiresIn * 1000
-    );
-
-    const refreshTokenExpirationDate = new Date(
-      Date.now() + refreshTokenExpiresIn * 1000
-    );
-
-    setCookie("accessToken", accessToken, {
-      path: "/admin",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      expires: accessTokenExpirationDate,
-    });
-    setCookie("refreshToken", refreshToken, {
-      path: "/admin",
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-      expires: refreshTokenExpirationDate,
-    });
-  }
-
-  function invalidate() {
-    // setCookie("accessToken", "", {
-    //   path: "/admin",
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: "strict",
-    //   expires: new Date(0),
-    // });
-    // setCookie("refreshToken", "", {
-    //   path: "/admin",
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: "strict",
-    //   expires: new Date(0),
-    // });
-    // redirect("/admin/login?sessionExpired=true");
-    // router.push("/admin/login?sessionExpired=true");
-  }
-
-  return { getTokens, register, invalidate };
+  return { getTokens };
 }
