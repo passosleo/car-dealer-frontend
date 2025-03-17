@@ -9,7 +9,12 @@ import { SaveIcon, TypeIcon, XIcon } from "lucide-react";
 
 const messages = config.messages.validation;
 
-export function BannerForm(props: React.ComponentProps<typeof Form.Context>) {
+export function BannerForm(
+  props: Omit<
+    React.ComponentProps<typeof Form.Context>,
+    "zodSchema" | "onSubmit" | "children"
+  >
+) {
   return (
     <Form.Context
       {...props}
