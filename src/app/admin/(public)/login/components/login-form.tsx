@@ -1,7 +1,7 @@
 "use client";
 import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import {
@@ -11,9 +11,10 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
-import { redirect } from "next/navigation";
-import { useClientSession } from "@/hooks/use-client-session";
-import { apiClientConnection } from "@/services/api-client-connection";
+import { useRouter } from "next/navigation";
+import { useSession } from "@/hooks/use-session";
+import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
+import { CreateSessionDTO, SessionDTO } from "@/services/types";
 
 const messages = config.messages.validation;
 
@@ -35,13 +36,18 @@ export function LoginForm(
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [inputType, setInputType] = React.useState<"password" | "text">(
-    "password"
-  );
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [inputType, setInputType] = useState<"password" | "text">("password");
 
-  const session = useClientSession();
+  const router = useRouter();
+  const session = useSession();
+  const { mutate: login, isPending } = useCustomMutate<
+    CreateSessionDTO,
+    SessionDTO
+  >({
+    routeName: "createSession",
+    setQueryKeys: ["session"],
+  });
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
@@ -49,19 +55,18 @@ export function LoginForm(
   }
 
   async function onSubmit(data: CreateSessionSchema) {
-    setIsSubmitting(true);
-
-    await apiClientConnection.admin.auth.createSession(data, {
-      onSuccess: (data) => {
-        setIsSubmitting(false);
-        session.register(data);
-        redirect("/admin/dashboard");
-      },
-      onError: (error) => {
-        console.log(error);
-        setIsSubmitting(false);
-      },
-    });
+    login(
+      { payload: data },
+      {
+        onSuccess: (res) => {
+          session.register(res.data);
+          router.replace("/admin/dashboard");
+        },
+        onError: (error) => {
+          console.log(error);
+        },
+      }
+    );
   }
 
   return (
@@ -73,7 +78,7 @@ export function LoginForm(
       <Form.Input
         label="E-mail"
         name="email"
-        disabled={isSubmitting}
+        disabled={isPending}
         autoFocus
         leftIcon={<MailIcon size={18} />}
       />
@@ -82,7 +87,7 @@ export function LoginForm(
         label="Senha"
         name="password"
         type={inputType}
-        disabled={isSubmitting}
+        disabled={isPending}
         leftIcon={<KeyRoundIcon size={18} />}
         rightIcon={
           showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
@@ -92,7 +97,7 @@ export function LoginForm(
 
       <Form.Switch label="Lembrar-me" name="rememberMe" />
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" className="w-full" disabled={isPending}>
         <LogInIcon />
         Acessar
       </Button>

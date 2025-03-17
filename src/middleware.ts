@@ -1,14 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
-import { AuthServiceAxios } from "./services/admin/auth/auth-service-axios";
-import { apiServerInstanceAdmin } from "./services/api-server-connection";
-import { SessionDTO } from "./services/admin/auth/auth.type";
-
-const authService = new AuthServiceAxios(
-  apiServerInstanceAdmin.getUri(),
-  apiServerInstanceAdmin
-);
+import { DefaultResponse, SessionDTO } from "./services/types";
+import axios from "axios";
+import { HOST } from "./services/router";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -54,9 +49,13 @@ async function handleTokenRefresh(
   req: NextRequest
 ) {
   try {
-    const session = await authService.refreshSession(refreshToken);
-    if (session) {
-      return handleSessionRefresh(session, res, pathname, req);
+    const { data: response } = await axios.post<DefaultResponse<SessionDTO>>(
+      `${HOST}/admin/auth/refresh-token`,
+      { refreshToken }
+    );
+    console.log(" response", response);
+    if (response.status === 200 && response.data) {
+      return handleSessionRefresh(response.data, res, pathname, req);
     }
   } catch (error) {
     console.error("Error refreshing tokens", error);

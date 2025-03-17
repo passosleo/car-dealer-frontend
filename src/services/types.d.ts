@@ -1,17 +1,17 @@
-import { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import type { AxiosError } from "axios";
+import { routes } from "./router";
 
-export type ApiResponse<T> = {
-  statusCode: number;
+export type RouteName = keyof typeof routes;
+
+export type DefaultResponse<T> = {
+  status: number;
   message: string;
   data: T;
 };
 
-export type Paginated<T> = {
-  total: number;
-  page: number;
-  limit: number;
-  items: T;
-};
+export type Params = Record<string, string | string[] | number | number[]>;
+
+export type CustomAxiosError = AxiosError<DefaultResponse<null>>;
 
 export type DefaultFilters = {
   page?: number;
@@ -25,16 +25,31 @@ export type DefaultFilters = {
   updatedAtEnd?: string;
 };
 
-export type CallbackFns<T> = {
-  onSuccess?: (data: T) => void;
-  onError?: (error: Error) => void;
+export type CreateSessionDTO = {
+  email: string;
+  password: string;
 };
 
-export interface CustomInternalAxiosRequestConfig
-  extends InternalAxiosRequestConfig {
-  skipAuthInterceptor?: boolean;
-}
+export type SessionDTO = {
+  type: string;
+  accessToken: string;
+  accessTokenExpiresIn: number;
+  refreshToken: string;
+  refreshTokenExpiresIn: number;
+};
 
-export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
-  skipAuthInterceptor?: boolean;
-}
+export type RecoverPasswordDTO = {
+  password: string;
+  token: string;
+};
+
+export type UserInfoDTO = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  active: boolean;
+  profile: {
+    name: string;
+    roles: string[];
+  };
+};

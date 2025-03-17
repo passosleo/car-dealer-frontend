@@ -2,7 +2,6 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { apiServerConnection } from "@/services/api-server-connection";
 
 type UserProfileProps = Omit<
   React.ComponentProps<typeof Link>,
@@ -12,8 +11,7 @@ type UserProfileProps = Omit<
 };
 
 const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
-  async ({ href = "/admin/profile", className, ...props }, ref) => {
-    const user = await apiServerConnection.admin.auth.getUserInfo();
+  ({ href = "/admin/profile", className, ...props }, ref) => {
     // console.log(" user", user);
     return (
       <Link
@@ -26,8 +24,8 @@ const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
           <AvatarFallback className="text-lg">US</AvatarFallback>
         </Avatar>
         <div>
-          <h4 className="text-sm font-semibold">{user.firstName}</h4>
-          <p className="text-xs text-muted-foreground">{user.profile.name}</p>
+          {/* <h4 className="text-sm font-semibold">{user.firstName}</h4>
+          <p className="text-xs text-muted-foreground">{user.profile.name}</p> */}
         </div>
       </Link>
     );

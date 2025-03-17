@@ -1,9 +1,7 @@
 "use client";
 import { AlertDialog } from "@/components/admin/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { apiClientConnection } from "@/services/api-client-connection";
 import { Trash2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -22,25 +20,25 @@ const SellerDeleteButton = React.forwardRef<
       children = <Trash2Icon size={18} />,
       className,
       variant = "destructive",
-      sellerId,
+      // sellerId,
       ...props
     },
     ref
   ) => {
     const [disabled, setDisabled] = useState(false);
-    const router = useRouter();
+    // const router = useRouter();
 
     async function handleDelete() {
       setDisabled(true);
-      await apiClientConnection.admin.seller.deleteSeller(sellerId, {
-        onSuccess: () => {
-          setDisabled(false);
-          router.push("/admin/sellers");
-        },
-        onError: () => {
-          setDisabled(false);
-        },
-      });
+      // await apiClientConnection.admin.seller.deleteSeller(sellerId, {
+      //   onSuccess: () => {
+      //     setDisabled(false);
+      //     router.push("/admin/sellers");
+      //   },
+      //   onError: () => {
+      //     setDisabled(false);
+      //   },
+      // });
 
       if (props.onConfirm) props.onConfirm();
     }

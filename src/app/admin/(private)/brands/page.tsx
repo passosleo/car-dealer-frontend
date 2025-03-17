@@ -17,7 +17,6 @@ import { BrandFilterBar } from "./components/brand-filter-bar";
 import { formatDate } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Separator } from "@/components/ui/separator";
-import { apiServerConnection } from "@/services/api-server-connection";
 import { DefaultFilters } from "@/services/types";
 
 export default async function BrandsPage({
@@ -26,9 +25,10 @@ export default async function BrandsPage({
   searchParams: Promise<Partial<DefaultFilters>>;
 }) {
   const params = await searchParams;
-  const paginatedBrands = await apiServerConnection.admin.brand.getBrands(
-    params
-  );
+  console.log(" params", params);
+  // const paginatedBrands = await apiServerConnection.admin.brand.getBrands(
+  //   params
+  // );
 
   return (
     <Page.Layout
@@ -55,7 +55,17 @@ export default async function BrandsPage({
       }
       content={
         <Page.Content.Grid
-          data={paginatedBrands.items}
+          data={[
+            {
+              brandId: 1,
+              name: "Audi",
+              imageUrl:
+                "https://png.pngtree.com/png-vector/20230218/ourmid/pngtree-vector-black-car-white-sport-logo-png-image_6606376.png",
+              active: true,
+              createdAt: "2022-01-01T12:00:00Z",
+              updatedAt: "2022-01-01T12:00:00Z",
+            },
+          ]}
           renderItem={(brand) => (
             <Link href={`/admin/brands/${brand.brandId}`} passHref>
               <Card className="flex flex-col p-2 hover:bg-primary-foreground cursor-pointer transition-all">
