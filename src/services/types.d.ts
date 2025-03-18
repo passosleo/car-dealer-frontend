@@ -4,7 +4,7 @@ import { routes } from "./router";
 export type RouteName = keyof typeof routes;
 
 export type DefaultResponse<T> = {
-  status: number;
+  statusCode: number;
   message: string;
   data: T;
 };

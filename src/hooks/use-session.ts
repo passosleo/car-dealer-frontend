@@ -21,7 +21,7 @@ export function useSession() {
       `${HOST}/admin/auth/refresh-token`,
       { refreshToken }
     );
-    if (res.status === 200 && res.data) {
+    if (res.statusCode === 200 && res.data) {
       register(res.data);
       return res.data;
     }

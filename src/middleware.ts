@@ -50,18 +50,17 @@ async function handleTokenRefresh(
 ) {
   try {
     const { data: response } = await axios.post<DefaultResponse<SessionDTO>>(
-      `${HOST}/admin/auth/refresh-token`,
+      `${HOST}/api/v1/admin/auth/refresh-token`,
       { refreshToken }
     );
-    console.log(" response", response);
-    if (response.status === 200 && response.data) {
+    if (response.statusCode === 200 && response.data) {
       return handleSessionRefresh(response.data, res, pathname, req);
     }
+    return block(req);
   } catch (error) {
     console.error("Error refreshing tokens", error);
+    return block(req);
   }
-
-  return block(req);
 }
 
 function handleSessionRefresh(
@@ -118,7 +117,7 @@ function redirect(req: NextRequest, path: string) {
 
 function block(req: NextRequest) {
   const res = NextResponse.redirect(
-    new URL("/admin/login?sessionExpired=true", req.url)
+    new URL("/api/logout?sessionExpired=true", req.url)
   );
   return res;
 }
