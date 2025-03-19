@@ -1,5 +1,4 @@
 "use client";
-import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { z } from "zod";
@@ -13,8 +12,10 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/hooks/use-session";
-import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { CreateSessionDTO, SessionDTO } from "@/services/types";
+import { FormContext } from "@/components/admin/form/form-context";
+import { FormInput } from "@/components/admin/form/form-input";
+import { FormSwitch } from "@/components/admin/form/form-switch";
+import { useCreateSessionService } from "../services/use-create-session-service";
 
 const messages = config.messages.validation;
 
@@ -32,7 +33,7 @@ type CreateSessionSchema = z.infer<typeof createSessionSchema>;
 
 export function LoginForm(
   props: Omit<
-    React.ComponentProps<typeof Form.Context>,
+    React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
@@ -41,20 +42,14 @@ export function LoginForm(
 
   const router = useRouter();
   const session = useSession();
-  const { mutate: login, isPending } = useCustomMutate<
-    CreateSessionDTO,
-    SessionDTO
-  >({
-    routeName: "createSession",
-    setQueryKeys: ["session"],
-  });
+  const { mutate: login, isPending } = useCreateSessionService();
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
     setShowPassword((prev) => !prev);
   }
 
-  async function onSubmit(data: CreateSessionSchema) {
+  function onSubmit(data: CreateSessionSchema) {
     login(
       { payload: data },
       {
@@ -70,12 +65,8 @@ export function LoginForm(
   }
 
   return (
-    <Form.Context
-      {...props}
-      zodSchema={createSessionSchema}
-      onSubmit={onSubmit}
-    >
-      <Form.Input
+    <FormContext {...props} zodSchema={createSessionSchema} onSubmit={onSubmit}>
+      <FormInput
         label="E-mail"
         name="email"
         disabled={isPending}
@@ -83,7 +74,7 @@ export function LoginForm(
         leftIcon={<MailIcon size={18} />}
       />
 
-      <Form.Input
+      <FormInput
         label="Senha"
         name="password"
         type={inputType}
@@ -95,12 +86,12 @@ export function LoginForm(
         onRightIconClick={togglePasswordVisibility}
       />
 
-      <Form.Switch label="Lembrar-me" name="rememberMe" />
+      <FormSwitch label="Lembrar-me" name="rememberMe" />
 
       <Button type="submit" className="w-full" disabled={isPending}>
         <LogInIcon />
         Acessar
       </Button>
-    </Form.Context>
+    </FormContext>
   );
 }

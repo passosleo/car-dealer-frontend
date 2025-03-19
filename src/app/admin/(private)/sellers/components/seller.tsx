@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { twMerge } from "tailwind-merge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Seller as SellerType } from "../types/seller";
 import {
   CalendarPlus2Icon,
@@ -14,6 +13,7 @@ import { ptBR } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { Avatar } from "@/components/admin/avatar/avatar";
 
 const Seller = React.forwardRef<
   HTMLDivElement,
@@ -24,6 +24,7 @@ const Seller = React.forwardRef<
       className,
       sellerId,
       firstName,
+      lastName,
       email,
       phone,
       active,
@@ -33,13 +34,7 @@ const Seller = React.forwardRef<
     },
     ref
   ) => {
-    function getFallbackName() {
-      return firstName
-        .split(" ")
-        .slice(0, 2)
-        .map((n) => n[0])
-        .join("");
-    }
+    const fullName = lastName ? `${firstName} ${lastName}` : firstName;
 
     function formatDate(date: string) {
       return format(new Date(date), "dd MMM yyyy", { locale: ptBR });
@@ -51,15 +46,9 @@ const Seller = React.forwardRef<
         ref={ref}
         className={twMerge("flex flex-row gap-4 items-center p-4", className)}
       >
-        <Avatar className="w-16 h-16">
-          <AvatarImage
-            src={`https://api.dicebear.com/9.x/open-peeps/svg?seed=${firstName}`}
-            alt={firstName}
-          />
-          <AvatarFallback>{getFallbackName()}</AvatarFallback>
-        </Avatar>
+        <Avatar name={fullName} />
         <div>
-          <CardTitle>{firstName}</CardTitle>
+          <CardTitle>{fullName}</CardTitle>
           <CardDescription>
             <ul>
               <li>{email}</li>
