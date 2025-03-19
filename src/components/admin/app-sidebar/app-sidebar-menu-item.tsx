@@ -43,7 +43,7 @@ export type SidebarMenuOption = {
 type Props = React.ComponentProps<typeof ShadcnSidebarMenuItem> &
   SidebarMenuOption;
 
-const SidebarMenuItem = React.forwardRef<HTMLLIElement, Props>(
+const AppSidebarMenuItem = React.forwardRef<HTMLLIElement, Props>(
   ({ url, title, icon, ...props }, ref) => {
     const pathname = usePathname();
     const isSelected = (url: string) => pathname === url;
@@ -75,6 +75,6 @@ const SidebarMenuItem = React.forwardRef<HTMLLIElement, Props>(
   }
 );
 
-SidebarMenuItem.displayName = "SidebarMenuItem";
+AppSidebarMenuItem.displayName = "AppSidebarMenuItem";
 
-export { SidebarMenuItem };
+export { AppSidebarMenuItem };

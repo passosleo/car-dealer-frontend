@@ -1,7 +1,7 @@
 import { Label } from "@/components/ui/label";
 import React from "react";
 import { Controller } from "react-hook-form";
-import { DatePicker, DatePickerProps } from "../date-picker";
+import { DatePicker, DatePickerProps } from "../date-picker/date-picker";
 import { format } from "date-fns";
 import { ConnectForm } from "@/components/shared/connect-form";
 

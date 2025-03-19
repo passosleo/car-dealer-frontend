@@ -1,5 +1,5 @@
 "use client";
-import { AlertDialog } from "@/components/admin/alert-dialog";
+import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import React, { useState } from "react";

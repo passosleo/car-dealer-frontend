@@ -53,6 +53,6 @@ const FormSwitch = React.forwardRef<HTMLButtonElement, FormSwitchProps>(
     );
   }
 );
-FormSwitch.displayName = "Form.Switch";
+FormSwitch.displayName = "FormSwitch";
 
 export { FormSwitch };

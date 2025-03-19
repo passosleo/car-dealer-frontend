@@ -17,6 +17,6 @@ const PageContentCard = React.forwardRef<
   );
 });
 
-PageContentCard.displayName = "Page.Content.Card";
+PageContentCard.displayName = "PageContentCard";
 
 export { PageContentCard };

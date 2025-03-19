@@ -1,11 +1,16 @@
 "use client";
 
-import { FilterBar, FilterBarProps } from "@/components/admin/filter-bar";
+import {
+  FilterBar,
+  FilterBarProps,
+} from "@/components/admin/filter/filter-bar";
+import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
-export function BrandFilterBar(
-  props: Omit<FilterBarProps, "filterOptions" | "zodSchema">
-) {
+export function BrandFilterBar({
+  className,
+  ...props
+}: Omit<FilterBarProps, "filterOptions" | "zodSchema">) {
   return (
     <>
       <FilterBar
@@ -93,7 +98,10 @@ export function BrandFilterBar(
               path: ["updatedAtEnd"],
             }
           )}
-        className="md:max-h-full max-h-[300px] max-w-xs overflow-auto"
+        className={twMerge(
+          "md:max-h-full max-h-[300px] max-w-xs overflow-auto",
+          className
+        )}
       />
     </>
   );

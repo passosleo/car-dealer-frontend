@@ -128,6 +128,6 @@ const FormImagePicker = React.forwardRef<
   }
 );
 
-FormImagePicker.displayName = "Form.ImagePicker";
+FormImagePicker.displayName = "FormImagePicker";
 
 export { FormImagePicker };

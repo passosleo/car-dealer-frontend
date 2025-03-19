@@ -1,23 +1,18 @@
+import { PageContentCard } from "@/components/admin/page/page-content-card";
 import { BannerForm } from "../components/banner-form";
-import { Page } from "@/components/admin/page";
+import { PageHeader } from "@/components/admin/page/page-header";
+import { PageLayout } from "@/components/admin/page/page-layout";
 
 export default async function NewBannerPage() {
   return (
-    <Page.Layout
-      withBackButton
-      header={
-        <Page.Header.Layout>
-          <Page.Header.Title>Novo banner</Page.Header.Title>
-          <Page.Header.Description>
-            Crie um novo banner para a sua loja.
-          </Page.Header.Description>
-        </Page.Header.Layout>
-      }
-      content={
-        <Page.Content.Card>
-          <BannerForm />
-        </Page.Content.Card>
-      }
-    />
+    <PageLayout withBackButton>
+      <PageHeader
+        title="Novo banner"
+        description="Crie um novo banner para a sua loja."
+      />
+      <PageContentCard>
+        <BannerForm />
+      </PageContentCard>
+    </PageLayout>
   );
 }

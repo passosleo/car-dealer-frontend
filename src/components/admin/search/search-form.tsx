@@ -38,6 +38,6 @@ const SearchForm = React.forwardRef<
   );
 });
 
-SearchForm.displayName = "Search.Form";
+SearchForm.displayName = "SearchForm";
 
 export { SearchForm };

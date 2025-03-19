@@ -1,19 +1,13 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import { BackButton } from "../../back-button";
+import { BackButton } from "../back-button/back-button";
 
-type PageLayoutProps = Omit<
-  React.ComponentProps<"div">,
-  "children" | "content"
-> & {
-  header: React.ReactNode;
-  content: React.ReactNode;
-  footer?: React.ReactNode;
+type PageLayoutProps = React.ComponentProps<"div"> & {
   withBackButton?: boolean;
 };
 
 const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(
-  ({ header, content, footer, withBackButton, className, ...props }, ref) => {
+  ({ children, withBackButton, className, ...props }, ref) => {
     return (
       <div
         {...props}
@@ -25,14 +19,12 @@ const PageLayout = React.forwardRef<HTMLDivElement, PageLayoutProps>(
             <BackButton />
           </div>
         )}
-        {header}
-        {content}
-        {footer && footer}
+        {children}
       </div>
     );
   }
 );
 
-PageLayout.displayName = "Page.Layout ";
+PageLayout.displayName = "PageLayout ";
 
 export { PageLayout };

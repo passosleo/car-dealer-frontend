@@ -1,23 +1,18 @@
+import { PageLayout } from "@/components/admin/page/page-layout";
 import { SellerForm } from "../components/seller-form";
-import { Page } from "@/components/admin/page";
+import { PageContentCard } from "@/components/admin/page/page-content-card";
+import { PageHeader } from "@/components/admin/page/page-header";
 
 export default async function EditSellerPage() {
   return (
-    <Page.Layout
-      withBackButton
-      header={
-        <Page.Header.Layout>
-          <Page.Header.Title>Editar vendedor</Page.Header.Title>
-          <Page.Header.Description>
-            Altere as informações do vendedor.
-          </Page.Header.Description>
-        </Page.Header.Layout>
-      }
-      content={
-        <Page.Content.Card>
-          <SellerForm />
-        </Page.Content.Card>
-      }
-    />
+    <PageLayout withBackButton>
+      <PageHeader
+        title="Editar vendedor"
+        description="Altere as informações do vendedor."
+      />
+      <PageContentCard>
+        <SellerForm />
+      </PageContentCard>
+    </PageLayout>
   );
 }

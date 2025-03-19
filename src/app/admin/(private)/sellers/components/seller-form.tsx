@@ -1,22 +1,26 @@
 "use client";
 
-import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { MailIcon, PhoneIcon, SaveIcon, XIcon } from "lucide-react";
+import { FormContext } from "@/components/admin/form/form-context";
+import { FormImagePicker } from "@/components/admin/form/form-image-picker";
+import { FormInput } from "@/components/admin/form/form-input";
+import { FormTextArea } from "@/components/admin/form/form-textarea";
+import { FormSwitch } from "@/components/admin/form/form-switch";
 
 const messages = config.messages.validation;
 
 export function SellerForm(
   props: Omit<
-    React.ComponentProps<typeof Form.Context>,
+    React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
   return (
-    <Form.Context
+    <FormContext
       {...props}
       zodSchema={z.object({
         firstName: z
@@ -43,31 +47,31 @@ export function SellerForm(
       onSubmit={(data) => console.log(data)}
     >
       <div className="flex flex-row gap-8 w-full">
-        <Form.ImagePicker label="Foto" name="photo" />
+        <FormImagePicker label="Foto" name="photo" />
 
         <div className="flex flex-col gap-2 w-full flex-wrap">
           <div className="flex gap-4 w-full">
-            <Form.Input label="Nome" name="firstName" />
-            <Form.Input label="Sobrenome" name="lastName" />
+            <FormInput label="Nome" name="firstName" />
+            <FormInput label="Sobrenome" name="lastName" />
           </div>
 
           <div className="flex gap-4 w-full">
-            <Form.Input
+            <FormInput
               label="E-mail"
               name="email"
               leftIcon={<MailIcon size={18} />}
             />
 
-            <Form.Input
+            <FormInput
               label="Telefone"
               name="phone"
               leftIcon={<PhoneIcon size={18} />}
             />
           </div>
 
-          <Form.TextArea label="Mensagem personalizada" name="customMessage" />
+          <FormTextArea label="Mensagem personalizada" name="customMessage" />
 
-          <Form.Switch label="Ativo" name="active" defaultChecked />
+          <FormSwitch label="Ativo" name="active" defaultChecked />
 
           <div className="flex flex-row gap-4 w-full">
             <Button variant="outline" className="mt-auto w-full self-end">
@@ -82,6 +86,6 @@ export function SellerForm(
           </div>
         </div>
       </div>
-    </Form.Context>
+    </FormContext>
   );
 }

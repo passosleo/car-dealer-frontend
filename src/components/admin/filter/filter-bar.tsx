@@ -1,7 +1,4 @@
 "use client";
-
-import { Filter } from "@/components/admin/filter";
-import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import {
   Popover,
@@ -16,6 +13,11 @@ import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import { ZodSchema } from "zod";
+import { FilterToggleButton } from "./filter-toggle-button";
+import { FilterMultiSelectInput } from "./filter-multi-select-input";
+import { FilterSelectInput } from "./filter-select-input";
+import { FilterDatePicker } from "./filter-date-picker";
+import { FormContext } from "../form/form-context";
 
 export type FilterBarProps = Omit<PopoverProps, "children"> & {
   className?: string;
@@ -81,10 +83,10 @@ export function FilterBar({
   return (
     <Popover {...props} open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <Filter.ToggleButton totalActiveFilters={totalActiveFilters} />
+        <FilterToggleButton totalActiveFilters={totalActiveFilters} />
       </PopoverTrigger>
       <PopoverContent className={twMerge("p-0", className)}>
-        <Form.Context
+        <FormContext
           onSubmit={handleSubmit}
           useFormProps={{
             defaultValues: searchParams,
@@ -98,7 +100,7 @@ export function FilterBar({
                   case "date":
                     return (
                       <div key={filterOption.name}>
-                        <Filter.DatePicker
+                        <FilterDatePicker
                           label={filterOption.label}
                           name={filterOption.name}
                         />
@@ -111,7 +113,7 @@ export function FilterBar({
                   case "multi-select":
                     return (
                       <div key={filterOption.name}>
-                        <Filter.MultiSelectInput
+                        <FilterMultiSelectInput
                           label={filterOption.label}
                           name={filterOption.name}
                           data={filterOption.data}
@@ -126,7 +128,7 @@ export function FilterBar({
                   case "select":
                     return (
                       <div key={filterOption.name}>
-                        <Filter.SelectInput
+                        <FilterSelectInput
                           label={filterOption.label}
                           name={filterOption.name}
                           data={filterOption.data}
@@ -158,7 +160,7 @@ export function FilterBar({
               </div>
             </>
           )}
-        </Form.Context>
+        </FormContext>
       </PopoverContent>
     </Popover>
   );

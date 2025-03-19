@@ -60,6 +60,6 @@ const SearchInput = React.forwardRef<
   }
 );
 
-SearchInput.displayName = "Search.Input";
+SearchInput.displayName = "SearchInput";
 
 export { SearchInput };

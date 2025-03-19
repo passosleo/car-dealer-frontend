@@ -99,6 +99,6 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   }
 );
 
-FormInput.displayName = "Form.Input";
+FormInput.displayName = "FormInput";
 
 export { FormInput };

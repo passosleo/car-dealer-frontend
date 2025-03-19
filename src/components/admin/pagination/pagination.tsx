@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
 
-type PaginationProps = {
+export type PaginationProps = {
   totalPages: number;
   currentPage?: number;
   itemsPerPage?: number;

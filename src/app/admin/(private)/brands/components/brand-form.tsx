@@ -1,22 +1,25 @@
 "use client";
 
-import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { SaveIcon, TypeIcon, XIcon } from "lucide-react";
+import { FormContext } from "@/components/admin/form/form-context";
+import { FormImagePicker } from "@/components/admin/form/form-image-picker";
+import { FormInput } from "@/components/admin/form/form-input";
+import { FormSwitch } from "@/components/admin/form/form-switch";
 
 const messages = config.messages.validation;
 
 export function BrandForm(
   props: Omit<
-    React.ComponentProps<typeof Form.Context>,
+    React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
   return (
-    <Form.Context
+    <FormContext
       {...props}
       zodSchema={z.object({
         name: z
@@ -28,20 +31,20 @@ export function BrandForm(
       onSubmit={(data) => console.log(data)}
     >
       <div className="flex flex-row gap-8 w-full">
-        <Form.ImagePicker
+        <FormImagePicker
           label="Logotipo"
           name="imageUrl"
           accept="image/svg+xml"
         />
 
         <div className="flex flex-col gap-2 w-full flex-wrap">
-          <Form.Input
+          <FormInput
             label="Nome"
             name="name"
             leftIcon={<TypeIcon size={18} />}
           />
 
-          <Form.Switch label="Ativo" name="active" defaultChecked />
+          <FormSwitch label="Ativo" name="active" defaultChecked />
 
           <div className="flex flex-row gap-4 w-full mt-auto">
             <Button variant="outline" className="w-full">
@@ -56,6 +59,6 @@ export function BrandForm(
           </div>
         </div>
       </div>
-    </Form.Context>
+    </FormContext>
   );
 }

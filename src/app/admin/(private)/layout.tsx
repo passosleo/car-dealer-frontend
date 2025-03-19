@@ -1,5 +1,5 @@
-import { AppSidebar } from "@/components/admin/app-sidebar";
-import { UserProfile } from "@/components/admin/user-profile";
+import { AppSidebar } from "@/components/admin/app-sidebar/app-sidebar";
+import { UserProfile } from "@/components/admin/user-profile/user-profile";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { BellIcon } from "lucide-react";
 import { cookies } from "next/headers";

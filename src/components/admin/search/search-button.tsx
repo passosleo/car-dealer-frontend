@@ -34,6 +34,6 @@ const SearchButton = React.forwardRef<
   }
 );
 
-SearchButton.displayName = "Search.Button";
+SearchButton.displayName = "SearchButton";
 
 export { SearchButton };

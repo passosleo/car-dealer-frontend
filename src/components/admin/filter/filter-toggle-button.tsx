@@ -26,7 +26,7 @@ const FilterToggleButton = React.forwardRef<
         {...props}
         ref={ref}
         variant={variant}
-        className={twMerge("relative", className)}
+        className={twMerge("relative max-w-28 w-full", className)}
       >
         {children ? (
           children

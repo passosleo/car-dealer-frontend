@@ -5,8 +5,8 @@ import {
   SidebarGroupContent,
   SidebarMenu,
 } from "@/components/ui/sidebar";
-import { SidebarMenuOption, SidebarMenuItem } from "./sidebar-menu-item";
-import { AlertDialog } from "../alert-dialog";
+import { SidebarMenuOption, AppSidebarMenuItem } from "./app-sidebar-menu-item";
+import { AlertDialog } from "../alert-dialog/alert-dialog";
 
 const items: SidebarMenuOption[] = [
   {
@@ -59,14 +59,14 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} {...item} />
+                <AppSidebarMenuItem key={item.title} {...item} />
               ))}
               <AlertDialog
                 title="Você tem certeza?"
                 description="Deseja realmente sair?"
                 onConfirmNavigateTo="/api/logout"
               >
-                <SidebarMenuItem key="Sair" title="Sair" icon="LogOut" />
+                <AppSidebarMenuItem key="Sair" title="Sair" icon="LogOut" />
               </AlertDialog>
             </SidebarMenu>
           </SidebarGroupContent>

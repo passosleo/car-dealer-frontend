@@ -4,10 +4,11 @@ import {
   UseFormProps,
   FieldValues,
   UseFormReturn,
+  useForm,
 } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
-import { ZodSchema } from "zod";
-import { useCustomFormContext } from "./hooks/use-custom-form-context";
+import { z, ZodSchema } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Props<T extends FieldValues> = {
   onSubmit: (data: T, formMethods: UseFormReturn<T>) => void;
@@ -28,13 +29,23 @@ export function FormContext<T extends FieldValues>({
   resetOnSubmit,
   preventEnterSubmit,
 }: Props<T>) {
-  const { methods, onSubmit, onKeyDown } = useCustomFormContext<T>({
-    onSubmit: onSubmitProp,
-    useFormProps,
-    zodSchema,
-    resetOnSubmit,
-    preventEnterSubmit,
+  const methods = useForm<z.infer<typeof zodSchema | any>>({
+    reValidateMode: "onChange",
+    ...useFormProps,
+    resolver: zodResolver(zodSchema || z.object({})),
   });
+
+  function onSubmit(data: T, hookFormMethods: UseFormReturn<T>) {
+    onSubmitProp(data, hookFormMethods);
+    if (resetOnSubmit) methods.reset(undefined, { keepIsSubmitted: false });
+  }
+
+  function onKeyDown(e: React.KeyboardEvent<HTMLFormElement>) {
+    if (e.key === "Enter" && !preventEnterSubmit) {
+      e.preventDefault();
+      methods.handleSubmit((data) => onSubmit(data, methods))();
+    }
+  }
 
   return (
     <FormProvider {...methods}>

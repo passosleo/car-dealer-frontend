@@ -1,11 +1,13 @@
-import { Pagination } from "@/components/admin/pagination";
-import { Page } from "@/components/admin/page";
-import { SearchBar } from "@/components/admin/search-bar";
-import { OrderBar } from "@/components/admin/order-bar";
+import { SearchBar } from "@/components/admin/search/search-bar";
+import { OrderBar } from "@/components/admin/order/order-bar";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import { BrandFilterBar } from "../brands/components/brand-filter-bar";
+import { PageLayout } from "@/components/admin/page/page-layout";
+import { PageHeader } from "@/components/admin/page/page-header";
+import { PageContentGrid } from "@/components/admin/page/page-content-grid";
+import { DefaultFilters } from "@/services/types";
 
 const categories = [
   {
@@ -113,74 +115,48 @@ const categories = [
 
 export default function CategoriesPage({}: // searchParams,
 {
-  searchParams: Promise<
-    Partial<{
-      createdAtStart: string;
-      createdAtEnd: string;
-      createdBy: string;
-      updatedAtStart: string;
-      updatedAtEnd: string;
-      updatedBy: string;
-      status: "all" | "active" | "inactive";
-      search: string;
-      order: "asc" | "desc";
-      page: number;
-    }>
-  >;
+  searchParams: Promise<Partial<DefaultFilters>>;
 }) {
-  // const filterOptions = await searchParams;
-  // console.log("filterOptions", filterOptions);
-
   return (
-    <Page.Layout
-      header={
-        <Page.Header.Layout>
-          <Page.Header.Title>Categorias</Page.Header.Title>
-          <Page.Header.Description>
-            Gerencie as categorias de veículos da sua loja.
-          </Page.Header.Description>
-          <Page.Header.Content>
-            <Link href="/admin/categories/new">
-              <Button className="flex gap-1 items-center justify-center">
-                <CirclePlusIcon />
-                Adicionar
-              </Button>
-            </Link>
+    <PageLayout withBackButton>
+      <PageHeader
+        title="Categorias"
+        description="Gerencie as categorias de veículos da sua loja."
+      >
+        <Link href="/admin/categories/new">
+          <Button className="flex gap-1 items-center justify-center">
+            <CirclePlusIcon />
+            Adicionar
+          </Button>
+        </Link>
+        <div className="flex items-center gap-4">
+          <SearchBar />
+          <OrderBar />
+          <BrandFilterBar />
+        </div>
+      </PageHeader>
+
+      <PageContentGrid
+        items={categories}
+        renderItem={(category) => (
+          <>
             <div className="flex items-center gap-4">
-              <SearchBar />
-              <OrderBar />
-              <BrandFilterBar />
-            </div>
-          </Page.Header.Content>
-        </Page.Header.Layout>
-      }
-      content={
-        <Page.Content.Grid
-          data={categories}
-          renderItem={(category) => (
-            <>
-              <div className="flex items-center gap-4">
-                <img
-                  src={category.imageUrl}
-                  alt={category.name}
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <div className="text-lg font-semibold">{category.name}</div>
-                  <div className="text-sm text-gray-500">
-                    Criado por {category.createdBy}
-                  </div>
+              <img
+                src={category.imageUrl}
+                alt={category.name}
+                className="w-12 h-12 rounded-full"
+              />
+              <div>
+                <div className="text-lg font-semibold">{category.name}</div>
+                <div className="text-sm text-gray-500">
+                  Criado por {category.createdBy}
                 </div>
               </div>
-            </>
-          )}
-        />
-      }
-      footer={
-        <Page.Footer>
-          <Pagination totalPages={10} />
-        </Page.Footer>
-      }
-    />
+            </div>
+          </>
+        )}
+        totalPages={3}
+      />
+    </PageLayout>
   );
 }

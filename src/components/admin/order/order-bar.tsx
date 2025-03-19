@@ -3,11 +3,12 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { ArrowDownAZIcon, ArrowUpZAIcon } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
 const OrderBar = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ children, variant = "outline", onClick, ...props }, ref) => {
+>(({ children, variant = "outline", onClick, className, ...props }, ref) => {
   const { getSearchParam, addSearchParam } = useSearchParams<{
     orderBy: "asc" | "desc";
   }>();
@@ -19,6 +20,7 @@ const OrderBar = React.forwardRef<
       {...props}
       ref={ref}
       variant={variant}
+      className={twMerge("max-w-28 w-full", className)}
       onClick={(e) => {
         const newValue = orderBy === "desc" ? "asc" : "desc";
         addSearchParam("orderBy", newValue);
@@ -42,6 +44,6 @@ const OrderBar = React.forwardRef<
   );
 });
 
-OrderBar.displayName = "Order.Bar";
+OrderBar.displayName = "OrderBar";
 
 export { OrderBar };

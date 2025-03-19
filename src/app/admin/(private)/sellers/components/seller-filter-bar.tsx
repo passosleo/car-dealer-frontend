@@ -1,6 +1,9 @@
 "use client";
 
-import { FilterBar, FilterBarProps } from "@/components/admin/filter-bar";
+import {
+  FilterBar,
+  FilterBarProps,
+} from "@/components/admin/filter/filter-bar";
 import { z } from "zod";
 
 export function SellerFilterBar(

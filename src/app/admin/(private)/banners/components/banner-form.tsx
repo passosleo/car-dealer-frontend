@@ -1,22 +1,26 @@
 "use client";
 
-import { Form } from "@/components/admin/form";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { SaveIcon, TypeIcon, XIcon } from "lucide-react";
+import { FormContext } from "@/components/admin/form/form-context";
+import { FormImagePicker } from "@/components/admin/form/form-image-picker";
+import { FormInput } from "@/components/admin/form/form-input";
+import { FormDatePicker } from "@/components/admin/form/form-date-picker";
+import { FormSwitch } from "@/components/admin/form/form-switch";
 
 const messages = config.messages.validation;
 
 export function BannerForm(
   props: Omit<
-    React.ComponentProps<typeof Form.Context>,
+    React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
   return (
-    <Form.Context
+    <FormContext
       {...props}
       zodSchema={z.object({
         title: z
@@ -35,23 +39,23 @@ export function BannerForm(
       onSubmit={(data) => console.log(data)}
     >
       <div className="flex flex-row gap-8 w-full">
-        <Form.ImagePicker label="Imagem desktop" name="imageDesktop" />
+        <FormImagePicker label="Imagem desktop" name="imageDesktop" />
 
-        <Form.ImagePicker label="Imagem mobile" name="imageMobile" />
+        <FormImagePicker label="Imagem mobile" name="imageMobile" />
 
         <div className="flex flex-col gap-2 w-full flex-wrap">
-          <Form.Input
+          <FormInput
             label="Título"
             name="title"
             leftIcon={<TypeIcon size={18} />}
           />
 
           <div className="flex gap-4 w-full">
-            <Form.DatePicker label="Data de início" name="startAt" />
-            <Form.DatePicker label="Data de término" name="endAt" />
+            <FormDatePicker label="Data de início" name="startAt" />
+            <FormDatePicker label="Data de término" name="endAt" />
           </div>
 
-          <Form.Switch label="Ativo" name="active" defaultChecked />
+          <FormSwitch label="Ativo" name="active" defaultChecked />
 
           <div className="flex flex-row gap-4 w-full mt-auto">
             <Button variant="outline" className="w-full">
@@ -66,6 +70,6 @@ export function BannerForm(
           </div>
         </div>
       </div>
-    </Form.Context>
+    </FormContext>
   );
 }

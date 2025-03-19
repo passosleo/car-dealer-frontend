@@ -54,6 +54,6 @@ const FormTextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
     );
   }
 );
-FormTextArea.displayName = "Form.Input";
+FormTextArea.displayName = "FormTextArea";
 
 export { FormTextArea };
