@@ -1,5 +1,3 @@
-"use client";
-
 import { DefaultFilters } from "@/services/types";
 import { PageContentList } from "@/components/admin/page/page-content-list";
 import { Seller } from "./seller";
