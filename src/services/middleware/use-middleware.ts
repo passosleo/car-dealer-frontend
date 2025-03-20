@@ -58,8 +58,8 @@ export function useMiddleware() {
     params,
     query,
   }: RequestAxiosProps<PayloadType, ParamsType, QueryType>) {
-    const { method, uri, listenHeaders } = routes[routeName] as {
-      listenHeaders?: string[];
+    const { method, uri, headers } = routes[routeName] as {
+      headers?: string[];
       method: string;
       uri: string;
     };
@@ -75,7 +75,7 @@ export function useMiddleware() {
     });
     const urlWithParams = mountUrl(uri, HOST, params, query);
 
-    if (!!listenHeaders && listenHeaders.includes("Authorization"))
+    if (!!headers && headers.includes("Authorization"))
       await setAxiosAuthorization(request);
 
     switch (method) {
@@ -108,7 +108,7 @@ export function useMiddleware() {
 
     //Handle UI error here
     // toast.error(descriptionError);
-    alert(descriptionError);
+    // alert(descriptionError);
 
     if (error.response?.status === 401) {
       session.expire();

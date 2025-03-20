@@ -5,6 +5,11 @@ const routes = {
     method: "POST",
     uri: "/api/v1/admin/auth/token",
   },
+  listSellers: {
+    method: "GET",
+    uri: "/api/v1/admin/seller",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };

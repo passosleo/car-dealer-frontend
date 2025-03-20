@@ -18,7 +18,7 @@ export function useSession() {
     const { refreshToken } = getTokens();
     if (!refreshToken) return;
     const { data: res } = await axios.post<DefaultResponse<SessionDTO>>(
-      `${HOST}/admin/auth/refresh-token`,
+      `${HOST}/api/v1/admin/auth/refresh-token`,
       { refreshToken }
     );
     if (res.statusCode === 200 && res.data) {

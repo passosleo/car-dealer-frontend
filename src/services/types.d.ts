@@ -3,6 +3,13 @@ import { routes } from "./router";
 
 export type RouteName = keyof typeof routes;
 
+export type Paginated<T> = {
+  page: number;
+  limit: number;
+  total: number;
+  items: T[];
+};
+
 export type DefaultResponse<T> = {
   statusCode: number;
   message: string;
