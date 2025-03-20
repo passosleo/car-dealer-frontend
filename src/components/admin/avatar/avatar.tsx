@@ -11,7 +11,7 @@ const Avatar = React.forwardRef<
   Omit<React.ComponentProps<typeof ShadcnAvatar>, "children"> & {
     name: string;
     alt?: string;
-    src?: string;
+    src?: string | null;
     size?: "sm" | "md" | "lg";
   }
 >(({ className, name, alt, src, size = "md", ...props }, ref) => {
@@ -35,7 +35,7 @@ const Avatar = React.forwardRef<
       ref={ref}
       className={twMerge(sizes[size], className)}
     >
-      <AvatarImage src={src} alt={alt || name} />
+      <AvatarImage src={src ? src : undefined} alt={alt || name} />
       <AvatarFallback>{getFallbackName()}</AvatarFallback>
     </ShadcnAvatar>
   );

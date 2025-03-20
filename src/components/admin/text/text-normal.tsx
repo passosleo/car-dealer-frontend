@@ -9,7 +9,7 @@ const TextNormal = React.forwardRef<
     <p
       ref={ref}
       {...props}
-      className={twMerge("flex gap-1 text-muted-foreground", className)}
+      className={twMerge("flex gap-2 text-muted-foreground", className)}
     >
       {children}
     </p>
