@@ -4,7 +4,7 @@ import { Seller } from "../types/seller";
 
 export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
   const { data: res, ...service } = useCustomQuery<
-    unknown,
+    void,
     Partial<DefaultFilters>,
     Paginated<Seller>
   >({

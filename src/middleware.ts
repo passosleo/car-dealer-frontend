@@ -28,7 +28,11 @@ export async function middleware(req: NextRequest) {
 }
 
 function handleNoTokens(pathname: string, res: NextResponse, req: NextRequest) {
-  return pathname === "/admin/login" ? res : block(req);
+  const publicRoutes = ["/admin/login", "/admin/recover-password"];
+  if (publicRoutes.includes(pathname)) {
+    return res;
+  }
+  return redirect(req, "/login");
 }
 
 function handleValidAccessToken(

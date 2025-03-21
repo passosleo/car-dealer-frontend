@@ -25,10 +25,10 @@ export default async function LoginAdminPage({
       </CardContent>
       <CardFooter className="flex flex-col items-center">
         <Link
-          href="/admin/forgot-password"
+          href="/admin/recover-password"
           className="text-xs text-muted-foreground underline"
         >
-          Esqueci minha senha
+          Esqueci a senha
         </Link>
       </CardFooter>
     </Card>

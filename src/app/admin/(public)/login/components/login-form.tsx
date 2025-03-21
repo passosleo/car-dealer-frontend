@@ -42,7 +42,7 @@ export function LoginForm(
 
   const router = useRouter();
   const session = useSession();
-  const { mutate: login, isPending } = useCreateSessionService();
+  const { createSession, isPending } = useCreateSessionService();
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
@@ -50,7 +50,7 @@ export function LoginForm(
   }
 
   function onSubmit(data: CreateSessionSchema) {
-    login(
+    createSession(
       { payload: data },
       {
         onSuccess: (res) => {

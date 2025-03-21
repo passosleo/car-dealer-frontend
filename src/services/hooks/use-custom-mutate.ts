@@ -1,9 +1,14 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
 import { useQueryClient, useMutation, QueryKey } from "@tanstack/react-query";
 import { useMiddleware } from "../middleware/use-middleware";
-import { DefaultResponse, Params, RouteName } from "../types";
+import { DefaultResponse, RouteName } from "../types";
 
-export type CustomMutationProps<ReturnData, Payload> = {
+export type CustomMutationProps<
+  ParamsType,
+  QueryType,
+  PayloadType,
+  ReturnData
+> = {
   routeName: RouteName;
   notHandleError?: boolean;
   setQueryKeys?: string[];
@@ -14,13 +19,18 @@ export type CustomMutationProps<ReturnData, Payload> = {
   onError?: (error: any, res?: DefaultResponse<ReturnData>) => void;
   onSuccess?: (data?: DefaultResponse<ReturnData>) => void;
   onMutate?: (variables: {
-    payload?: Payload;
-    params?: Params;
-    query?: Params;
+    payload?: PayloadType;
+    params?: ParamsType;
+    query?: QueryType;
   }) => void;
 };
 
-export function useCustomMutate<Payload = any, ReturnData = any>({
+export function useCustomMutate<
+  ParamsType = any,
+  QueryType = any,
+  PayloadType = any,
+  ReturnData = any
+>({
   routeName,
   notHandleError,
   setQueryKeys,
@@ -29,7 +39,7 @@ export function useCustomMutate<Payload = any, ReturnData = any>({
   retry = 3,
   retryDelay = 1000,
   ...statusFunctions
-}: CustomMutationProps<ReturnData, Payload>) {
+}: CustomMutationProps<ParamsType, QueryType, PayloadType, ReturnData>) {
   const queryClient = useQueryClient();
   const { requestAxios, handleAxiosError } = useMiddleware();
 
@@ -52,9 +62,9 @@ export function useCustomMutate<Payload = any, ReturnData = any>({
     params,
     query,
   }: {
-    payload?: Payload;
-    params?: Params;
-    query?: Params;
+    payload?: PayloadType;
+    params?: ParamsType;
+    query?: QueryType;
   }) {
     return requestAxios({
       config: axiosConfig,

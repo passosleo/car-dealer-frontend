@@ -5,6 +5,10 @@ const routes = {
     method: "POST",
     uri: "/api/v1/admin/auth/token",
   },
+  sendRecoverPasswordEmail: {
+    method: "POST",
+    uri: "/api/v1/admin/auth/recover-password/send",
+  },
   listSellers: {
     method: "GET",
     uri: "/api/v1/admin/seller",
