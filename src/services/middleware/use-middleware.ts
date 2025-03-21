@@ -68,7 +68,6 @@ export function useMiddleware() {
     const request = Axios.create({
       ...config,
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
         Accept: "application/json",
         ...((config?.headers ?? {}) as Record<string, string>),

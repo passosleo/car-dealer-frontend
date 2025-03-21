@@ -123,7 +123,7 @@ export function LoginForm(
         onRightIconClick={togglePasswordVisibility}
       />
 
-      <FormCheckbox label="Lembrar-me" name="rememberMe" />
+      <FormCheckbox label="Lembrar-me" name="rememberMe" disabled={isPending} />
 
       <Button type="submit" className="w-full" disabled={isPending}>
         {isPending ? <LoaderCircle color="secondary" /> : <LogInIcon />}

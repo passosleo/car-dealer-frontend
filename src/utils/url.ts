@@ -1,6 +1,5 @@
-import { HOST } from "@/services/router";
 import { Params } from "@/services/types";
-import qs, { stringify } from "qs";
+import { stringify } from "qs";
 
 export function replaceParams(url: string, params: Params) {
   const urlWithParams = Object.entries(params).reduce((acc, [key, value]) => {
@@ -17,19 +16,10 @@ export function mountUrl<ParamsType = Params, QueryType = Params>(
 ) {
   const urlApi = baseUrl;
   const urlWithParams = params ? replaceParams(url, params) : url;
-  const queryString = query ? "?" + stringify(query) : "";
+  const queryString =
+    query && Object.keys(query).length > 0 ? "?" + stringify(query) : "";
 
   const completedUrl = urlApi + urlWithParams + queryString;
 
   return completedUrl;
-}
-
-export function getUrlWithParams(
-  url: string,
-  params: Record<string, string | string[] | number[]>
-) {
-  const hasParams = Object.keys(params).length > 0;
-  const urlWithParams = hasParams ? `${url}?${qs.stringify(params)}` : url;
-
-  return HOST + urlWithParams;
 }
