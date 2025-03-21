@@ -41,7 +41,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
             disabled={disabled}
             defaultValue={defaultValue || ""}
             render={({ field, fieldState }) => (
-              <div className="flex flex-col gap-1 w-full">
+              <div className={twMerge("flex flex-col gap-1 w-full", className)}>
                 <Label
                   htmlFor={name}
                   className="text-muted-foreground text-xs font-medium"
@@ -53,10 +53,14 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                     <div
                       className={twMerge(
                         "absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground transition-all",
-                        field.value && "text-primary",
+                        field.value && !disabled && "text-primary",
                         onLeftIconClick && "cursor-pointer"
                       )}
-                      onClick={onLeftIconClick}
+                      onClick={() => {
+                        if (!disabled && onLeftIconClick) {
+                          onLeftIconClick();
+                        }
+                      }}
                     >
                       {leftIcon}
                     </div>
@@ -69,7 +73,6 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                     id={props.id || name}
                     className={twMerge(
                       "w-full",
-                      className,
                       leftIcon && "pl-10",
                       rightIcon && "pr-10"
                     )}
@@ -78,10 +81,14 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                     <div
                       className={twMerge(
                         "absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground transition-all",
-                        field.value && "text-primary",
+                        field.value && !disabled && "text-primary",
                         onRightIconClick && "cursor-pointer"
                       )}
-                      onClick={onRightIconClick}
+                      onClick={() => {
+                        if (!disabled && onRightIconClick) {
+                          onRightIconClick();
+                        }
+                      }}
                     >
                       {rightIcon}
                     </div>

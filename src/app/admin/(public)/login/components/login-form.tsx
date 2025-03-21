@@ -1,6 +1,7 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import {
@@ -10,12 +11,12 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useSession } from "@/hooks/use-session";
 import { FormContext } from "@/components/admin/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
-import { FormSwitch } from "@/components/admin/form/form-switch";
 import { useCreateSessionService } from "../services/use-create-session-service";
+import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { FormCheckbox } from "@/components/admin/form/form-checkbox";
+import { useCookies } from "@/hooks/use-cookies";
 
 const messages = config.messages.validation;
 
@@ -37,25 +38,47 @@ export function LoginForm(
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
-  const [showPassword, setShowPassword] = useState(false);
   const [inputType, setInputType] = useState<"password" | "text">("password");
-
-  const router = useRouter();
-  const session = useSession();
+  const [savedEmail, setSavedEmail] = useState<string>();
   const { createSession, isPending } = useCreateSessionService();
+  const { getCookie, setCookie, invalidateCookie } = useCookies();
+
+  useEffect(() => {
+    const rememberMeValue = getCookie("rememberMe");
+    if (rememberMeValue) {
+      setSavedEmail(rememberMeValue);
+    }
+  }, [getCookie]);
 
   function togglePasswordVisibility() {
     setInputType((prev) => (prev === "password" ? "text" : "password"));
-    setShowPassword((prev) => !prev);
   }
 
   function onSubmit(data: CreateSessionSchema) {
     createSession(
-      { payload: data },
       {
-        onSuccess: (res) => {
-          session.register(res.data);
-          router.replace("/admin/dashboard");
+        payload: {
+          email: data.email,
+          password: data.password,
+        },
+      },
+      {
+        onSuccess: () => {
+          if (data.rememberMe) {
+            setCookie("rememberMe", data.email, {
+              expires: new Date(
+                Date.now() + 1000 * 60 * 60 * 24 * 30
+              ) /* 30 days */,
+              path: "/admin/login",
+              sameSite: "strict",
+              secure: true,
+              httpOnly: false,
+            });
+          } else {
+            invalidateCookie("rememberMe", {
+              path: "/admin/login",
+            });
+          }
         },
         onError: (error) => {
           console.log(error);
@@ -65,7 +88,17 @@ export function LoginForm(
   }
 
   return (
-    <FormContext {...props} zodSchema={createSessionSchema} onSubmit={onSubmit}>
+    <FormContext
+      {...props}
+      zodSchema={createSessionSchema}
+      onSubmit={onSubmit}
+      useFormProps={{
+        values: {
+          email: savedEmail,
+          rememberMe: !!savedEmail,
+        },
+      }}
+    >
       <FormInput
         label="E-mail"
         name="email"
@@ -81,15 +114,19 @@ export function LoginForm(
         disabled={isPending}
         leftIcon={<KeyRoundIcon size={18} />}
         rightIcon={
-          showPassword ? <EyeIcon size={18} /> : <EyeClosedIcon size={18} />
+          inputType === "text" ? (
+            <EyeIcon size={18} />
+          ) : (
+            <EyeClosedIcon size={18} />
+          )
         }
         onRightIconClick={togglePasswordVisibility}
       />
 
-      <FormSwitch label="Lembrar-me" name="rememberMe" />
+      <FormCheckbox label="Lembrar-me" name="rememberMe" />
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        <LogInIcon />
+        {isPending ? <LoaderCircle color="secondary" /> : <LogInIcon />}
         Acessar
       </Button>
     </FormContext>

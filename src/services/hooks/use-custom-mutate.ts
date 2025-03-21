@@ -17,7 +17,7 @@ export type CustomMutationProps<
   retry?: number | false;
   retryDelay?: number;
   onError?: (error: any, res?: DefaultResponse<ReturnData>) => void;
-  onSuccess?: (data?: DefaultResponse<ReturnData>) => void;
+  onSuccess?: (data: DefaultResponse<ReturnData>) => void;
   onMutate?: (variables: {
     payload?: PayloadType;
     params?: ParamsType;

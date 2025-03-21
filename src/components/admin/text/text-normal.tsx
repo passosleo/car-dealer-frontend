@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 const TextNormal = React.forwardRef<
   HTMLParagraphElement,
-  React.ComponentProps<"h2">
+  React.ComponentProps<"p">
 >(({ className, children, ...props }, ref) => {
   return (
     <p

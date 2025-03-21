@@ -50,10 +50,7 @@ export function FormContext<T extends FieldValues>({
   return (
     <FormProvider {...methods}>
       <form
-        className={twMerge(
-          "flex flex-col gap-2 p-2 overflow-auto w-full",
-          className
-        )}
+        className={twMerge("flex flex-col gap-2 w-full", className)}
         onSubmit={methods.handleSubmit((data) => onSubmit(data, methods))}
         onKeyDown={onKeyDown}
       >

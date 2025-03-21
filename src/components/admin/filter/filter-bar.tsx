@@ -85,7 +85,7 @@ export function FilterBar({
       <PopoverTrigger asChild>
         <FilterToggleButton totalActiveFilters={totalActiveFilters} />
       </PopoverTrigger>
-      <PopoverContent className={twMerge("p-0", className)}>
+      <PopoverContent className={twMerge("p-2", className)}>
         <FormContext
           onSubmit={handleSubmit}
           useFormProps={{

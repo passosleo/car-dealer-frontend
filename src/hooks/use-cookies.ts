@@ -57,10 +57,12 @@ export function useCookies() {
     }
   }
 
-  function invalidateCookie(key: string) {
+  function invalidateCookie(key: string, options?: { path?: string }) {
     try {
       if (typeof document !== "undefined") {
-        document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+        document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=${
+          options?.path || "/"
+        }`;
         return true;
       }
       return false;

@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Card,
   CardContent,
@@ -11,6 +10,7 @@ import { RecoverPasswordForm } from "./components/recover-password-form";
 import Link from "next/link";
 import { useState } from "react";
 import { TextNormal } from "@/components/admin/text/text-normal";
+import Image from "next/image";
 
 export default function RecoverPasswordPage() {
   const [isSent, setIsSent] = useState(false);
@@ -22,12 +22,27 @@ export default function RecoverPasswordPage() {
       </CardHeader>
       <CardContent className="space-y-2 py-3">
         {!isSent ? (
-          <RecoverPasswordForm onSent={() => setIsSent(true)} />
+          <>
+            <TextNormal className="text-center text-sm my-4">
+              Informe seu e-mail para recuperar a senha.
+            </TextNormal>
+            <RecoverPasswordForm onSent={() => setIsSent(true)} />
+          </>
         ) : (
-          <TextNormal className="text-center">
-            Se o e-mail informado estiver correto, você receberá um e-mail com
-            instruções para redefinir sua senha.
-          </TextNormal>
+          <>
+            <Image
+              src="/images/forgot-password.svg"
+              alt="Ilustração de recuperação de senha"
+              width={200}
+              height={200}
+              className="mx-auto my-4"
+            />
+            <TextNormal className="text-center text-sm pb-4">
+              Se o e-mail informado estiver correto, enviaremos um link para
+              redefinição de senha. Verifique sua caixa de entrada e siga as
+              instruções.
+            </TextNormal>
+          </>
         )}
       </CardContent>
       <CardFooter className="flex flex-col items-center">

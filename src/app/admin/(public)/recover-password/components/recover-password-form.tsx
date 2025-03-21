@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
-import { LogInIcon, MailIcon } from "lucide-react";
+import { MailIcon, SendIcon } from "lucide-react";
 import { FormContext } from "@/components/admin/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
 import { useSendRecoverPasswordEmailService } from "../services/use-send-recover-password-email-service";
+import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 
 const messages = config.messages.validation;
 
@@ -58,10 +59,11 @@ export function RecoverPasswordForm({
         disabled={isPending}
         autoFocus
         leftIcon={<MailIcon size={18} />}
+        className="mb-4"
       />
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        <LogInIcon />
+        {isPending ? <LoaderCircle color="secondary" /> : <SendIcon />}
         Enviar
       </Button>
     </FormContext>
