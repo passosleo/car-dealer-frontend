@@ -37,6 +37,7 @@ export function useCustomMutate<Payload = any, ReturnData = any>({
     if (!notHandleError) handleAxiosError(error);
     if (statusFunctions.onError)
       statusFunctions.onError(error, error.response?.data);
+    return null;
   }
 
   function onSuccess(data: DefaultResponse<ReturnData>) {

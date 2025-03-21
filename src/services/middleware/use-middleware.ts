@@ -4,6 +4,7 @@ import { HOST, routes } from "../router";
 import { mountUrl } from "@/utils/url";
 import { useSession } from "@/hooks/use-session";
 import { isTokenValid } from "@/utils/jwt";
+import { toast } from "react-toastify";
 
 export type RequestAxiosProps<
   PayloadType = unknown,
@@ -95,26 +96,15 @@ export function useMiddleware() {
   }
 
   function handleAxiosError(error: AxiosError) {
-    const messageError = "An error occurred, please try again later.";
-    // const typedError = error as CustomAxiosError;
-    // const responseData = typedError.response?.data;
+    const messageError = "Algo deu errado, tente novamente mais tarde";
 
-    const responseError = "TODO: Get error message from response data";
-
-    const descriptionError =
-      responseError && typeof responseError === "string"
-        ? responseError
-        : messageError;
-
-    //Handle UI error here
-    // toast.error(descriptionError);
-    // alert(descriptionError);
+    toast.error(messageError);
 
     if (error.response?.status === 401) {
       session.expire();
     }
 
-    return { descriptionError };
+    return { messageError };
   }
 
   return { requestAxios, handleAxiosError, setAxiosAuthorization };

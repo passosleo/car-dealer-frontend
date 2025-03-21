@@ -35,6 +35,7 @@ export function useCustomQuery<ParamsType, QueryType, ResponseType>({
     if (!notHandleError) handleAxiosError(error);
     if (statusFunctions.onError)
       statusFunctions.onError(error, error.response?.data);
+    return null;
   }
 
   function onSuccess(data: DefaultResponse<ResponseType>) {

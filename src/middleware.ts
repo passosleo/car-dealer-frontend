@@ -96,14 +96,14 @@ function setCookies(
 ) {
   res.cookies.set("accessToken", accessToken, {
     path: "/admin",
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "strict",
     expires: accessTokenExpirationDate,
   });
   res.cookies.set("refreshToken", refreshToken, {
     path: "/admin",
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "strict",
     expires: refreshTokenExpirationDate,

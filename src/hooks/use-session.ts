@@ -33,14 +33,14 @@ export function useSession() {
 
     setCookie("accessToken", accessToken, {
       path: "/admin",
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "strict",
       expires: accessTokenExpirationDate,
     });
     setCookie("refreshToken", refreshToken, {
       path: "/admin",
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "strict",
       expires: refreshTokenExpirationDate,
