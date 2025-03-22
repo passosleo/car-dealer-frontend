@@ -15,6 +15,7 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
   return {
     sellers: res ? res.data.items : [],
     total: res ? res.data.total : 0,
+    isEmpty: res ? res.data.items.length === 0 : true,
     ...service,
   };
 }

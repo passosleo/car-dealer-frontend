@@ -25,7 +25,7 @@ export type DefaultFilters = {
   limit?: number;
   orderBy?: "asc" | "desc";
   search?: string;
-  active?: "all" | "active" | "inactive";
+  status?: "all" | "active" | "inactive";
   createdAtStart?: string;
   createdAtEnd?: string;
   updatedAtStart?: string;
