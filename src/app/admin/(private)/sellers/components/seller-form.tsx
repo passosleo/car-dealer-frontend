@@ -30,24 +30,19 @@ export function SellerForm(
           .string({ required_error: messages.required_error })
           .nonempty({ message: messages.nonempty_error }),
         email: z
-          .string({ required_error: messages.required_error })
-          .email({ message: messages.email_error }),
-        phone: z
-          .string({ required_error: messages.required_error })
-          .nonempty({ message: messages.nonempty_error }),
-        photo: z
-          .string({ required_error: messages.required_error })
-          .nonempty({ message: messages.required_error }),
-        customMessage: z
           .string()
-          .nonempty({ message: messages.nonempty_error })
-          .optional(),
+          .email({ message: messages.email_error })
+          .optional()
+          .or(z.literal("")),
+        phone: z.string({ required_error: messages.required_error }).optional(),
+        image: z.string({ required_error: messages.required_error }).optional(),
+        customMessage: z.string().optional(),
         active: z.boolean().default(true),
       })}
       onSubmit={(data) => console.log(data)}
     >
       <div className="flex flex-row gap-8 w-full">
-        <FormImagePicker label="Foto" name="photo" />
+        <FormImagePicker label="Foto" name="image" />
 
         <div className="flex flex-col gap-2 w-full flex-wrap">
           <div className="flex gap-4 w-full">
@@ -74,7 +69,11 @@ export function SellerForm(
           <FormSwitch label="Ativo" name="active" defaultChecked />
 
           <div className="flex flex-row gap-4 w-full">
-            <Button variant="outline" className="mt-auto w-full self-end">
+            <Button
+              type="button"
+              variant="outline"
+              className="mt-auto w-full self-end"
+            >
               <XIcon />
               Cancelar
             </Button>

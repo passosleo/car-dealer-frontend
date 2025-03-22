@@ -9,6 +9,7 @@ import {
 import { twMerge } from "tailwind-merge";
 import { z, ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { replaceEmptyWithNull } from "@/utils/object";
 
 type Props<T extends FieldValues> = {
   onSubmit: (data: T, formMethods: UseFormReturn<T>) => void;
@@ -36,7 +37,8 @@ export function FormContext<T extends FieldValues>({
   });
 
   function onSubmit(data: T, hookFormMethods: UseFormReturn<T>) {
-    onSubmitProp(data, hookFormMethods);
+    const normalizedData = replaceEmptyWithNull(data);
+    onSubmitProp(normalizedData, hookFormMethods);
     if (resetOnSubmit) methods.reset(undefined, { keepIsSubmitted: false });
   }
 

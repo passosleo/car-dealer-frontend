@@ -25,16 +25,6 @@ export function SellerFilterBar(
             name: "createdAtEnd",
           },
           {
-            type: "multi-select",
-            label: "Cadastrado por:",
-            name: "createdBy",
-            data: [
-              { label: "Usuário 1", value: "1" },
-              { label: "Usuário 2", value: "2" },
-              { label: "Usuário 3", value: "3" },
-            ],
-          },
-          {
             type: "date",
             label: "Atualizado a partir de:",
             name: "updatedAtStart",
@@ -43,16 +33,6 @@ export function SellerFilterBar(
             type: "date",
             label: "Atualizado até:",
             name: "updatedAtEnd",
-          },
-          {
-            type: "multi-select",
-            label: "Atualizado por:",
-            name: "updatedBy",
-            data: [
-              { label: "Usuário 1", value: "1" },
-              { label: "Usuário 2", value: "2" },
-              { label: "Usuário 3", value: "3" },
-            ],
           },
           {
             type: "select",
@@ -71,8 +51,6 @@ export function SellerFilterBar(
             createdAtEnd: z.string().optional(),
             updatedAtStart: z.string().optional(),
             updatedAtEnd: z.string().optional(),
-            createdBy: z.string().optional(),
-            updatedBy: z.string().optional(),
             status: z.enum(["all", "active", "inactive"]).optional(),
           })
           .refine(

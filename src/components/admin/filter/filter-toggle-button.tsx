@@ -35,7 +35,7 @@ const FilterToggleButton = React.forwardRef<
             <SlidersHorizontalIcon size={16} />
             Filtrar
             {totalActiveFilters > 0 && (
-              <span className="absolute top-[-8] right-[-4] w-5 h-5 text-xs text-secondary bg-destructive rounded-full flex items-center justify-center">
+              <span className="absolute top-[-8px] right-[-4px] w-5 h-5 text-xs text-secondary bg-destructive rounded-full flex items-center justify-center">
                 {totalActiveFilters}
               </span>
             )}

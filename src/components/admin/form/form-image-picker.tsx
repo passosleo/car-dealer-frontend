@@ -82,7 +82,7 @@ const FormImagePicker = React.forwardRef<
                       <Button
                         type="button"
                         variant="destructive"
-                        className="absolute top-[-8] right-[-8] p-1 text-xs rounded-full h-6 w-6"
+                        className="absolute top-[-8px] right-[-8px] p-1 text-xs rounded-full h-6 w-6"
                         onClick={() => {
                           setPreview(null);
                           field.onChange("");
