@@ -10,3 +10,13 @@ export type Seller = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type CreateSellerDTO = {
+  firstName: string;
+  lastName: string;
+  email: string | null;
+  phone: string | null;
+  imageUrl: string | null;
+  customMessage: string | null;
+  active: boolean;
+};

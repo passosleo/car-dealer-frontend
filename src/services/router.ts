@@ -14,6 +14,11 @@ const routes = {
     uri: "/api/v1/admin/seller",
     headers: ["Authorization"],
   },
+  createSeller: {
+    method: "POST",
+    uri: "/api/v1/admin/seller",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
