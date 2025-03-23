@@ -1,11 +1,9 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { DefaultFilters, Paginated } from "@/services/types";
 import { Seller } from "../types/seller";
-import { useRouter } from "next/navigation";
 import { useSearchParams } from "@/hooks/use-search-params";
 
 export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const { data: res, ...data } = useCustomQuery<
