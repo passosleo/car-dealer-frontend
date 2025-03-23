@@ -4,7 +4,6 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { BellIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import React from "react";
 
 type AdminPrivateLayoutProps = {
   children: React.ReactNode;

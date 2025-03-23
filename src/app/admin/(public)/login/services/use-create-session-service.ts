@@ -1,7 +1,7 @@
 import { useSession } from "@/hooks/use-session";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { CreateSessionDTO, SessionDTO } from "@/services/types";
 import { useRouter } from "next/navigation";
+import { CreateSessionRequest, SessionResponse } from "../types/login";
 
 export function useCreateSessionService() {
   const session = useSession();
@@ -10,8 +10,8 @@ export function useCreateSessionService() {
   const { mutate, ...data } = useCustomMutate<
     void,
     void,
-    CreateSessionDTO,
-    SessionDTO
+    CreateSessionRequest,
+    SessionResponse
   >({
     routeName: "createSession",
     setQueryKeys: ["session"],

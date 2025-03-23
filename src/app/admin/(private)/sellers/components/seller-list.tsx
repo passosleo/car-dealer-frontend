@@ -15,7 +15,6 @@ export function SellerList({
 }) {
   const { sellers, total, isPending, isEmpty } =
     useListSellersService(appliedFilters);
-  console.log(" isEmpty", isEmpty);
   return (
     <>
       {isPending ? (
@@ -29,7 +28,6 @@ export function SellerList({
             alt="Ilustração de página sem dados"
             width={180}
             height={180}
-            loading="eager"
           />
           <TextNormal className="my-4">Nenhum vendedor encontrado</TextNormal>
         </div>

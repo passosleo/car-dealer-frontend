@@ -15,7 +15,7 @@ export default async function SellersPage({
   const appliedFilters = await searchParams;
   console.log(" appliedFilters", appliedFilters);
   return (
-    <PageLayout withBackButton>
+    <PageLayout>
       <PageHeader
         title="Vendedores"
         description="Adicione, edite ou remova os vendedores da sua loja."

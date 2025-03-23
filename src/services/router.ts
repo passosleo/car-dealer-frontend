@@ -14,9 +14,24 @@ const routes = {
     uri: "/api/v1/admin/seller",
     headers: ["Authorization"],
   },
+  getSellerById: {
+    method: "GET",
+    uri: "/api/v1/admin/seller/:sellerId",
+    headers: ["Authorization"],
+  },
   createSeller: {
     method: "POST",
     uri: "/api/v1/admin/seller",
+    headers: ["Authorization"],
+  },
+  updateSeller: {
+    method: "PUT",
+    uri: "/api/v1/admin/seller/:sellerId",
+    headers: ["Authorization"],
+  },
+  deleteSeller: {
+    method: "DELETE",
+    uri: "/api/v1/admin/seller/:sellerId",
     headers: ["Authorization"],
   },
 } as const;

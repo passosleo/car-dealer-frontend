@@ -1,9 +1,14 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { DefaultFilters, Paginated } from "@/services/types";
 import { Seller } from "../types/seller";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "@/hooks/use-search-params";
 
 export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
-  const { data: res, ...service } = useCustomQuery<
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const { data: res, ...data } = useCustomQuery<
     void,
     Partial<DefaultFilters>,
     Paginated<Seller>
@@ -11,11 +16,21 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     routeName: "listSellers",
     queryKey: ["listSellers", appliedFilters],
     query: appliedFilters,
+    onSuccess: (res) => {
+      if (res.data.items.length === 0) {
+        searchParams.removeSearchParam("page");
+      }
+    },
   });
+
+  const sellers = res ? res.data.items : [];
+  const total = res ? res.data.total : 0;
+  const isEmpty = res ? res.data.items.length === 0 : true;
+
   return {
-    sellers: res ? res.data.items : [],
-    total: res ? res.data.total : 0,
-    isEmpty: res ? res.data.items.length === 0 : true,
-    ...service,
+    sellers,
+    total,
+    isEmpty,
+    ...data,
   };
 }

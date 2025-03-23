@@ -11,7 +11,7 @@ export type Seller = {
   updatedAt: string;
 };
 
-export type CreateSellerDTO = {
+export type CreateSellerRequest = {
   firstName: string;
   lastName: string;
   email: string | null;
