@@ -2,8 +2,9 @@ import { useCookies } from "./use-cookies";
 import { redirect } from "next/navigation";
 import { getTokenExpirationDate } from "@/utils/jwt";
 import axios from "axios";
-import { DefaultResponse, SessionDTO } from "@/services/types";
+import { DefaultResponse } from "@/services/types";
 import { HOST } from "@/services/router";
+import { Session } from "@/app/admin/(public)/login/types/login";
 
 export function useSession() {
   const { getCookie, setCookie } = useCookies();
@@ -17,7 +18,7 @@ export function useSession() {
   async function refresh() {
     const { refreshToken } = getTokens();
     if (!refreshToken) return;
-    const { data: res } = await axios.post<DefaultResponse<SessionDTO>>(
+    const { data: res } = await axios.post<DefaultResponse<Session>>(
       `${HOST}/api/v1/admin/auth/refresh-token`,
       { refreshToken }
     );
@@ -27,7 +28,7 @@ export function useSession() {
     }
   }
 
-  function register({ accessToken, refreshToken }: SessionDTO) {
+  function register({ accessToken, refreshToken }: Session) {
     const [accessTokenExpirationDate, refreshTokenExpirationDate] =
       getTokenExpirationDate(accessToken, refreshToken);
 

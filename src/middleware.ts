@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
-import { DefaultResponse, SessionDTO } from "./services/types";
+import { DefaultResponse } from "./services/types";
 import axios from "axios";
 import { HOST } from "./services/router";
+import { Session } from "./app/admin/(public)/login/types/login";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -53,7 +54,7 @@ async function handleTokenRefresh(
   req: NextRequest
 ) {
   try {
-    const { data: response } = await axios.post<DefaultResponse<SessionDTO>>(
+    const { data: response } = await axios.post<DefaultResponse<Session>>(
       `${HOST}/api/v1/admin/auth/refresh-token`,
       { refreshToken }
     );
@@ -68,7 +69,7 @@ async function handleTokenRefresh(
 }
 
 function handleSessionRefresh(
-  session: SessionDTO,
+  session: Session,
   res: NextResponse,
   pathname: string,
   req: NextRequest

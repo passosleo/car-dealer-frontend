@@ -3,7 +3,7 @@ export type CreateSessionRequest = {
   password: string;
 };
 
-export type SessionResponse = {
+export type Session = {
   type: string;
   accessToken: string;
   accessTokenExpiresIn: number;
