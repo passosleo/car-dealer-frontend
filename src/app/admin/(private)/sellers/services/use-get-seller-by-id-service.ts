@@ -6,11 +6,12 @@ import { useRouter } from "next/navigation";
 export function useGetSellerByIdService(sellerId: string) {
   const router = useRouter();
 
-  const { data: res, ...data } = useCustomQuery<
-    { sellerId: string },
-    void,
-    Seller
-  >({
+  const {
+    data: res,
+    isPending,
+    isLoading,
+    ...data
+  } = useCustomQuery<{ sellerId: string }, void, Seller>({
     routeName: "getSellerById",
     queryKey: ["getSellerById", sellerId],
     params: { sellerId },
@@ -23,6 +24,7 @@ export function useGetSellerByIdService(sellerId: string) {
 
   return {
     seller: res?.data,
+    isPending: isPending || isLoading,
     ...data,
   };
 }

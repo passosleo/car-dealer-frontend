@@ -6,11 +6,12 @@ import { useSearchParams } from "@/hooks/use-search-params";
 export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
   const searchParams = useSearchParams();
 
-  const { data: res, ...data } = useCustomQuery<
-    void,
-    Partial<DefaultFilters>,
-    Paginated<Seller>
-  >({
+  const {
+    data: res,
+    isPending,
+    isLoading,
+    ...data
+  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Seller>>({
     routeName: "listSellers",
     queryKey: ["listSellers", appliedFilters],
     query: appliedFilters,
@@ -33,6 +34,7 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     sellers,
     total,
     isEmpty,
+    isPending: isPending || isLoading,
     ...data,
   };
 }
