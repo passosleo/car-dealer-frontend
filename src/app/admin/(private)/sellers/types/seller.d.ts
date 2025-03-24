@@ -16,7 +16,17 @@ export type CreateSellerRequest = {
   lastName: string;
   email: string | null;
   phone: string | null;
-  imageUrl: string | null;
+  image: string | null;
+  customMessage: string | null;
+  active: boolean;
+};
+
+export type UpdateSellerRequest = {
+  firstName: string;
+  lastName: string;
+  email: string | null;
+  phone: string | null;
+  image: string | null;
   customMessage: string | null;
   active: boolean;
 };

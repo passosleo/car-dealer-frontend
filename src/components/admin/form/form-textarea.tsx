@@ -27,7 +27,10 @@ const FormTextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
                 <div className="flex flex-col gap-1 w-full">
                   <Label
                     htmlFor={name}
-                    className="text-muted-foreground text-xs font-medium"
+                    className={twMerge(
+                      "text-muted-foreground text-xs font-medium",
+                      disabled && "cursor-not-allowed opacity-50"
+                    )}
                   >
                     {label}
                   </Label>
@@ -36,6 +39,7 @@ const FormTextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
                       {...props}
                       {...field}
                       ref={ref}
+                      disabled={disabled}
                       id={props.id || name}
                       className={twMerge("w-full", className)}
                     />

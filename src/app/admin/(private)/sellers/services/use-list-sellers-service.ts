@@ -15,7 +15,11 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     queryKey: ["listSellers", appliedFilters],
     query: appliedFilters,
     onSuccess: (res) => {
-      if (res.data.items.length === 0) {
+      if (
+        appliedFilters.page &&
+        appliedFilters.page > 1 &&
+        res.data.items.length === 0
+      ) {
         searchParams.removeSearchParam("page");
       }
     },

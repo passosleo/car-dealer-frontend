@@ -5,16 +5,24 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+      },
+      {
+        protocol: "https",
         hostname: "upload.wikimedia.org",
       },
       {
         protocol: "https",
         hostname: "png.pngtree.com",
-      }, 
+      },
       {
         protocol: "https",
         hostname: "cdn.oantagonista.com",
-      }, 
+      },
       {
         protocol: "https",
         hostname: "cdn.motor1.com",
@@ -35,7 +43,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "hlaureano.org.br",
       },
-   
+
       {
         protocol: "https",
         hostname: "img.criativodahora.com.br",

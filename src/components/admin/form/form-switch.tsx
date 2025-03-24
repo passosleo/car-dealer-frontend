@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import React from "react";
 import { Controller } from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
 type FormSwitchProps = React.ComponentProps<typeof Switch> & {
   label: string;
@@ -25,7 +26,10 @@ const FormSwitch = React.forwardRef<HTMLButtonElement, FormSwitchProps>(
                 <div className="flex flex-col gap-1 w-full">
                   <Label
                     htmlFor={name}
-                    className="text-muted-foreground text-xs font-medium"
+                    className={twMerge(
+                      "text-muted-foreground text-xs font-medium",
+                      disabled && "cursor-not-allowed opacity-50"
+                    )}
                   >
                     {label}
                   </Label>
@@ -34,6 +38,7 @@ const FormSwitch = React.forwardRef<HTMLButtonElement, FormSwitchProps>(
                       {...props}
                       {...field}
                       ref={ref}
+                      disabled={disabled}
                       id={props.id || name}
                       checked={field.value}
                       onCheckedChange={(checked) => field.onChange(checked)}

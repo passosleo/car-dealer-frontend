@@ -1,7 +1,7 @@
 import { PageLayout } from "@/components/admin/page/page-layout";
-import { SellerForm } from "../components/seller-form";
 import { PageContentCard } from "@/components/admin/page/page-content-card";
 import { PageHeader } from "@/components/admin/page/page-header";
+import { UpdateSellerForm } from "../components/update-seller-form";
 
 export default async function EditSellerPage() {
   return (
@@ -11,7 +11,7 @@ export default async function EditSellerPage() {
         description="Altere as informações do vendedor."
       />
       <PageContentCard>
-        <SellerForm />
+        <UpdateSellerForm />
       </PageContentCard>
     </PageLayout>
   );

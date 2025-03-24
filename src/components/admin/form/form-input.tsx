@@ -44,7 +44,10 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
               <div className={twMerge("flex flex-col gap-1 w-full", className)}>
                 <Label
                   htmlFor={name}
-                  className="text-muted-foreground text-xs font-medium"
+                  className={twMerge(
+                    "text-muted-foreground text-xs font-medium",
+                    disabled && "cursor-not-allowed opacity-50"
+                  )}
                 >
                   {label}
                 </Label>
@@ -54,6 +57,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                       className={twMerge(
                         "absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground transition-all",
                         field.value && !disabled && "text-primary",
+                        disabled && "cursor-not-allowed opacity-50",
                         onLeftIconClick && "cursor-pointer"
                       )}
                       onClick={() => {
@@ -71,6 +75,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                     ref={ref}
                     type={type}
                     id={props.id || name}
+                    disabled={disabled}
                     className={twMerge(
                       "w-full",
                       leftIcon && "pl-10",
@@ -82,6 +87,7 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                       className={twMerge(
                         "absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground transition-all",
                         field.value && !disabled && "text-primary",
+                        disabled && "cursor-not-allowed opacity-50",
                         onRightIconClick && "cursor-pointer"
                       )}
                       onClick={() => {
