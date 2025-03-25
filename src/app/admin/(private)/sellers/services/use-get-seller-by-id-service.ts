@@ -10,6 +10,7 @@ export function useGetSellerByIdService(sellerId: string) {
     data: res,
     isPending,
     isLoading,
+    isFetching,
     ...data
   } = useCustomQuery<{ sellerId: string }, void, Seller>({
     routeName: "getSellerById",
@@ -24,7 +25,7 @@ export function useGetSellerByIdService(sellerId: string) {
 
   return {
     seller: res?.data,
-    isPending: isPending || isLoading,
+    isPending: isPending || isLoading || isFetching,
     ...data,
   };
 }

@@ -10,6 +10,7 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     data: res,
     isPending,
     isLoading,
+    isFetching,
     ...data
   } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Seller>>({
     routeName: "listSellers",
@@ -34,7 +35,7 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     sellers,
     total,
     isEmpty,
-    isPending: isPending || isLoading,
+    isPending: isPending || isLoading || isFetching,
     ...data,
   };
 }
