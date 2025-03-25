@@ -5,9 +5,13 @@ import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { SellerFormContent } from "./seller-form-content";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetSellerByIdService } from "../services/use-get-seller-by-id-service";
 import { useUpdateSellerService } from "../services/use-update-seller-service";
+import { Button } from "@/components/ui/button";
+import { Trash2Icon } from "lucide-react";
+import { useDeleteSellerService } from "../services/use-delete-seller-service";
+import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 
 const messages = config.messages.validation;
 
@@ -38,6 +42,7 @@ export function UpdateSellerForm(
   >
 ) {
   const { sellerId } = useParams<{ sellerId: string }>();
+  const router = useRouter();
 
   const { seller, isPending: isGetSellerByIdPending } =
     useGetSellerByIdService(sellerId);
@@ -45,11 +50,30 @@ export function UpdateSellerForm(
   const { updateSeller, isPending: isUpdateSellerPending } =
     useUpdateSellerService();
 
+  const { deleteSeller, isPending: isDeleteSellerPending } =
+    useDeleteSellerService();
+
+  const isPending =
+    isGetSellerByIdPending || isUpdateSellerPending || isDeleteSellerPending;
+
   function onSubmit(data: UpdateSellerSchema) {
     updateSeller({
       params: { sellerId },
       payload: data,
     });
+  }
+
+  function onDelete() {
+    deleteSeller(
+      {
+        params: { sellerId },
+      },
+      {
+        onSuccess: () => {
+          router.replace("/admin/sellers");
+        },
+      }
+    );
   }
 
   return (
@@ -70,7 +94,25 @@ export function UpdateSellerForm(
       }}
     >
       <SellerFormContent
-        isPending={isGetSellerByIdPending || isUpdateSellerPending}
+        isPending={isPending}
+        additionalButton={
+          <AlertDialog
+            title="Confirmar exclusão?"
+            description="Essa ação não pode ser desfeita."
+            confirmText="Confirmar"
+            onConfirm={onDelete}
+          >
+            <Button
+              type="button"
+              variant="outline"
+              className="mt-auto w-full self-end"
+              disabled={isPending}
+            >
+              <Trash2Icon />
+              Excluir
+            </Button>
+          </AlertDialog>
+        }
       />
     </FormContext>
   );

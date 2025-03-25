@@ -7,7 +7,15 @@ import { FormSwitch } from "@/components/admin/form/form-switch";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
 
-export function SellerFormContent({ isPending }: { isPending: boolean }) {
+type SellerFormContentProps = {
+  isPending: boolean;
+  additionalButton?: React.ReactNode;
+};
+
+export function SellerFormContent({
+  isPending,
+  additionalButton,
+}: SellerFormContentProps) {
   const router = useRouter();
 
   return (
@@ -55,6 +63,8 @@ export function SellerFormContent({ isPending }: { isPending: boolean }) {
         />
 
         <div className="flex flex-row gap-4 w-full">
+          {additionalButton ? additionalButton : <></>}
+
           <Button
             type="button"
             variant="outline"

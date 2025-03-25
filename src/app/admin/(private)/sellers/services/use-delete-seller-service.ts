@@ -12,7 +12,7 @@ export function useDeleteSellerService() {
     setQueryKeys: ["deleteSeller"],
     invalidateQueryKeys: ["listSellers"],
     onSuccess: () => {
-      toast.success("Vendedor deletado com sucesso");
+      toast.success("Vendedor excluído com sucesso");
     },
   });
 
