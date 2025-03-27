@@ -13,7 +13,7 @@ export function SellerList({
 }: {
   appliedFilters: Partial<DefaultFilters>;
 }) {
-  const { sellers, total, isPending, isEmpty } =
+  const { sellers, totalPages, isPending, isEmpty } =
     useListSellersService(appliedFilters);
   return (
     <>
@@ -35,7 +35,7 @@ export function SellerList({
         <PageContentList
           items={sellers}
           renderItem={(seller) => <Seller {...seller} />}
-          totalPages={total}
+          totalPages={totalPages}
         />
       )}
     </>

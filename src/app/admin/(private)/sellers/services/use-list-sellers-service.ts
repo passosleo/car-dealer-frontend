@@ -28,12 +28,12 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
   });
 
   const sellers = res ? res.data.items : [];
-  const total = res ? res.data.total : 0;
+  const totalPages = res ? res.data.totalPages : 0;
   const isEmpty = res ? res.data.items.length === 0 : true;
 
   return {
     sellers,
-    total,
+    totalPages,
     isEmpty,
     isPending: isPending || isLoading || isFetching,
     ...data,
