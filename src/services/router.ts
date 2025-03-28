@@ -34,6 +34,31 @@ const routes = {
     uri: "/api/v1/admin/seller/:sellerId",
     headers: ["Authorization"],
   },
+  listBrands: {
+    method: "GET",
+    uri: "/api/v1/admin/brand",
+    headers: ["Authorization"],
+  },
+  getBrandById: {
+    method: "GET",
+    uri: "/api/v1/admin/brand/:brandId",
+    headers: ["Authorization"],
+  },
+  createBrand: {
+    method: "POST",
+    uri: "/api/v1/admin/brand",
+    headers: ["Authorization"],
+  },
+  updateBrand: {
+    method: "PUT",
+    uri: "/api/v1/admin/brand/:brandId",
+    headers: ["Authorization"],
+  },
+  deleteBrand: {
+    method: "DELETE",
+    uri: "/api/v1/admin/brand/:brandId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };

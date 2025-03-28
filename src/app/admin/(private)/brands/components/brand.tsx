@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { twMerge } from "tailwind-merge";
@@ -52,7 +50,7 @@ const Brand = React.forwardRef<
                 className="w-16 h-16 rounded-md border border-border p-2"
               />
 
-              <div className="flex flex-col">
+              <div className="flex flex-col items-start">
                 <TextSubheading>{name}</TextSubheading>
                 <ActiveTag active={active} />
               </div>

@@ -16,7 +16,7 @@ export default async function BrandsPage({
 }) {
   const appliedFilters = await searchParams;
   return (
-    <PageLayout withBackButton>
+    <PageLayout>
       <PageHeader
         title="Marcas"
         description="Gerencie as marcas de veículos da sua loja."

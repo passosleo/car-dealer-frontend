@@ -1,28 +1,44 @@
+"use client";
+
 import { DefaultFilters } from "@/services/types";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { Brand } from "./brand";
+import { useListBrandsService } from "../services/use-list-brands-service";
+import { LoaderCustom } from "@/components/admin/loader/loader-custom";
+import Image from "next/image";
+import { TextNormal } from "@/components/admin/text/text-normal";
 
 export function BrandGrid({
   appliedFilters,
 }: {
   appliedFilters: Partial<DefaultFilters>;
 }) {
-  console.log(" Brands ~ appliedFilters", appliedFilters);
+  const { brands, totalPages, isPending, isEmpty } =
+    useListBrandsService(appliedFilters);
+
   return (
-    <PageContentGrid
-      items={[
-        {
-          brandId: "1",
-          name: "Audi",
-          imageUrl:
-            "https://png.pngtree.com/png-vector/20230218/ourmid/pngtree-vector-black-car-white-sport-logo-png-image_6606376.png",
-          active: true,
-          createdAt: "2022-01-01T12:00:00Z",
-          updatedAt: "2022-01-01T12:00:00Z",
-        },
-      ]}
-      renderItem={(brand) => <Brand {...brand} />}
-      totalPages={3}
-    />
+    <>
+      {isPending ? (
+        <div className="flex justify-center items-center h-full">
+          <LoaderCustom />
+        </div>
+      ) : isEmpty ? (
+        <div className="flex flex-col items-center justify-center my-auto">
+          <Image
+            src="/images/people-search.svg"
+            alt="Ilustração de página sem dados"
+            width={180}
+            height={180}
+          />
+          <TextNormal className="my-4">Nenhuma marca encontrada</TextNormal>
+        </div>
+      ) : (
+        <PageContentGrid
+          items={brands}
+          renderItem={(brand) => <Brand {...brand} />}
+          totalPages={totalPages}
+        />
+      )}
+    </>
   );
 }
