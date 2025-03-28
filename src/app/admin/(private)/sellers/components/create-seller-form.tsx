@@ -43,7 +43,7 @@ export function CreateSellerForm(
 
   return (
     <FormContext {...props} zodSchema={createSellerSchema} onSubmit={onSubmit}>
-      <SellerFormContent isPending={isPending} />
+      <SellerFormContent isLoading={isPending} />
     </FormContext>
   );
 }

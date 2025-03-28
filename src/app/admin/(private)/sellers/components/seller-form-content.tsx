@@ -8,12 +8,12 @@ import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
 
 type SellerFormContentProps = {
-  isPending: boolean;
+  isLoading: boolean;
   additionalButton?: React.ReactNode;
 };
 
 export function SellerFormContent({
-  isPending,
+  isLoading,
   additionalButton,
 }: SellerFormContentProps) {
   const router = useRouter();
@@ -23,28 +23,28 @@ export function SellerFormContent({
       <FormImagePicker
         label="Foto"
         name="image"
-        disabled={isPending}
-        isPending={isPending}
+        disabled={isLoading}
+        isLoading={isLoading}
       />
 
       <div className="flex flex-col gap-2 w-full flex-wrap">
         <div className="flex gap-4 w-full">
-          <FormInput label="Nome" name="firstName" disabled={isPending} />
-          <FormInput label="Sobrenome" name="lastName" disabled={isPending} />
+          <FormInput label="Nome" name="firstName" disabled={isLoading} />
+          <FormInput label="Sobrenome" name="lastName" disabled={isLoading} />
         </div>
 
         <div className="flex gap-4 w-full">
           <FormInput
             label="E-mail"
             name="email"
-            disabled={isPending}
+            disabled={isLoading}
             leftIcon={<MailIcon size={18} />}
           />
 
           <FormInput
             label="Telefone"
             name="phone"
-            disabled={isPending}
+            disabled={isLoading}
             leftIcon={<PhoneIcon size={18} />}
           />
         </div>
@@ -52,14 +52,14 @@ export function SellerFormContent({
         <FormTextArea
           label="Mensagem personalizada"
           name="customMessage"
-          disabled={isPending}
+          disabled={isLoading}
         />
 
         <FormSwitch
           label="Ativo"
           name="active"
           defaultChecked
-          disabled={isPending}
+          disabled={isLoading}
         />
 
         <div className="flex flex-row gap-4 w-full">
@@ -69,7 +69,7 @@ export function SellerFormContent({
             type="button"
             variant="outline"
             className="mt-auto w-full self-end"
-            disabled={isPending}
+            disabled={isLoading}
             onClick={() => router.back()}
           >
             <XIcon />
@@ -79,9 +79,9 @@ export function SellerFormContent({
           <Button
             type="submit"
             className="mt-auto w-full self-end"
-            disabled={isPending}
+            disabled={isLoading}
           >
-            {isPending ? <LoaderCircle color="secondary" /> : <SaveIcon />}
+            {isLoading ? <LoaderCircle color="secondary" /> : <SaveIcon />}
             Salvar
           </Button>
         </div>

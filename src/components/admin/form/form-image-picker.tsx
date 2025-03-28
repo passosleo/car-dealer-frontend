@@ -17,7 +17,7 @@ type FormImagePickerProps = Omit<React.ComponentProps<"input">, "onChange"> & {
   name: string;
   className?: string;
   onChange?: (imageBase64: string) => void;
-  isPending?: boolean;
+  isLoading?: boolean;
 };
 
 const FormImagePicker = React.forwardRef<
@@ -33,7 +33,7 @@ const FormImagePicker = React.forwardRef<
       accept = "image/png, image/jpeg",
       placeholder = "Upload",
       disabled,
-      isPending,
+      isLoading,
       ...props
     },
     ref
@@ -121,7 +121,7 @@ const FormImagePicker = React.forwardRef<
                           )}
                         >
                           <div className="flex flex-col items-center gap-2">
-                            {isPending ? (
+                            {isLoading ? (
                               <LoaderCircle
                                 size={48}
                                 color="custom"

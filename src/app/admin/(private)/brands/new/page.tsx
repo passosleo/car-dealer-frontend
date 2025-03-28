@@ -1,7 +1,7 @@
-import { BrandForm } from "../components/brand-form";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageContentCard } from "@/components/admin/page/page-content-card";
 import { PageHeader } from "@/components/admin/page/page-header";
+import { CreateBrandForm } from "../components/create-brand-form";
 
 export default async function NewBrandPage() {
   return (
@@ -11,7 +11,7 @@ export default async function NewBrandPage() {
         description="Crie uma nova marca para a sua loja."
       />
       <PageContentCard>
-        <BrandForm />
+        <CreateBrandForm />
       </PageContentCard>
     </PageLayout>
   );

@@ -1,7 +1,7 @@
 import { PageContentCard } from "@/components/admin/page/page-content-card";
-import { BrandForm } from "../components/brand-form";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageHeader } from "@/components/admin/page/page-header";
+import { UpdateBrandForm } from "../components/update-brand-form";
 
 export default async function EditBrandPage() {
   return (
@@ -11,7 +11,7 @@ export default async function EditBrandPage() {
         description="Altere as informações da marca."
       />
       <PageContentCard>
-        <BrandForm />
+        <UpdateBrandForm />
       </PageContentCard>
     </PageLayout>
   );

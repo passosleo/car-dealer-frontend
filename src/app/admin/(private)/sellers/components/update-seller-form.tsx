@@ -94,7 +94,7 @@ export function UpdateSellerForm(
       }}
     >
       <SellerFormContent
-        isPending={isPending}
+        isLoading={isPending}
         additionalButton={
           <AlertDialog
             title="Confirmar exclusão?"
