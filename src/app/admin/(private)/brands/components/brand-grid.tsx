@@ -2,7 +2,7 @@ import { DefaultFilters } from "@/services/types";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { Brand } from "./brand";
 
-export function BrandList({
+export function BrandGrid({
   appliedFilters,
 }: {
   appliedFilters: Partial<DefaultFilters>;

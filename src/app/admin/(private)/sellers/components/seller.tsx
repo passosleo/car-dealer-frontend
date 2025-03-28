@@ -2,13 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Seller as SellerType } from "../types/seller";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { Avatar } from "@/components/admin/avatar/avatar";
 import { ActiveTag } from "@/components/admin/tag/active-tag";
 import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { DeleteSellerButton } from "./delete-seller-button";
+import { formatDate } from "@/utils/date";
 
 const Seller = React.forwardRef<HTMLDivElement, SellerType>(
   (
@@ -27,10 +26,6 @@ const Seller = React.forwardRef<HTMLDivElement, SellerType>(
   ) => {
     const fullName = lastName ? `${firstName} ${lastName}` : firstName;
 
-    function formatDate(date: string) {
-      return format(new Date(date), "dd MMM 'de' yy", { locale: ptBR });
-    }
-
     return (
       <div className="relative">
         <Link href={`/admin/sellers/${sellerId}`}>
@@ -48,11 +43,11 @@ const Seller = React.forwardRef<HTMLDivElement, SellerType>(
               </div>
 
               <div className="flex flex-col justify-end items-end">
-                <div className="flex flex-col items-end ">
-                  <TextNormal className="text-xs gap-2">
+                <div className="flex flex-col items-end gap-0.5">
+                  <TextNormal className="text-xs">
                     Cadastrado em {formatDate(createdAt)}
                   </TextNormal>
-                  <TextNormal className="text-xs gap-2">
+                  <TextNormal className="text-xs">
                     Atualizado em {formatDate(updatedAt)}
                   </TextNormal>
                 </div>

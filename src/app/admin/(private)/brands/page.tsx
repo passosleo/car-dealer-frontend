@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import { BrandFilterBar } from "./components/brand-filter-bar";
 import { DefaultFilters } from "@/services/types";
-import { BrandList } from "./components/brand-list";
+import { BrandGrid } from "./components/brand-grid";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 
@@ -33,7 +33,7 @@ export default async function BrandsPage({
           <BrandFilterBar />
         </div>
       </PageHeader>
-      <BrandList appliedFilters={appliedFilters} />
+      <BrandGrid appliedFilters={appliedFilters} />
     </PageLayout>
   );
 }

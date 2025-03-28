@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
-import { Card, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { twMerge } from "tailwind-merge";
-import { Trash2Icon, UserPenIcon, UserPlusIcon } from "lucide-react";
-import { ptBR } from "date-fns/locale";
+import { ListPlusIcon, PencilLineIcon } from "lucide-react";
 import Link from "next/link";
 import { Brand as BrandType } from "../types/brand";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { formatDate } from "date-fns";
+import { formatDate } from "@/utils/date";
+import { ActiveTag } from "@/components/admin/tag/active-tag";
+import { TextSubheading } from "@/components/admin/text/text-subheading";
+import { TextNormal } from "@/components/admin/text/text-normal";
+import { DeleteBrandButton } from "./delete-brand-button";
 
 const Brand = React.forwardRef<
   HTMLDivElement,
@@ -29,17 +32,17 @@ const Brand = React.forwardRef<
     ref
   ) => {
     return (
-      <Link href={`/admin/brands/${brandId}`} passHref>
-        <Card
-          {...props}
-          ref={ref}
-          className={twMerge(
-            "flex flex-col p-2 hover:bg-primary-foreground cursor-pointer transition-all",
-            className
-          )}
-        >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-4">
+      <div className="relative">
+        <Link href={`/admin/brands/${brandId}`} passHref>
+          <Card
+            {...props}
+            ref={ref}
+            className={twMerge(
+              "flex flex-col gap-2 p-2 hover:bg-primary-foreground cursor-pointer transition-all",
+              className
+            )}
+          >
+            <div className="flex gap-4">
               <Image
                 src={imageUrl}
                 alt={name}
@@ -49,64 +52,28 @@ const Brand = React.forwardRef<
                 className="w-16 h-16 rounded-md border border-border p-2"
               />
 
-              <div className="flex flex-col gap-2">
-                <CardTitle>{name}</CardTitle>
-                <span
-                  className={twMerge(
-                    "px-1.5 rounded-md text-secondary text-xs font-medium w-fit",
-                    active ? "bg-green-500" : "bg-destructive"
-                  )}
-                >
-                  {active ? "Ativo" : "Inativo"}
-                </span>
+              <div className="flex flex-col">
+                <TextSubheading>{name}</TextSubheading>
+                <ActiveTag active={active} />
               </div>
             </div>
 
-            <button
-              className="p-1 h-8 w-8 z-10 flex items-center justify-center hover:text-destructive text-primary rounded-md transition-all"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                console.log("click");
-              }}
-            >
-              <Trash2Icon size={18} />
-            </button>
-          </div>
+            <Separator />
 
-          <Separator className="my-2" />
-
-          <div className="flex flex-col gap-1 text-xs text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <UserPlusIcon size={14} />
-              <span>
-                Criado em{" "}
-                {formatDate(
-                  new Date(createdAt),
-                  "d 'de' MMM 'de' yyyy 'às' HH:mm",
-                  {
-                    locale: ptBR,
-                  }
-                )}
-              </span>
+            <div className="flex flex-col gap-0.5">
+              <TextNormal className="text-xs">
+                <ListPlusIcon size={14} />
+                Cadastrado em {formatDate(createdAt)}
+              </TextNormal>
+              <TextNormal className="text-xs">
+                <PencilLineIcon size={14} />
+                Atualizado em {formatDate(updatedAt)}
+              </TextNormal>
             </div>
-
-            <div className="flex items-center gap-2">
-              <UserPenIcon size={14} />
-              <span>
-                Editado em{" "}
-                {formatDate(
-                  new Date(updatedAt),
-                  "d 'de' MMM 'de' yyyy 'às' HH:mm",
-                  {
-                    locale: ptBR,
-                  }
-                )}
-              </span>
-            </div>
-          </div>
-        </Card>
-      </Link>
+          </Card>
+        </Link>
+        <DeleteBrandButton brandId={brandId} />
+      </div>
     );
   }
 );
