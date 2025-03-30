@@ -10,6 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import {
   CarFront,
+  ChartNoAxesGanttIcon,
   Image,
   Layout,
   LayoutDashboard,
@@ -30,6 +31,7 @@ const menuIconMap = {
   Users,
   Settings,
   LogOut,
+  ChartNoAxesGanttIcon,
 };
 
 type MenuIconMap = keyof typeof menuIconMap;

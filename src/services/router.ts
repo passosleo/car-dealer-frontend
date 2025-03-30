@@ -59,6 +59,31 @@ const routes = {
     uri: "/api/v1/admin/brand/:brandId",
     headers: ["Authorization"],
   },
+  listProfiles: {
+    method: "GET",
+    uri: "/api/v1/admin/profile",
+    headers: ["Authorization"],
+  },
+  getProfileById: {
+    method: "GET",
+    uri: "/api/v1/admin/profile/:profileId",
+    headers: ["Authorization"],
+  },
+  createProfile: {
+    method: "POST",
+    uri: "/api/v1/admin/profile",
+    headers: ["Authorization"],
+  },
+  updateProfile: {
+    method: "PUT",
+    uri: "/api/v1/admin/profile/:profileId",
+    headers: ["Authorization"],
+  },
+  deleteProfile: {
+    method: "DELETE",
+    uri: "/api/v1/admin/profile/:profileId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
