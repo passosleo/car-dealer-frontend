@@ -8,6 +8,10 @@ import { BrandFormContent } from "./brand-form-content";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import { useGetBrandByIdService } from "../services/use-get-brand-by-id-service";
+import { useUpdateBrandService } from "../services/use-update-brand-service";
+import { useDeleteBrandService } from "../services/use-delete-brand-service";
 
 const messages = config.messages.validation;
 
@@ -29,26 +33,60 @@ export function UpdateBrandForm(
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
+  const { brandId } = useParams<{ brandId: string }>();
+
+  const { brand, isPending: isGetBrandByIdPending } =
+    useGetBrandByIdService(brandId);
+
+  const { updateBrand, isPending: isUpdateBrandPending } =
+    useUpdateBrandService();
+
+  const { deleteBrand, isPending: isDeleteBrandPending } =
+    useDeleteBrandService();
+
+  const isPending =
+    isGetBrandByIdPending || isUpdateBrandPending || isDeleteBrandPending;
+
   function onSubmit(data: UpdateBrandSchema) {
-    console.log("d", data);
+    updateBrand({
+      params: { brandId },
+      payload: data,
+    });
+  }
+
+  function onDelete() {
+    deleteBrand({
+      params: { brandId },
+    });
   }
 
   return (
-    <FormContext {...props} zodSchema={updateBrandSchema} onSubmit={onSubmit}>
+    <FormContext
+      {...props}
+      zodSchema={updateBrandSchema}
+      onSubmit={onSubmit}
+      useFormProps={{
+        values: {
+          name: brand?.name || "",
+          image: brand?.imageUrl || "",
+          active: brand?.active,
+        },
+      }}
+    >
       <BrandFormContent
-        isLoading={false}
+        isLoading={isPending}
         additionalButton={
           <AlertDialog
             title="Confirmar exclusão?"
             description="Essa ação não pode ser desfeita."
             confirmText="Confirmar"
-            // onConfirm={onDelete}
+            onConfirm={onDelete}
           >
             <Button
               type="button"
               variant="outline"
               className="mt-auto w-full self-end"
-              // disabled={isPending}
+              disabled={isPending}
             >
               <Trash2Icon />
               Excluir

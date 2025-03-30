@@ -20,7 +20,12 @@ export function BrandFormContent({
 
   return (
     <div className="flex flex-row gap-8 w-full">
-      <FormImagePicker label="Logotipo" name="image" accept="image/svg+xml" />
+      <FormImagePicker
+        label="Logotipo"
+        name="image"
+        accept="image/svg+xml"
+        isLoading={isLoading}
+      />
 
       <div className="flex flex-col gap-2 w-full flex-wrap">
         <FormInput

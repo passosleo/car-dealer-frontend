@@ -5,6 +5,7 @@ import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { BrandFormContent } from "./brand-form-content";
+import { useCreateBrandService } from "../services/use-create-brand-service";
 
 const messages = config.messages.validation;
 
@@ -26,13 +27,17 @@ export function CreateBrandForm(
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
+  const { createBrand, isPending } = useCreateBrandService();
+
   function onSubmit(data: CreateBrandSchema) {
-    console.log("d", data);
+    createBrand({
+      payload: data,
+    });
   }
 
   return (
     <FormContext {...props} zodSchema={createBrandSchema} onSubmit={onSubmit}>
-      <BrandFormContent isLoading={false} />
+      <BrandFormContent isLoading={isPending} />
     </FormContext>
   );
 }

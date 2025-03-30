@@ -16,7 +16,7 @@ export function useUpdateSellerService() {
     setQueryKeys: ["updateSeller"],
     invalidateQueryKeys: ["listSellers", "getSellerById"],
     onSuccess: () => {
-      router.back();
+      router.replace("/admin/sellers");
       toast.success("Vendedor atualizado com sucesso");
     },
   });

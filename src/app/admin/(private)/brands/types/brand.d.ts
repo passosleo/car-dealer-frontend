@@ -6,3 +6,15 @@ export type Brand = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type CreateBrandRequest = {
+  name: string;
+  image: string;
+  active: boolean;
+};
+
+export type UpdateBrandRequest = {
+  name: string;
+  image: string;
+  active: boolean;
+};

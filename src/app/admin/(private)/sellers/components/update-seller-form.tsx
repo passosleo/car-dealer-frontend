@@ -5,7 +5,7 @@ import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { SellerFormContent } from "./seller-form-content";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useGetSellerByIdService } from "../services/use-get-seller-by-id-service";
 import { useUpdateSellerService } from "../services/use-update-seller-service";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,6 @@ export function UpdateSellerForm(
   >
 ) {
   const { sellerId } = useParams<{ sellerId: string }>();
-  const router = useRouter();
 
   const { seller, isPending: isGetSellerByIdPending } =
     useGetSellerByIdService(sellerId);
@@ -64,16 +63,9 @@ export function UpdateSellerForm(
   }
 
   function onDelete() {
-    deleteSeller(
-      {
-        params: { sellerId },
-      },
-      {
-        onSuccess: () => {
-          router.replace("/admin/sellers");
-        },
-      }
-    );
+    deleteSeller({
+      params: { sellerId },
+    });
   }
 
   return (

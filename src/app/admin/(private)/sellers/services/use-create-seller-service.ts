@@ -1,11 +1,17 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { CreateSellerRequest, Seller } from "../types/seller";
 
 export function useCreateSellerService() {
   const router = useRouter();
 
-  const { mutate: createSeller, ...data } = useCustomMutate({
+  const { mutate: createSeller, ...data } = useCustomMutate<
+    void,
+    void,
+    CreateSellerRequest,
+    Seller
+  >({
     routeName: "createSeller",
     setQueryKeys: ["createSeller"],
     invalidateQueryKeys: ["listSellers"],

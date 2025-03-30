@@ -19,11 +19,11 @@ const createSellerSchema = z.object({
   email: z
     .string()
     .email({ message: messages.email_error })
-    .optional()
-    .or(z.literal("")),
-  phone: z.string({ required_error: messages.required_error }).optional(),
-  image: z.string({ required_error: messages.required_error }).optional(),
-  customMessage: z.string().optional(),
+    .or(z.literal(""))
+    .nullable(),
+  phone: z.string({ required_error: messages.required_error }).nullable(),
+  image: z.string({ required_error: messages.required_error }).nullable(),
+  customMessage: z.string().nullable(),
   active: z.boolean().default(true),
 });
 
