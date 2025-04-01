@@ -8,6 +8,7 @@ export function BackButton() {
   const router = useRouter();
   return (
     <Button
+      type="button"
       className="text-sm mb-4 h-8 p-1 font-normal select-none"
       variant="ghost"
       onClick={() => router.back()}

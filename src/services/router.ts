@@ -84,6 +84,11 @@ const routes = {
     uri: "/api/v1/admin/profile/:profileId",
     headers: ["Authorization"],
   },
+  listRoles: {
+    method: "GET",
+    uri: "/api/v1/admin/role",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };

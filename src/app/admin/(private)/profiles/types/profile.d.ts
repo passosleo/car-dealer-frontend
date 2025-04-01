@@ -1,11 +1,4 @@
-export type Role = {
-  roleId: string;
-  name: string;
-  label: string;
-  description: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
+import { Role } from "../../roles/types/roles";
 
 export type Profile = {
   profileId: string;

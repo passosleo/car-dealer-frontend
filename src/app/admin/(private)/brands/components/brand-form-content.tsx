@@ -46,6 +46,7 @@ export function BrandFormContent({
           {additionalButton ? additionalButton : <></>}
 
           <Button
+            type="button"
             variant="outline"
             className="w-full"
             disabled={isLoading}
