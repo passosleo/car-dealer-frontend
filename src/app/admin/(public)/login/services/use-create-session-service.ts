@@ -7,7 +7,7 @@ export function useCreateSessionService() {
   const session = useSession();
   const router = useRouter();
 
-  const { mutate, ...data } = useCustomMutate<
+  const { mutate: createSession, ...data } = useCustomMutate<
     void,
     void,
     CreateSessionRequest,
@@ -21,7 +21,7 @@ export function useCreateSessionService() {
     },
   });
   return {
-    createSession: mutate,
+    createSession,
     ...data,
   };
 }

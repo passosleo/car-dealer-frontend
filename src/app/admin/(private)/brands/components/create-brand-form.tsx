@@ -30,9 +30,7 @@ export function CreateBrandForm(
   const { createBrand, isPending } = useCreateBrandService();
 
   function onSubmit(data: CreateBrandSchema) {
-    createBrand({
-      payload: data,
-    });
+    createBrand({ payload: data });
   }
 
   return (

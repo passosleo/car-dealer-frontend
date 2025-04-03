@@ -18,7 +18,7 @@ export function useGetProfileByIdService(profileId: string) {
     params: { profileId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar perfil");
+      toast.error("Erro ao buscar perfil de acesso");
       router.replace("/admin/profiles");
     },
   });

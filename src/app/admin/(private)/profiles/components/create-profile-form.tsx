@@ -1,10 +1,11 @@
 "use client";
+
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { ProfileFormContent } from "./profile-form-content";
-import { useListRolesService } from "../../roles/services/use-list-roles-service";
+import { useCreateProfileService } from "../services/use-create-profile-service";
 
 const messages = config.messages.validation;
 
@@ -31,17 +32,15 @@ export function CreateProfileForm(
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
-  const { roles } = useListRolesService();
+  const { createProfile, isPending } = useCreateProfileService();
 
   function onSubmit(data: CreateProfileSchema) {
-    console.log(" onSubmit ~ data", data);
+    createProfile({ payload: data });
   }
 
   return (
     <FormContext {...props} zodSchema={createProfileSchema} onSubmit={onSubmit}>
-      {(form) => (
-        <ProfileFormContent form={form} roles={roles} isLoading={false} />
-      )}
+      {(form) => <ProfileFormContent form={form} isLoading={isPending} />}
     </FormContext>
   );
 }

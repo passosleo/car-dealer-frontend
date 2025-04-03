@@ -80,9 +80,6 @@ export function LoginForm(
             });
           }
         },
-        onError: (error) => {
-          console.log(error);
-        },
       }
     );
   }

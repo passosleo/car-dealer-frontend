@@ -1,7 +1,7 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 
 export function useSendRecoverPasswordEmailService() {
-  const { mutate, ...data } = useCustomMutate<
+  const { mutate: sendRecoverPasswordEmail, ...data } = useCustomMutate<
     void,
     void,
     { email: string },
@@ -12,7 +12,7 @@ export function useSendRecoverPasswordEmailService() {
     notHandleError: true,
   });
   return {
-    sendRecoverPasswordEmail: mutate,
+    sendRecoverPasswordEmail,
     ...data,
   };
 }

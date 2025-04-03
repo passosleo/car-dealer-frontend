@@ -9,11 +9,12 @@ import { Switch } from "@/components/ui/switch";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { UseFormReturn } from "react-hook-form";
+import { LoaderCustom } from "@/components/admin/loader/loader-custom";
+import { useListRolesService } from "../../roles/services/use-list-roles-service";
 
 type ProfileFormContentProps = {
   isLoading: boolean;
   additionalButton?: React.ReactNode;
-  roles: Role[];
   form: UseFormReturn<{
     name: string;
     roles: Pick<Role, "roleId">[];
@@ -22,13 +23,12 @@ type ProfileFormContentProps = {
 
 export function ProfileFormContent({
   form,
-  roles,
   isLoading,
   additionalButton,
 }: ProfileFormContentProps) {
+  const { roles, isPending: isRolesLoading } = useListRolesService();
+  const selectedRoles = form.watch("roles") || [];
   const router = useRouter();
-
-  const selectedRoles = form.watch("roles");
 
   if (!selectedRoles) {
     form.setValue("roles", []);
@@ -55,36 +55,45 @@ export function ProfileFormContent({
           leftIcon={<TypeIcon size={18} />}
         />
 
-        <div className="flex flex-col gap-1">
-          {roles.map((role) => (
-            <label
-              key={role.roleId}
-              htmlFor={role.roleId}
-              className="flex flex-row justify-between items-center gap-2 hover:bg-primary-foreground cursor-pointer transition-all p-2 rounded-md select-none"
-            >
-              <div>
-                <TextSubheading className="text-sm">
-                  {role.label}
-                </TextSubheading>
-                <TextNormal className="text-sm">{role.description}</TextNormal>
-              </div>
-              <Switch
-                id={role.roleId}
-                disabled={isLoading}
-                defaultChecked={selectedRoles.some(
-                  (selectedRole) => selectedRole.roleId === role.roleId
-                )}
-                onClick={() => onRoleChange(role.roleId)}
-              />
-            </label>
-          ))}
-        </div>
-
-        <div className="text-destructive min-h-5 text-xs">
-          {form.formState.errors.roles && (
-            <span>{form.formState.errors.roles.message}</span>
-          )}
-        </div>
+        {!isRolesLoading ? (
+          <>
+            <div className="flex flex-col gap-1">
+              {roles.map((role) => (
+                <label
+                  key={role.roleId}
+                  htmlFor={role.roleId}
+                  className="flex flex-row justify-between items-center gap-2 hover:bg-primary-foreground cursor-pointer transition-all p-2 rounded-md select-none"
+                >
+                  <div>
+                    <TextSubheading className="text-sm">
+                      {role.label}
+                    </TextSubheading>
+                    <TextNormal className="text-sm">
+                      {role.description}
+                    </TextNormal>
+                  </div>
+                  <Switch
+                    id={role.roleId}
+                    disabled={isLoading}
+                    checked={selectedRoles.some(
+                      (selectedRole) => selectedRole.roleId === role.roleId
+                    )}
+                    onClick={() => onRoleChange(role.roleId)}
+                  />
+                </label>
+              ))}
+            </div>
+            <div className="text-destructive min-h-5 text-xs">
+              {form.formState.errors.roles && (
+                <span>{form.formState.errors.roles.message}</span>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="flex justify-center py-8">
+            <LoaderCustom />
+          </div>
+        )}
 
         <div className="flex flex-row gap-4 w-full mt-auto">
           {additionalButton ? additionalButton : <></>}
@@ -100,7 +109,11 @@ export function ProfileFormContent({
             Cancelar
           </Button>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isLoading || isRolesLoading}
+          >
             {isLoading ? <LoaderCircle color="secondary" /> : <SaveIcon />}
             Salvar
           </Button>

@@ -7,3 +7,13 @@ export type Profile = {
   updatedAt: string;
   roles: Role[];
 };
+
+export type CreateProfileRequest = {
+  name: string;
+  roles: Pick<Role, "roleId">[];
+};
+
+export type UpdateProfileRequest = {
+  name: string;
+  roles: Pick<Role, "roleId">[];
+};
