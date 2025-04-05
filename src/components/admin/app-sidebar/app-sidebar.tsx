@@ -50,6 +50,11 @@ const items: SidebarMenuOption[] = [
     icon: "ChartNoAxesGanttIcon",
   },
   {
+    title: "Usuários",
+    url: "/admin/users",
+    icon: "UserCogIcon",
+  },
+  {
     title: "Configurações",
     url: "/admin/settings",
     icon: "Settings",

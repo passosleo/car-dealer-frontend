@@ -26,14 +26,19 @@ const Avatar = React.forwardRef<
       .split(" ")
       .slice(0, 2)
       .map((n) => n[0])
-      .join("");
+      .join("")
+      .toUpperCase();
   }
 
   return (
     <ShadcnAvatar
       {...props}
       ref={ref}
-      className={twMerge(sizes[size], className)}
+      className={twMerge(
+        "font-normal text-lg select-none tracking-wider",
+        sizes[size],
+        className
+      )}
     >
       <AvatarImage src={src ? src : undefined} alt={alt || name} />
       <AvatarFallback>{getFallbackName()}</AvatarFallback>

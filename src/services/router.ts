@@ -89,6 +89,31 @@ const routes = {
     uri: "/api/v1/admin/role",
     headers: ["Authorization"],
   },
+  listUsers: {
+    method: "GET",
+    uri: "/api/v1/admin/user",
+    headers: ["Authorization"],
+  },
+  getUserById: {
+    method: "GET",
+    uri: "/api/v1/admin/user/:userId",
+    headers: ["Authorization"],
+  },
+  createUser: {
+    method: "POST",
+    uri: "/api/v1/admin/user",
+    headers: ["Authorization"],
+  },
+  updateUser: {
+    method: "PUT",
+    uri: "/api/v1/admin/user/:userId",
+    headers: ["Authorization"],
+  },
+  deleteUser: {
+    method: "DELETE",
+    uri: "/api/v1/admin/user/:userId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };

@@ -18,6 +18,7 @@ import {
   Settings,
   ShieldEllipsis,
   Tags,
+  UserCogIcon,
   Users,
 } from "lucide-react";
 
@@ -32,6 +33,7 @@ const menuIconMap = {
   Settings,
   LogOut,
   ChartNoAxesGanttIcon,
+  UserCogIcon,
 };
 
 type MenuIconMap = keyof typeof menuIconMap;
