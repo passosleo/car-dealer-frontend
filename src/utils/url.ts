@@ -16,8 +16,15 @@ export function mountUrl<ParamsType = Params, QueryType = Params>(
 ) {
   const urlApi = baseUrl;
   const urlWithParams = params ? replaceParams(url, params) : url;
+
+  const filteredQuery = query
+    ? Object.fromEntries(
+        Object.entries(query).filter(([, value]) => value !== "")
+      )
+    : {};
+
   const queryString =
-    query && Object.keys(query).length > 0 ? "?" + stringify(query) : "";
+    Object.keys(filteredQuery).length > 0 ? "?" + stringify(filteredQuery) : "";
 
   const completedUrl = urlApi + urlWithParams + queryString;
 

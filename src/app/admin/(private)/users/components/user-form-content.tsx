@@ -6,6 +6,10 @@ import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/admin/avatar/avatar";
 import { UseFormReturn } from "react-hook-form";
+import { useListProfilesService } from "../../profiles/services/use-list-profiles-service";
+import { useState } from "react";
+import { Profile } from "../../profiles/types/profile";
+import { FormSelectPaginatedSearch } from "@/components/admin/form/form-select-paginated-search";
 
 type UserFormContentProps = {
   isLoading: boolean;
@@ -25,6 +29,33 @@ export function UserFormContent({
   additionalButton,
 }: UserFormContentProps) {
   const router = useRouter();
+
+  const [currentProfilePage, setCurrentProfilePage] = useState(1);
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+
+  const { totalPages, isPending: isProfilesLoading } = useListProfilesService(
+    {
+      limit: 100,
+      page: currentProfilePage,
+    },
+    {
+      onSuccess: (res) => {
+        setProfiles((prev) => {
+          const existingIds = new Set(prev.map((p) => p.profileId));
+          const newItems = res.data.items.filter(
+            (item) => !existingIds.has(item.profileId)
+          );
+          return [...prev, ...newItems];
+        });
+      },
+    }
+  );
+
+  function onLoadMore() {
+    if (currentProfilePage < totalPages) {
+      setCurrentProfilePage((prev) => prev + 1);
+    }
+  }
 
   function getNameBeingTyped() {
     const firstName = form.watch("firstName") || "";
@@ -58,6 +89,20 @@ export function UserFormContent({
           label="Ativo"
           name="active"
           defaultChecked
+          disabled={isLoading}
+        />
+
+        <FormSelectPaginatedSearch
+          label="Perfil de acesso"
+          name="profileId"
+          data={profiles.map((profile) => ({
+            label: profile.name,
+            value: profile.profileId,
+          }))}
+          onLoadMore={onLoadMore}
+          isLoading={isProfilesLoading}
+          currentPage={currentProfilePage}
+          totalPages={totalPages}
           disabled={isLoading}
         />
 
