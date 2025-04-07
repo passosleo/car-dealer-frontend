@@ -95,7 +95,8 @@ const SelectPaginatedSearch = forwardRef(
 
     return (
       <div
-        className={twMerge(`w-[${width}px]`, disabled && "cursor-not-allowed")}
+        className={twMerge(disabled && "cursor-not-allowed")}
+        style={{ width }}
       >
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild disabled={disabled}>
@@ -105,6 +106,7 @@ const SelectPaginatedSearch = forwardRef(
               role="combobox"
               aria-expanded={open}
               disabled={disabled}
+              style={{ width }}
               className={twMerge(
                 `w-[${width}px] text-muted-foreground hover:bg-transparent hover:text-muted-foreground justify-between border-input font-normal text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground select-none`,
                 selectedItem && "text-primary hover:text-primary",
@@ -115,7 +117,7 @@ const SelectPaginatedSearch = forwardRef(
               <ChevronDownIcon className="text-muted-foreground" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className={`w-[${width}px] p-0`}>
+          <PopoverContent className="p-0" style={{ width }}>
             <Command>
               <CommandInput
                 ref={ref}

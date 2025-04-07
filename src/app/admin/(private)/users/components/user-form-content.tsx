@@ -76,35 +76,35 @@ export function UserFormContent({
           <FormInput label="Sobrenome" name="lastName" disabled={isLoading} />
         </div>
 
+        <FormInput
+          label="E-mail"
+          name="email"
+          disabled={isLoading}
+          leftIcon={<MailIcon size={18} />}
+        />
+
         <div className="flex gap-4 w-full">
-          <FormInput
-            label="E-mail"
-            name="email"
+          <FormSelectPaginatedSearch
+            label="Perfil de acesso"
+            name="profileId"
+            data={profiles.map((profile) => ({
+              label: profile.name,
+              value: profile.profileId,
+            }))}
+            onLoadMore={onLoadMore}
+            isLoading={isProfilesLoading}
+            currentPage={currentProfilePage}
+            totalPages={totalPages}
             disabled={isLoading}
-            leftIcon={<MailIcon size={18} />}
+          />
+
+          <FormSwitch
+            label="Ativo"
+            name="active"
+            defaultChecked
+            disabled={isLoading}
           />
         </div>
-
-        <FormSwitch
-          label="Ativo"
-          name="active"
-          defaultChecked
-          disabled={isLoading}
-        />
-
-        <FormSelectPaginatedSearch
-          label="Perfil de acesso"
-          name="profileId"
-          data={profiles.map((profile) => ({
-            label: profile.name,
-            value: profile.profileId,
-          }))}
-          onLoadMore={onLoadMore}
-          isLoading={isProfilesLoading}
-          currentPage={currentProfilePage}
-          totalPages={totalPages}
-          disabled={isLoading}
-        />
 
         <div className="flex flex-row gap-4 w-full">
           {additionalButton ? additionalButton : <></>}
