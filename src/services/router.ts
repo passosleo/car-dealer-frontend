@@ -114,6 +114,31 @@ const routes = {
     uri: "/api/v1/admin/user/:userId",
     headers: ["Authorization"],
   },
+  listCategories: {
+    method: "GET",
+    uri: "/api/v1/admin/category",
+    headers: ["Authorization"],
+  },
+  getCategoryById: {
+    method: "GET",
+    uri: "/api/v1/admin/category/:categoryId",
+    headers: ["Authorization"],
+  },
+  createCategory: {
+    method: "POST",
+    uri: "/api/v1/admin/category",
+    headers: ["Authorization"],
+  },
+  updateCategory: {
+    method: "PUT",
+    uri: "/api/v1/admin/category/:categoryId",
+    headers: ["Authorization"],
+  },
+  deleteCategory: {
+    method: "DELETE",
+    uri: "/api/v1/admin/category/:categoryId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
