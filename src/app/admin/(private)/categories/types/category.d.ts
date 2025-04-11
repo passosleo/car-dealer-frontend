@@ -9,12 +9,12 @@ export type Category = {
 
 export type CreateCategoryRequest = {
   name: string;
-  imageUrl: string;
+  image: string;
   active: boolean;
 };
 
 export type UpdateCategoryRequest = {
   name: string;
-  imageUrl: string;
+  image: string;
   active: boolean;
 };
