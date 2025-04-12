@@ -25,6 +25,7 @@ export function CategoryFormContent({
         name="image"
         accept="image/svg+xml"
         isLoading={isLoading}
+        disabled={isLoading}
       />
 
       <div className="flex flex-col gap-2 w-full flex-wrap">
