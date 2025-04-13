@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
 import { config } from "@/config";
@@ -50,8 +49,16 @@ export function BannerForm(
           />
 
           <div className="flex gap-4 w-full">
-            <FormDatePicker label="Data de início" name="startAt" />
-            <FormDatePicker label="Data de término" name="endAt" />
+            <FormDatePicker
+              label="Data de início"
+              name="startAt"
+              showTimePicker
+            />
+            <FormDatePicker
+              label="Data de término"
+              name="endAt"
+              showTimePicker
+            />
           </div>
 
           <FormSwitch label="Ativo" name="active" defaultChecked />
