@@ -1,5 +1,4 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Category, CreateCategoryRequest } from "../types/category";
@@ -22,7 +21,7 @@ export function useCreateCategoryService() {
       router.replace("/admin/categories");
       toast.success("Categoria criada com sucesso");
     },
-    onError: (error: AxiosError) => {
+    onError: (error) => {
       if (error.status === 409) {
         toast.error("Já existe uma categoria com esse nome");
       } else {

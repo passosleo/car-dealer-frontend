@@ -8,7 +8,7 @@ export type CustomQueryProps<
   QueryType = Params,
   ResponseType = unknown
 > = {
-  onError?: (error: any, res?: DefaultResponse<ResponseType>) => void;
+  onError?: (error: AxiosError, res?: DefaultResponse<ResponseType>) => void;
   onSuccess?: (data: DefaultResponse<ResponseType>) => void;
   queryOptions?: UseQueryOptions<DefaultResponse<ResponseType>>;
   notHandleError?: boolean;

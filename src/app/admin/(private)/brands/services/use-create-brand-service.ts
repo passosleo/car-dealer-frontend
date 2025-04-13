@@ -1,5 +1,4 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Brand, CreateBrandRequest } from "../types/brand";
@@ -22,7 +21,7 @@ export function useCreateBrandService() {
       router.replace("/admin/brands");
       toast.success("Marca criada com sucesso");
     },
-    onError: (error: AxiosError) => {
+    onError: (error) => {
       if (error.status === 409) {
         toast.error("Já existe uma marca com esse nome");
       } else {

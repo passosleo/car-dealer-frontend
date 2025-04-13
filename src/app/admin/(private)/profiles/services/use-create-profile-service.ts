@@ -1,5 +1,4 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { CreateProfileRequest, Profile } from "../types/profile";
@@ -22,7 +21,7 @@ export function useCreateProfileService() {
       router.replace("/admin/profiles");
       toast.success("Perfil de acesso criado com sucesso");
     },
-    onError: (error: AxiosError) => {
+    onError: (error) => {
       if (error.status === 409) {
         toast.error("Já existe um perfil de acesso com esse nome");
       } else {

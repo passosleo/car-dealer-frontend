@@ -2,7 +2,6 @@ import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { UpdateUserRequest, User } from "../types/user";
-import { AxiosError } from "axios";
 
 export function useUpdateUserService() {
   const router = useRouter();
@@ -22,7 +21,7 @@ export function useUpdateUserService() {
       router.replace("/admin/users");
       toast.success("Usuário atualizado com sucesso");
     },
-    onError: (error: AxiosError) => {
+    onError: (error) => {
       if (error.status === 409) {
         toast.error("Já existe um usuário com esse e-mail");
       } else {

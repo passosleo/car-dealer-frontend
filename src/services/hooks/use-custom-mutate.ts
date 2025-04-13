@@ -16,7 +16,7 @@ export type CustomMutationProps<
   axiosConfig?: AxiosRequestConfig<any>;
   retry?: number | false;
   retryDelay?: number;
-  onError?: (error: any, res?: DefaultResponse<ReturnData>) => void;
+  onError?: (error: AxiosError, res?: DefaultResponse<ReturnData>) => void;
   onSuccess?: (data: DefaultResponse<ReturnData>) => void;
   onMutate?: (variables: {
     payload?: PayloadType;
