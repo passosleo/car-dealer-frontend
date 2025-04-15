@@ -1,3 +1,5 @@
+"use client";
+
 import { DefaultFilters } from "@/services/types";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { Banner } from "./banner";

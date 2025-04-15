@@ -139,6 +139,31 @@ const routes = {
     uri: "/api/v1/admin/category/:categoryId",
     headers: ["Authorization"],
   },
+  listBanners: {
+    method: "GET",
+    uri: "/api/v1/admin/banner",
+    headers: ["Authorization"],
+  },
+  getBannerById: {
+    method: "GET",
+    uri: "/api/v1/admin/banner/:bannerId",
+    headers: ["Authorization"],
+  },
+  createBanner: {
+    method: "POST",
+    uri: "/api/v1/admin/banner",
+    headers: ["Authorization"],
+  },
+  updateBanner: {
+    method: "PUT",
+    uri: "/api/v1/admin/banner/:bannerId",
+    headers: ["Authorization"],
+  },
+  deleteBanner: {
+    method: "DELETE",
+    uri: "/api/v1/admin/banner/:bannerId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
