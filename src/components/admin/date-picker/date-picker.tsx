@@ -27,9 +27,11 @@ export type DatePickerProps = CalendarProps & {
   onChange?: (date: Date | undefined) => void;
   placeholder?: string;
   showTimePicker?: boolean;
+  disabled?: boolean;
 };
 
 export function DatePicker({
+  disabled,
   value,
   onChange,
   locale = ptBR,
@@ -52,7 +54,7 @@ export function DatePicker({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={disabled}>
         <Button
           variant={"outline"}
           className={cn(

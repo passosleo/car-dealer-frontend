@@ -1,6 +1,5 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { twMerge } from "tailwind-merge";
 import { ListPlusIcon, PencilLineIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,38 +11,19 @@ import { TextNormal } from "@/components/admin/text/text-normal";
 import { Category as CategoryType } from "../types/category";
 import { DeleteCategoryButton } from "./delete-category-button";
 
-const Category = React.forwardRef<
-  HTMLDivElement,
-  Omit<React.ComponentProps<typeof Card>, "children"> & CategoryType
->(
-  (
-    {
-      className,
-      categoryId,
-      name,
-      imageUrl,
-      active,
-      createdAt,
-      updatedAt,
-      ...props
-    },
-    ref
-  ) => {
+const Category = React.forwardRef<HTMLDivElement, CategoryType>(
+  (category, ref) => {
     return (
       <div className="relative">
-        <Link href={`/admin/categories/${categoryId}`} passHref>
+        <Link href={`/admin/categories/${category.categoryId}`} passHref>
           <Card
-            {...props}
             ref={ref}
-            className={twMerge(
-              "flex flex-col gap-2 p-2 hover:bg-primary-foreground cursor-pointer transition-all",
-              className
-            )}
+            className="flex flex-col gap-2 p-2 hover:bg-primary-foreground cursor-pointer transition-all"
           >
             <div className="flex gap-4">
               <Image
-                src={imageUrl}
-                alt={name}
+                src={category.imageUrl}
+                alt={category.name}
                 width={1920}
                 height={1080}
                 objectFit="cover"
@@ -51,8 +31,8 @@ const Category = React.forwardRef<
               />
 
               <div className="flex flex-col items-start">
-                <TextSubheading>{name}</TextSubheading>
-                <ActiveTag active={active} />
+                <TextSubheading>{category.name}</TextSubheading>
+                <ActiveTag active={category.active} />
               </div>
             </div>
 
@@ -61,16 +41,16 @@ const Category = React.forwardRef<
             <div className="flex flex-col gap-0.5">
               <TextNormal className="text-xs">
                 <ListPlusIcon size={14} />
-                Cadastrado em {formatDate(createdAt)}
+                Cadastrado em {formatDate(category.createdAt)}
               </TextNormal>
               <TextNormal className="text-xs">
                 <PencilLineIcon size={14} />
-                Atualizado em {formatDate(updatedAt)}
+                Atualizado em {formatDate(category.updatedAt)}
               </TextNormal>
             </div>
           </Card>
         </Link>
-        <DeleteCategoryButton categoryId={categoryId} />
+        <DeleteCategoryButton categoryId={category.categoryId} />
       </div>
     );
   }

@@ -59,7 +59,12 @@ export function BannerFormContent({
           />
         </div>
 
-        <FormSwitch label="Ativo" name="active" defaultChecked />
+        <FormSwitch
+          label="Ativo"
+          name="active"
+          defaultChecked
+          disabled={isLoading}
+        />
 
         <div className="flex flex-row gap-4 w-full mt-auto">
           {additionalButton ? additionalButton : <></>}

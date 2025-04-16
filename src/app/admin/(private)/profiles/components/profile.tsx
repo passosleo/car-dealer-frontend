@@ -9,33 +9,33 @@ import { formatDate } from "@/utils/date";
 import { DeleteProfileButton } from "./delete-profile-button";
 
 const Profile = React.forwardRef<HTMLDivElement, ProfileType>(
-  ({ profileId, name, roles, createdAt, updatedAt }, ref) => {
+  (profile, ref) => {
     return (
       <div className="relative">
-        <Link href={`/admin/profiles/${profileId}`}>
+        <Link href={`/admin/profiles/${profile.profileId}`}>
           <Card
             ref={ref}
             className="flex flex-col items-start p-4 gap-2 hover:bg-primary-foreground cursor-pointer transition-all"
           >
             <div>
-              <TextSubheading>{name}</TextSubheading>
+              <TextSubheading>{profile.name}</TextSubheading>
               <TextNormal className="text-xs">
-                Total de permissões: {roles.length}
+                Total de permissões: {profile.roles.length}
               </TextNormal>
             </div>
             <div className="flex flex-col gap-0.5">
               <TextNormal className="text-xs">
                 <ListPlusIcon size={14} />
-                Cadastrado em {formatDate(createdAt)}
+                Cadastrado em {formatDate(profile.createdAt)}
               </TextNormal>
               <TextNormal className="text-xs">
                 <PencilLineIcon size={14} />
-                Atualizado em {formatDate(updatedAt)}
+                Atualizado em {formatDate(profile.updatedAt)}
               </TextNormal>
             </div>
           </Card>
         </Link>
-        <DeleteProfileButton profileId={profileId} />
+        <DeleteProfileButton profileId={profile.profileId} />
       </div>
     );
   }
