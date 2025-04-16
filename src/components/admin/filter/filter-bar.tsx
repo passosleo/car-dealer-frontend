@@ -32,6 +32,7 @@ export type FilterBarProps = Omit<PopoverProps, "children"> & {
         type: "date";
         label: string;
         name: string;
+        timePicker?: boolean;
       }
   )[];
   zodSchema: ZodSchema<FieldValues>;
@@ -103,6 +104,7 @@ export function FilterBar({
                         <FilterDatePicker
                           label={filterOption.label}
                           name={filterOption.name}
+                          showTimePicker={filterOption.timePicker}
                         />
                         {index < filterOptions.length - 1 && (
                           <Separator className="mt-3.5" />

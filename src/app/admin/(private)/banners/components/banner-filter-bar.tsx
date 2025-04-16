@@ -16,13 +16,27 @@ export function BannerFilterBar(
         filterOptions={[
           {
             type: "date",
-            label: "Data de início:",
-            name: "startAt",
+            label: "Início a partir de:",
+            name: "startAtStart",
+            timePicker: true,
           },
           {
             type: "date",
-            label: "Data de término:",
-            name: "endAt",
+            label: "Início até:",
+            name: "startAtEnd",
+            timePicker: true,
+          },
+          {
+            type: "date",
+            label: "Término a partir de:",
+            name: "endAtStart",
+            timePicker: true,
+          },
+          {
+            type: "date",
+            label: "Término até:",
+            name: "endAtEnd",
+            timePicker: true,
           },
           {
             type: "date",
@@ -35,16 +49,6 @@ export function BannerFilterBar(
             name: "createdAtEnd",
           },
           {
-            type: "multi-select",
-            label: "Cadastrado por:",
-            name: "createdBy",
-            data: [
-              { label: "Usuário 1", value: "1" },
-              { label: "Usuário 2", value: "2" },
-              { label: "Usuário 3", value: "3" },
-            ],
-          },
-          {
             type: "date",
             label: "Atualizado a partir de:",
             name: "updatedAtStart",
@@ -53,16 +57,6 @@ export function BannerFilterBar(
             type: "date",
             label: "Atualizado até:",
             name: "updatedAtEnd",
-          },
-          {
-            type: "multi-select",
-            label: "Atualizado por:",
-            name: "updatedBy",
-            data: [
-              { label: "Usuário 1", value: "1" },
-              { label: "Usuário 2", value: "2" },
-              { label: "Usuário 3", value: "3" },
-            ],
           },
           {
             type: "select",
@@ -87,17 +81,37 @@ export function BannerFilterBar(
         ]}
         zodSchema={z
           .object({
-            startAt: z.string().optional(),
-            endAt: z.string().optional(),
+            startAtStart: z.string().optional(),
+            startAtEnd: z.string().optional(),
+            endAtStart: z.string().optional(),
+            endAtEnd: z.string().optional(),
             createdAtStart: z.string().optional(),
             createdAtEnd: z.string().optional(),
             updatedAtStart: z.string().optional(),
             updatedAtEnd: z.string().optional(),
-            createdBy: z.string().optional(),
-            updatedBy: z.string().optional(),
             visible: z.enum(["all", "visible", "hidden"]).optional(),
             status: z.enum(["all", "active", "inactive"]).optional(),
           })
+          .refine(
+            (data) =>
+              !data.startAtStart ||
+              !data.startAtEnd ||
+              new Date(data.startAtStart) <= new Date(data.startAtEnd),
+            {
+              message: "Escolha uma data de término maior que a data de início",
+              path: ["startAtEnd"],
+            }
+          )
+          .refine(
+            (data) =>
+              !data.endAtStart ||
+              !data.endAtEnd ||
+              new Date(data.endAtStart) <= new Date(data.endAtEnd),
+            {
+              message: "Escolha uma data de término maior que a data de início",
+              path: ["endAtEnd"],
+            }
+          )
           .refine(
             (data) =>
               !data.createdAtStart ||
