@@ -1,7 +1,7 @@
 import { PageLayout } from "@/components/admin/page/page-layout";
-import { BannerForm } from "../../components/banner-form";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageContentCard } from "@/components/admin/page/page-content-card";
+import { UpdateBannerForm } from "../../components/update-banner-form";
 
 export default async function EditBannerPage() {
   return (
@@ -12,7 +12,7 @@ export default async function EditBannerPage() {
       />
 
       <PageContentCard>
-        <BannerForm />
+        <UpdateBannerForm />
       </PageContentCard>
     </PageLayout>
   );

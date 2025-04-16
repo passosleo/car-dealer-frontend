@@ -13,8 +13,8 @@ export type Banner = {
 
 export type CreateBannerRequest = {
   title: string;
-  imageDesktopUrl: string;
-  imageMobileUrl: string;
+  imageDesktop: string;
+  imageMobile: string;
   startAt: string | null;
   endAt: string | null;
   active: boolean;
@@ -22,8 +22,8 @@ export type CreateBannerRequest = {
 
 export type UpdateBannerRequest = {
   title: string;
-  imageDesktopUrl: string;
-  imageMobileUrl: string;
+  imageDesktop: string;
+  imageMobile: string;
   startAt: string | null;
   endAt: string | null;
   active: boolean;
