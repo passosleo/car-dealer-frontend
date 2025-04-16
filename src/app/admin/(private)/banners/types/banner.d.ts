@@ -10,3 +10,21 @@ export type Banner = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type CreateBannerRequest = {
+  title: string;
+  imageDesktopUrl: string;
+  imageMobileUrl: string;
+  startAt: string | null;
+  endAt: string | null;
+  active: boolean;
+};
+
+export type UpdateBannerRequest = {
+  title: string;
+  imageDesktopUrl: string;
+  imageMobileUrl: string;
+  startAt: string | null;
+  endAt: string | null;
+  active: boolean;
+};
