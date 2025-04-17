@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { CreateSellerRequest, Seller } from "../types/seller";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateSellerService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: createSeller, ...data } = useCustomMutate<
     void,
@@ -17,7 +18,7 @@ export function useCreateSellerService() {
     invalidateQueryKeys: ["listSellers"],
     onSuccess: () => {
       router.replace("/admin/sellers");
-      toast.success("Vendedor criado com sucesso");
+      toaster.success("Vendedor criado com sucesso");
     },
   });
 

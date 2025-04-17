@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { Category, CreateCategoryRequest } from "../types/category";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateCategoryService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: createCategory, ...data } = useCustomMutate<
     void,
@@ -19,13 +20,13 @@ export function useCreateCategoryService() {
     retry: false,
     onSuccess: () => {
       router.replace("/admin/categories");
-      toast.success("Categoria criada com sucesso");
+      toaster.success("Categoria criada com sucesso");
     },
     onError: (error) => {
       if (error.status === 409) {
-        toast.error("Já existe uma categoria com esse nome");
+        toaster.warning("Já existe uma categoria com esse nome");
       } else {
-        toast.error("Algo deu errado, tente novamente mais tarde");
+        toaster.error("Algo deu errado, tente novamente mais tarde");
       }
     },
   });

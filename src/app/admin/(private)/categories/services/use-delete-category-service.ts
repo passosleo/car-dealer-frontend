@@ -1,9 +1,10 @@
+import { useToaster } from "@/hooks/use-toaster";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 export function useDeleteCategoryService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: deleteCategory, ...data } = useCustomMutate<
     { categoryId: string },
@@ -16,7 +17,7 @@ export function useDeleteCategoryService() {
     invalidateQueryKeys: ["listCategories"],
     onSuccess: () => {
       router.replace("/admin/categories");
-      toast.success("Categoria excluída com sucesso");
+      toaster.success("Categoria excluída com sucesso");
     },
   });
 

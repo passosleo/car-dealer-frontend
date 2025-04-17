@@ -1,9 +1,10 @@
+import { useToaster } from "@/hooks/use-toaster";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 export function useDeleteBannerService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: deleteBanner, ...data } = useCustomMutate<
     { bannerId: string },
@@ -16,7 +17,7 @@ export function useDeleteBannerService() {
     invalidateQueryKeys: ["listBanners"],
     onSuccess: () => {
       router.replace("/admin/banners");
-      toast.success("Banner excluído com sucesso");
+      toaster.success("Banner excluído com sucesso");
     },
   });
 

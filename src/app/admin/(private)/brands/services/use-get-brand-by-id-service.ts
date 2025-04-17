@@ -1,10 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Brand } from "../types/brand";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetBrandByIdService(brandId: string) {
   const router = useRouter();
+  const toaster = useToaster();
 
   const {
     data: res,
@@ -18,7 +19,7 @@ export function useGetBrandByIdService(brandId: string) {
     params: { brandId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar marca");
+      toaster.error("Erro ao buscar marca");
       router.replace("/admin/brands");
     },
   });

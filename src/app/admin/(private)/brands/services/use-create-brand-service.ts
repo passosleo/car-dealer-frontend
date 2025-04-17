@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { Brand, CreateBrandRequest } from "../types/brand";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateBrandService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: createBrand, ...data } = useCustomMutate<
     void,
@@ -19,13 +20,13 @@ export function useCreateBrandService() {
     retry: false,
     onSuccess: () => {
       router.replace("/admin/brands");
-      toast.success("Marca criada com sucesso");
+      toaster.success("Marca criada com sucesso");
     },
     onError: (error) => {
       if (error.status === 409) {
-        toast.error("Já existe uma marca com esse nome");
+        toaster.warning("Já existe uma marca com esse nome");
       } else {
-        toast.error("Algo deu errado, tente novamente mais tarde");
+        toaster.error("Algo deu errado, tente novamente mais tarde");
       }
     },
   });

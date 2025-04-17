@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { Category, UpdateCategoryRequest } from "../types/category";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useUpdateCategoryService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: updateCategory, ...data } = useCustomMutate<
     { categoryId: string },
@@ -17,7 +18,7 @@ export function useUpdateCategoryService() {
     invalidateQueryKeys: ["listCategories", "getCategoryById"],
     onSuccess: () => {
       router.replace("/admin/categories");
-      toast.success("Categoria atualizada com sucesso");
+      toaster.success("Categoria atualizada com sucesso");
     },
   });
 

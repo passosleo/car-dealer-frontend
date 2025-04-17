@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { Profile, UpdateProfileRequest } from "../types/profile";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useUpdateProfileService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: updateProfile, ...data } = useCustomMutate<
     { profileId: string },
@@ -17,7 +18,7 @@ export function useUpdateProfileService() {
     invalidateQueryKeys: ["listProfiles", "getProfileById"],
     onSuccess: () => {
       router.replace("/admin/profiles");
-      toast.success("Perfil de acesso atualizado com sucesso");
+      toaster.success("Perfil de acesso atualizado com sucesso");
     },
   });
 

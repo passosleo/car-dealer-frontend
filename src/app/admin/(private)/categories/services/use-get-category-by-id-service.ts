@@ -1,10 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Category } from "../types/category";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetCategoryByIdService(categoryId: string) {
   const router = useRouter();
+  const toaster = useToaster();
 
   const {
     data: res,
@@ -18,7 +19,7 @@ export function useGetCategoryByIdService(categoryId: string) {
     params: { categoryId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar categoria");
+      toaster.error("Erro ao buscar categoria");
       router.replace("/admin/categories");
     },
   });

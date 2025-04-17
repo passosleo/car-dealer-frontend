@@ -1,9 +1,10 @@
+import { useToaster } from "@/hooks/use-toaster";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 export function useDeleteSellerService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: deleteSeller, ...data } = useCustomMutate<
     { sellerId: string },
@@ -16,7 +17,7 @@ export function useDeleteSellerService() {
     invalidateQueryKeys: ["listSellers"],
     onSuccess: () => {
       router.replace("/admin/sellers");
-      toast.success("Vendedor excluído com sucesso");
+      toaster.success("Vendedor excluído com sucesso");
     },
   });
 

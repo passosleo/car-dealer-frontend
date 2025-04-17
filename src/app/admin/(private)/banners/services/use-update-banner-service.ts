@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { Banner, UpdateBannerRequest } from "../types/banner";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useUpdateBannerService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: updateBanner, ...data } = useCustomMutate<
     { bannerId: string },
@@ -17,7 +18,7 @@ export function useUpdateBannerService() {
     invalidateQueryKeys: ["listBanners", "getBannerById"],
     onSuccess: () => {
       router.replace("/admin/banners");
-      toast.success("Banner atualizado com sucesso");
+      toaster.success("Banner atualizado com sucesso");
     },
   });
 

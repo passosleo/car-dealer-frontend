@@ -1,10 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Banner } from "../types/banner";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetBannerByIdService(bannerId: string) {
   const router = useRouter();
+  const toaster = useToaster();
 
   const {
     data: res,
@@ -18,7 +19,7 @@ export function useGetBannerByIdService(bannerId: string) {
     params: { bannerId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar banner");
+      toaster.error("Erro ao buscar banner");
       router.replace("/admin/banners");
     },
   });

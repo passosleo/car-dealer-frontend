@@ -1,10 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { Seller } from "../types/seller";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetSellerByIdService(sellerId: string) {
   const router = useRouter();
+  const toaster = useToaster();
 
   const {
     data: res,
@@ -18,7 +19,7 @@ export function useGetSellerByIdService(sellerId: string) {
     params: { sellerId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar vendedor");
+      toaster.error("Erro ao buscar vendedor");
       router.replace("/admin/sellers");
     },
   });

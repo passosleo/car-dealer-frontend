@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { CreateProfileRequest, Profile } from "../types/profile";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateProfileService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: createProfile, ...data } = useCustomMutate<
     void,
@@ -19,13 +20,13 @@ export function useCreateProfileService() {
     retry: false,
     onSuccess: () => {
       router.replace("/admin/profiles");
-      toast.success("Perfil de acesso criado com sucesso");
+      toaster.success("Perfil de acesso criado com sucesso");
     },
     onError: (error) => {
       if (error.status === 409) {
-        toast.error("Já existe um perfil de acesso com esse nome");
+        toaster.warning("Já existe um perfil de acesso com esse nome");
       } else {
-        toast.error("Algo deu errado, tente novamente mais tarde");
+        toaster.error("Algo deu errado, tente novamente mais tarde");
       }
     },
   });

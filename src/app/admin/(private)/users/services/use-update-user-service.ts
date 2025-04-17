@@ -1,10 +1,11 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import { UpdateUserRequest, User } from "../types/user";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useUpdateUserService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: updateUser, ...data } = useCustomMutate<
     { userId: string },
@@ -19,13 +20,13 @@ export function useUpdateUserService() {
     retry: false,
     onSuccess: () => {
       router.replace("/admin/users");
-      toast.success("Usuário atualizado com sucesso");
+      toaster.success("Usuário atualizado com sucesso");
     },
     onError: (error) => {
       if (error.status === 409) {
-        toast.error("Já existe um usuário com esse e-mail");
+        toaster.warning("Já existe um usuário com esse e-mail");
       } else {
-        toast.error("Algo deu errado, tente novamente mais tarde");
+        toaster.error("Algo deu errado, tente novamente mais tarde");
       }
     },
   });

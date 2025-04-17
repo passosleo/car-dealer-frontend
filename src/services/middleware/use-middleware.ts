@@ -4,7 +4,7 @@ import { HOST, routes } from "../router";
 import { mountUrl } from "@/utils/url";
 import { useSession } from "@/hooks/use-session";
 import { isTokenValid } from "@/utils/jwt";
-import { toast } from "react-toastify";
+import { useToaster } from "@/hooks/use-toaster";
 
 export type RequestAxiosProps<
   PayloadType = unknown,
@@ -21,6 +21,7 @@ export type RequestAxiosProps<
 
 export function useMiddleware() {
   const session = useSession();
+  const toaster = useToaster();
 
   async function setAxiosAuthorization(instance: AxiosInstance) {
     const { accessToken, refreshToken } = session.getTokens();
@@ -97,7 +98,7 @@ export function useMiddleware() {
   function handleAxiosError(error: AxiosError) {
     const messageError = "Algo deu errado, tente novamente mais tarde";
 
-    toast.error(messageError);
+    toaster.error(messageError);
 
     if (error.response?.status === 401) {
       session.expire();

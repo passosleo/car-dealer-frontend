@@ -1,9 +1,10 @@
+import { useToaster } from "@/hooks/use-toaster";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 export function useDeleteProfileService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: deleteProfile, ...data } = useCustomMutate<
     { profileId: string },
@@ -18,15 +19,15 @@ export function useDeleteProfileService() {
     retry: false,
     onSuccess: () => {
       router.replace("/admin/profiles");
-      toast.success("Perfil de acesso excluído com sucesso");
+      toaster.success("Perfil de acesso excluído com sucesso");
     },
     onError: (error) => {
       if (error.status === 409) {
-        toast.error(
+        toaster.warning(
           "Este perfil de acesso não pode ser excluído, pois está vinculado a um usuário"
         );
       } else {
-        toast.error("Algo deu errado, tente novamente mais tarde");
+        toaster.error("Algo deu errado, tente novamente mais tarde");
       }
     },
   });

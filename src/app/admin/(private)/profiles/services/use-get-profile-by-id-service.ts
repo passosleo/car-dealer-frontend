@@ -1,10 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { Profile } from "../types/profile";
+import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetProfileByIdService(profileId: string) {
   const router = useRouter();
+  const toaster = useToaster();
 
   const {
     data: res,
@@ -18,7 +19,7 @@ export function useGetProfileByIdService(profileId: string) {
     params: { profileId },
     notHandleError: true,
     onError: () => {
-      toast.error("Erro ao buscar perfil de acesso");
+      toaster.error("Erro ao buscar perfil de acesso");
       router.replace("/admin/profiles");
     },
   });

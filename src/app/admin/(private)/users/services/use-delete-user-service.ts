@@ -1,9 +1,10 @@
+import { useToaster } from "@/hooks/use-toaster";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 
 export function useDeleteUserService() {
   const router = useRouter();
+  const toaster = useToaster();
 
   const { mutate: deleteUser, ...data } = useCustomMutate<
     { userId: string },
@@ -16,7 +17,7 @@ export function useDeleteUserService() {
     invalidateQueryKeys: ["listUsers"],
     onSuccess: () => {
       router.replace("/admin/users");
-      toast.success("Usuário excluído com sucesso");
+      toaster.success("Usuário excluído com sucesso");
     },
   });
 
