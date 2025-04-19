@@ -1,5 +1,13 @@
 "use client";
-import { format, setHours, setMinutes, getHours, getMinutes } from "date-fns";
+import {
+  format,
+  setHours,
+  setMinutes,
+  getHours,
+  getMinutes,
+  parseISO,
+  isValid,
+} from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon, ClockIcon } from "lucide-react";
 
@@ -23,7 +31,7 @@ import { twMerge } from "tailwind-merge";
 import { TextNormal } from "../text/text-normal";
 
 export type DatePickerProps = CalendarProps & {
-  value?: Date;
+  value?: Date | string;
   onChange?: (date: Date | undefined) => void;
   placeholder?: string;
   showTimePicker?: boolean;
@@ -40,17 +48,38 @@ export function DatePicker({
   showTimePicker,
   ...props
 }: DatePickerProps) {
+  let dateValue: Date | undefined;
+
+  if (typeof value === "string") {
+    const parsedDate = parseISO(value);
+    if (isValid(parsedDate)) {
+      const localOffset = new Date().getTimezoneOffset() * 60000;
+      dateValue = new Date(parsedDate.getTime() + localOffset);
+    } else {
+      dateValue = undefined;
+    }
+  } else {
+    dateValue = value;
+  }
+
+  const validDateValue = isValid(dateValue) ? dateValue : undefined;
+
   const handleHourChange = (hour: string) => {
-    if (!value) return;
-    const newDate = setHours(value, parseInt(hour));
+    if (!validDateValue) return;
+    const newDate = setHours(validDateValue, parseInt(hour));
     onChange?.(newDate);
   };
 
   const handleMinuteChange = (minute: string) => {
-    if (!value) return;
-    const newDate = setMinutes(value, parseInt(minute));
+    if (!validDateValue) return;
+    const newDate = setMinutes(validDateValue, parseInt(minute));
     onChange?.(newDate);
   };
+
+  const initialDate = new Date(0);
+  initialDate.setHours(0, 0, 0, 0);
+
+  const displayDate = validDateValue || initialDate;
 
   return (
     <Popover>
@@ -59,20 +88,23 @@ export function DatePicker({
           variant={"outline"}
           className={cn(
             "w-full justify-start text-left font-normal",
-            !value && "text-muted-foreground"
+            !validDateValue && "text-muted-foreground"
           )}
         >
           <CalendarIcon
-            className={twMerge("mr-2 h-4 w-4", value && "text-primary")}
+            className={twMerge(
+              "mr-2 h-4 w-4",
+              validDateValue && "text-primary"
+            )}
           />
-          {value ? (
+          {validDateValue ? (
             <span className="text-primary">
               {showTimePicker
-                ? `${format(value, "PPP", { locale: ptBR })} às ${format(
-                    value,
+                ? `${format(displayDate, "PPP", { locale })} às ${format(
+                    displayDate,
                     "HH:mm"
                   )}`
-                : format(value, "PPP", { locale: ptBR })}
+                : format(displayDate, "PPP", { locale })}
             </span>
           ) : (
             <span>{placeholder}</span>
@@ -83,18 +115,28 @@ export function DatePicker({
         <Calendar
           {...props}
           mode="single"
-          selected={value}
-          onSelect={onChange}
+          selected={displayDate}
+          onSelect={(date) => {
+            if (date) {
+              const newDate = setHours(
+                setMinutes(date, getMinutes(displayDate)),
+                getHours(displayDate)
+              );
+              onChange?.(newDate);
+            } else {
+              onChange?.(undefined);
+            }
+          }}
           locale={locale}
           initialFocus={initialFocus}
         />
 
-        {showTimePicker && value && (
+        {showTimePicker && validDateValue && (
           <div className="flex items-center gap-2 p-2">
             <ClockIcon className="w-14" />
             <Select
               onValueChange={handleHourChange}
-              defaultValue={String(getHours(value)).padStart(2, "0")}
+              defaultValue={String(getHours(displayDate)).padStart(2, "0")}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Hora" />
@@ -112,7 +154,7 @@ export function DatePicker({
 
             <Select
               onValueChange={handleMinuteChange}
-              defaultValue={String(getMinutes(value)).padStart(2, "0")}
+              defaultValue={String(getMinutes(displayDate)).padStart(2, "0")}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Minuto" />

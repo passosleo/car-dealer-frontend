@@ -2,7 +2,6 @@ import { Label } from "@/components/ui/label";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { DatePicker, DatePickerProps } from "../date-picker/date-picker";
-import { format, isValid } from "date-fns";
 import { ConnectForm } from "@/components/shared/connect-form";
 import { twMerge } from "tailwind-merge";
 
@@ -35,14 +34,6 @@ const FormDatePicker = React.forwardRef<HTMLDivElement, FormDatePickerProps>(
             disabled={disabled}
             defaultValue={defaultValue}
             render={({ field, fieldState }) => {
-              const dateValue =
-                typeof field.value === "string"
-                  ? (() => {
-                      const d = new Date(field.value);
-                      return isValid(d) ? d : undefined;
-                    })()
-                  : undefined;
-
               return (
                 <div ref={ref} className="flex flex-col gap-1 w-full">
                   <Label
@@ -58,16 +49,9 @@ const FormDatePicker = React.forwardRef<HTMLDivElement, FormDatePickerProps>(
                     {...props}
                     id={props.id || name}
                     disabled={disabled}
-                    value={dateValue}
+                    value={field.value}
                     onChange={(date) => {
-                      if (date && isValid(date)) {
-                        const formatted = showTimePicker
-                          ? format(date, "yyyy-MM-dd'T'HH:mm:ss")
-                          : format(date, "yyyy-MM-dd");
-                        field.onChange(formatted);
-                      } else {
-                        field.onChange("");
-                      }
+                      field.onChange(date);
                       if (onChange) onChange(date);
                     }}
                     showTimePicker={showTimePicker}
