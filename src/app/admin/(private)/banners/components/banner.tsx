@@ -53,7 +53,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerType>((banner, ref) => {
                   </TextNormal>
                 ) : (
                   <TextNormal className="items-center text-primary">
-                    Visível
+                    Oculto
                     <EyeOffIcon size={14} />
                   </TextNormal>
                 )}
