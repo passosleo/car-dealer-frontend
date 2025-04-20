@@ -24,8 +24,18 @@ const updateBannerSchema = z.object({
   imageMobile: z
     .string({ required_error: messages.required_error })
     .nonempty({ message: messages.nonempty_error }),
-  startAt: z.string({ required_error: messages.required_error }).nullable(),
-  endAt: z.string({ required_error: messages.required_error }).nullable(),
+  startAt: z
+    .date({ required_error: messages.required_error })
+    .or(z.string())
+    .optional()
+    .nullable()
+    .default(null),
+  endAt: z
+    .date({ required_error: messages.required_error })
+    .or(z.string())
+    .optional()
+    .nullable()
+    .default(null),
   active: z.boolean().default(true),
 });
 

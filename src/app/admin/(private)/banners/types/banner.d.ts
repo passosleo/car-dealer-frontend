@@ -15,8 +15,8 @@ export type CreateBannerRequest = {
   title: string;
   imageDesktop: string;
   imageMobile: string;
-  startAt: string | null;
-  endAt: string | null;
+  startAt: Date | string | null;
+  endAt: Date | string | null;
   active: boolean;
 };
 
@@ -24,7 +24,7 @@ export type UpdateBannerRequest = {
   title: string;
   imageDesktop: string;
   imageMobile: string;
-  startAt: string | null;
-  endAt: string | null;
+  startAt: Date | string | null;
+  endAt: Date | string | null;
   active: boolean;
 };

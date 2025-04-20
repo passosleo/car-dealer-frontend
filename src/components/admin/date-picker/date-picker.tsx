@@ -32,7 +32,7 @@ import { TextNormal } from "../text/text-normal";
 
 export type DatePickerProps = CalendarProps & {
   value?: Date | string;
-  onChange?: (date: Date | undefined) => void;
+  onChange?: (date: Date | null | undefined) => void;
   placeholder?: string;
   showTimePicker?: boolean;
   disabled?: boolean;
@@ -117,6 +117,7 @@ export function DatePicker({
           mode="single"
           selected={displayDate}
           onSelect={(date) => {
+            console.log(" date", date);
             if (date) {
               const newDate = setHours(
                 setMinutes(date, getMinutes(displayDate)),
@@ -124,7 +125,7 @@ export function DatePicker({
               );
               onChange?.(newDate);
             } else {
-              onChange?.(undefined);
+              onChange?.(null);
             }
           }}
           locale={locale}
