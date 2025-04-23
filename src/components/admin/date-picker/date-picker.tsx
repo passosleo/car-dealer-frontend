@@ -117,7 +117,6 @@ export function DatePicker({
           mode="single"
           selected={displayDate}
           onSelect={(date) => {
-            console.log(" date", date);
             if (date) {
               const newDate = setHours(
                 setMinutes(date, getMinutes(displayDate)),

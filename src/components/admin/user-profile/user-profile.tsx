@@ -1,18 +1,25 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { UserInfo } from "@/services/types";
+import { TextSubheading } from "../text/text-subheading";
+import { TextNormal } from "../text/text-normal";
+import { Avatar } from "../avatar/avatar";
 
 type UserProfileProps = Omit<
   React.ComponentProps<typeof Link>,
   "children" | "href"
 > & {
   href?: string;
+  userInfo: UserInfo | null;
 };
 
 const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
-  ({ href = "/admin/profile", className, ...props }, ref) => {
-    // console.log(" user", user);
+  ({ href = "/admin/user-profile", userInfo, className, ...props }, ref) => {
+    if (!userInfo) return <></>;
+    const fullName = userInfo.lastName
+      ? `${userInfo.firstName} ${userInfo.lastName}`
+      : userInfo.firstName;
     return (
       <Link
         ref={ref}
@@ -20,12 +27,10 @@ const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
         href={href}
         className={twMerge("flex items-center gap-2 px-2", className)}
       >
-        <Avatar className="w-10 h-10 flex items-center justify-center">
-          <AvatarFallback className="text-lg">US</AvatarFallback>
-        </Avatar>
+        <Avatar name={fullName} className="w-10 h-10 text-md" />
         <div>
-          {/* <h4 className="text-sm font-semibold">{user.firstName}</h4>
-          <p className="text-xs text-muted-foreground">{user.profile.name}</p> */}
+          <TextSubheading className="text-sm">{fullName}</TextSubheading>
+          <TextNormal className="text-xs">{userInfo.profile.name}</TextNormal>
         </div>
       </Link>
     );

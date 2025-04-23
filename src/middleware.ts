@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
-import { DefaultResponse } from "./services/types";
-import axios from "axios";
+import { DefaultResponse, UserInfo } from "./services/types";
+import axios, { AxiosError } from "axios";
 import { HOST } from "./services/router";
 import { Session } from "./app/admin/(public)/login/types/login";
 
@@ -12,12 +12,16 @@ export async function middleware(req: NextRequest) {
 
   const accessToken = req.cookies.get("accessToken")?.value;
   const refreshToken = req.cookies.get("refreshToken")?.value;
+  const userInfo = req.cookies.get("userInfo")?.value;
 
   if (!accessToken && !refreshToken) {
     return handleNoTokens(pathname, res, req);
   }
 
   if (accessToken && isTokenValid(accessToken)) {
+    if (!userInfo) {
+      await fetchAndSetUserInfo(accessToken, res);
+    }
     return handleValidAccessToken(pathname, res, req);
   }
 
@@ -26,6 +30,41 @@ export async function middleware(req: NextRequest) {
   }
 
   return await handleTokenRefresh(refreshToken, res, pathname, req);
+}
+
+async function fetchAndSetUserInfo(accessToken: string, res: NextResponse) {
+  try {
+    console.info("Fetching user info...");
+    const { data: response } = await axios.get<DefaultResponse<UserInfo>>(
+      `${HOST}/api/v1/admin/auth/user-info`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (response.statusCode === 200 && response.data) {
+      const encoded = Buffer.from(JSON.stringify(response.data)).toString(
+        "base64"
+      );
+      res.cookies.set("userInfo", encoded, {
+        path: "/admin",
+        httpOnly: false,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 60 * 30, // 30 minutos
+      });
+      console.info("User info fetched successfully!");
+    }
+  } catch (error) {
+    const typedError = error as AxiosError;
+    console.error("Error fetching user info", {
+      status: typedError.response?.status,
+      message: typedError.message,
+      response: typedError.response?.data,
+    });
+  }
 }
 
 function handleNoTokens(pathname: string, res: NextResponse, req: NextRequest) {
@@ -54,6 +93,7 @@ async function handleTokenRefresh(
   req: NextRequest
 ) {
   try {
+    console.info("Refreshing session...");
     const { data: response } = await axios.post<DefaultResponse<Session>>(
       `${HOST}/api/v1/admin/auth/refresh-token`,
       { refreshToken }
@@ -63,7 +103,12 @@ async function handleTokenRefresh(
     }
     return block(req);
   } catch (error) {
-    console.error("Error refreshing tokens", error);
+    const typedError = error as AxiosError;
+    console.error("Error fetching user info", {
+      status: typedError.response?.status,
+      message: typedError.message,
+      response: typedError.response?.data,
+    });
     return block(req);
   }
 }
@@ -84,6 +129,8 @@ function handleSessionRefresh(
     accessTokenExpirationDate,
     refreshTokenExpirationDate
   );
+
+  console.info("Session refreshed successfully!");
 
   if (pathname === "/admin" || pathname === "/admin/login") {
     return redirect(req, "/dashboard");

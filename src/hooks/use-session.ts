@@ -16,6 +16,7 @@ export function useSession() {
   }
 
   async function refresh() {
+    console.info("Refreshing session...");
     const { refreshToken } = getTokens();
     if (!refreshToken) return;
     const { data: res } = await axios.post<DefaultResponse<Session>>(
@@ -24,6 +25,7 @@ export function useSession() {
     );
     if (res.statusCode === 200 && res.data) {
       register(res.data);
+      console.info("Session refreshed successfully!");
       return res.data;
     }
   }

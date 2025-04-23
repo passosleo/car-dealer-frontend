@@ -33,7 +33,7 @@ export type Params = Record<string, string | string[] | number | number[]>;
 
 export type CustomAxiosError = AxiosError<DefaultResponse<null>>;
 
-export type UserInfoDTO = {
+export type UserInfo = {
   firstName: string;
   lastName: string;
   email: string;

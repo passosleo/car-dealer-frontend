@@ -15,7 +15,6 @@ export default async function UsersPage({
   searchParams: Promise<Partial<DefaultFilters>>;
 }) {
   const appliedFilters = await searchParams;
-  console.log(" appliedFilters", appliedFilters);
   return (
     <PageLayout>
       <PageHeader

@@ -9,6 +9,11 @@ const routes = {
     method: "POST",
     uri: "/api/v1/admin/auth/recover-password/send",
   },
+  getUserInfo: {
+    method: "GET",
+    uri: "/api/v1/admin/auth/user-info",
+    headers: ["Authorization"],
+  },
   listSellers: {
     method: "GET",
     uri: "/api/v1/admin/seller",

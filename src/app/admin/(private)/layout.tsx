@@ -1,6 +1,7 @@
 import { AppSidebar } from "@/components/admin/app-sidebar/app-sidebar";
 import { UserProfile } from "@/components/admin/user-profile/user-profile";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { UserInfo } from "@/services/types";
 import { BellIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -14,6 +15,10 @@ export default async function AdminPrivateLayout({
 }: Readonly<AdminPrivateLayoutProps>) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
+  const userInfoCookie = cookieStore.get("userInfo")?.value;
+  const userInfo = userInfoCookie
+    ? JSON.parse(Buffer.from(userInfoCookie, "base64").toString("utf-8"))
+    : (null as UserInfo | null);
 
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
@@ -22,7 +27,7 @@ export default async function AdminPrivateLayout({
         <SidebarTrigger className="ml-2" />
 
         <div className="flex items-center gap-2">
-          <UserProfile />
+          <UserProfile userInfo={userInfo} />
 
           <div className="w-[1px] bg-sidebar-border rounded-full h-8" />
 

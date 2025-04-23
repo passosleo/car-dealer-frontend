@@ -35,7 +35,6 @@ const FilterSelectInput = ({
   ...props
 }: FilterSelectInputProps) => {
   function getSelectedOptionLabel(value: string) {
-    console.log("getSelectedOptionLabel ~ value", value);
     return data.find((option) => option.value === String(value))?.label || "";
   }
   return (
