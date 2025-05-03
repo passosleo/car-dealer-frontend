@@ -39,22 +39,6 @@ jobs:
       - name: Lint
         run: yarn lint
 
-  build:
-    runs-on: ubuntu-latest
-    needs: lint
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'yarn'
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-      - name: Build
-        run: yarn build
-
   dependency-audit:
     runs-on: ubuntu-latest
     needs: build
@@ -71,9 +55,25 @@ jobs:
       - name: Run Yarn Audit
         run: yarn audit --groups dependencies --level high
 
-  docker-image:
+  build:
     runs-on: ubuntu-latest
     needs: dependency-audit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
+
+  docker-image:
+    runs-on: ubuntu-latest
+    needs: build
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
