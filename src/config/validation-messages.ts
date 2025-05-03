@@ -4,6 +4,7 @@ export const validationMessages = {
   email_error: "E-mail inválido",
   url_error: "URL inválida",
   number_error: "Número inválido",
+  int_error: "Número inválido",
   positive_error: "Número deve ser positivo",
   negative_error: "Número deve ser negativo",
   integer_error: "Número deve ser inteiro",

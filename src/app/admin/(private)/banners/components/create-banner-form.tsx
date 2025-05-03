@@ -21,13 +21,11 @@ const createBannerSchema = z.object({
   startAt: z
     .date({ required_error: messages.required_error })
     .or(z.string())
-    .optional()
     .nullable()
     .default(null),
   endAt: z
     .date({ required_error: messages.required_error })
     .or(z.string())
-    .optional()
     .nullable()
     .default(null),
   active: z.boolean().default(true),

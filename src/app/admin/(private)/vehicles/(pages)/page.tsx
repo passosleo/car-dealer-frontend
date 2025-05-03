@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { CirclePlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ListVehicleFilters } from "../types/vehicle";
+import { VehicleList } from "../components/vehicle-list";
 import { OrderBar } from "@/components/admin/order/order-bar";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { SearchBar } from "@/components/admin/search/search-bar";
-import { ListVehicleFilters } from "../types/vehicle";
 import { VehicleFilterBar } from "../components/vehicle-filter-bar";
 
 export default async function VehiclesPage({
@@ -33,7 +34,7 @@ export default async function VehiclesPage({
           <VehicleFilterBar />
         </div>
       </PageHeader>
-      {/* <BrandGrid appliedFilters={appliedFilters} /> */}
+      <VehicleList appliedFilters={appliedFilters} />
     </PageLayout>
   );
 }

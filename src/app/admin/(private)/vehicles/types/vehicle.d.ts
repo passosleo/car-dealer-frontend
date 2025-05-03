@@ -1,4 +1,6 @@
 import { DefaultFilters } from "@/services/types";
+import { Brand } from "../../brands/types/brand";
+import { Category } from "../../categories/types/category";
 
 export type Vehicle = {
   vehicleId: string;
@@ -19,8 +21,8 @@ export type Vehicle = {
   brand: Brand;
   category: Category;
   active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   vehicleImages: string[];
   vehicleFeatures: string[];
 };
