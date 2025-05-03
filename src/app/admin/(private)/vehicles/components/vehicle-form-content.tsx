@@ -6,6 +6,7 @@ import { FormSwitch } from "@/components/admin/form/form-switch";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
 import { FormTextArea } from "@/components/admin/form/form-textarea";
+import { FormMultiImagePicker } from "@/components/admin/form/form-multi-image-picker";
 
 type VehicleFormContentProps = {
   isLoading: boolean;
@@ -19,13 +20,24 @@ export function VehicleFormContent({
   const router = useRouter();
 
   return (
-    <div className="flex flex-row gap-8 w-full">
-      <div className="flex flex-col gap-2 w-full flex-wrap">
+    <div className="flex flex-col md:flex-row gap-8 w-full">
+      {/* Imagem à esquerda em telas médias+ e acima nos mobile */}
+      <div className="md:w-1/3 w-full">
+        <FormMultiImagePicker
+          label="Ícone"
+          name="vehicleImages"
+          disabled={isLoading}
+        />
+      </div>
+
+      {/* Inputs à direita ou abaixo */}
+      <div className="flex flex-col gap-4 w-full">
         <FormInput label="Modelo" name="model" disabled={isLoading} />
 
-        <FormInput label="Ano" name="year" disabled={isLoading} />
-
-        <FormInput label="Placa" name="plate" disabled={isLoading} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormInput label="Ano" name="year" disabled={isLoading} />
+          <FormInput label="Placa" name="plate" disabled={isLoading} />
+        </div>
 
         <FormTextArea
           label="Descrição"
@@ -33,29 +45,26 @@ export function VehicleFormContent({
           disabled={isLoading}
         />
 
-        <FormInput label="Preço" name="price" disabled={isLoading} />
-
-        <FormInput label="Quilometragem" name="mileage" disabled={isLoading} />
-
-        <FormInput label="Cor" name="color" disabled={isLoading} />
-
-        <FormInput
-          label="Transmissão"
-          name="transmission"
-          disabled={isLoading}
-        />
-
-        <FormInput label="Combustível" name="fuelType" disabled={isLoading} />
-
-        <FormInput label="Portas" name="doors" disabled={isLoading} />
-
-        <FormInput label="Assentos" name="seats" disabled={isLoading} />
-
-        <FormInput label="Potência" name="horsepower" disabled={isLoading} />
-
-        <FormInput label="Torque" name="torque" disabled={isLoading} />
-
-        <FormInput label="Tração" name="driveTrain" disabled={isLoading} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormInput label="Preço" name="price" disabled={isLoading} />
+          <FormInput
+            label="Quilometragem"
+            name="mileage"
+            disabled={isLoading}
+          />
+          <FormInput label="Cor" name="color" disabled={isLoading} />
+          <FormInput
+            label="Transmissão"
+            name="transmission"
+            disabled={isLoading}
+          />
+          <FormInput label="Combustível" name="fuelType" disabled={isLoading} />
+          <FormInput label="Portas" name="doors" disabled={isLoading} />
+          <FormInput label="Assentos" name="seats" disabled={isLoading} />
+          <FormInput label="Potência" name="horsepower" disabled={isLoading} />
+          <FormInput label="Torque" name="torque" disabled={isLoading} />
+          <FormInput label="Tração" name="driveTrain" disabled={isLoading} />
+        </div>
 
         <FormSwitch
           label="Ativo"
@@ -64,8 +73,8 @@ export function VehicleFormContent({
           disabled={isLoading}
         />
 
-        <div className="flex flex-row gap-4 w-full mt-auto">
-          {additionalButton ? additionalButton : <></>}
+        <div className="flex flex-col md:flex-row gap-4 w-full mt-4">
+          {additionalButton ?? null}
 
           <Button
             type="button"
