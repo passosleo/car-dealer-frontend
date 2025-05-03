@@ -169,6 +169,31 @@ const routes = {
     uri: "/api/v1/admin/banner/:bannerId",
     headers: ["Authorization"],
   },
+  listVehicles: {
+    method: "GET",
+    uri: "/api/v1/admin/vehicle",
+    headers: ["Authorization"],
+  },
+  getVehicleById: {
+    method: "GET",
+    uri: "/api/v1/admin/vehicle/:vehicleId",
+    headers: ["Authorization"],
+  },
+  createVehicle: {
+    method: "POST",
+    uri: "/api/v1/admin/vehicle",
+    headers: ["Authorization"],
+  },
+  updateVehicle: {
+    method: "PUT",
+    uri: "/api/v1/admin/vehicle/:vehicleId",
+    headers: ["Authorization"],
+  },
+  deleteVehicle: {
+    method: "DELETE",
+    uri: "/api/v1/admin/vehicle/:vehicleId",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
