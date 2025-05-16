@@ -120,7 +120,7 @@ export function FormMultiImagePicker({
                               <Button
                                 type="button"
                                 variant="destructive"
-                                className="absolute top-2 right-2 p-1 h-7 w-7 rounded-full"
+                                className="absolute top-2 right-2 p-1 w-8 h-8 rounded-full"
                                 onClick={() => removeImage(index)}
                               >
                                 <Trash2 size={16} />
@@ -131,8 +131,14 @@ export function FormMultiImagePicker({
                       </CarouselContent>
                       {field.value.length > 1 ? (
                         <>
-                          <CarouselPrevious type="button" />
-                          <CarouselNext type="button" />
+                          <CarouselPrevious
+                            type="button"
+                            className="absolute top-1/2 left-2 -translate-y-1/2"
+                          />
+                          <CarouselNext
+                            type="button"
+                            className="absolute top-1/2 right-2 -translate-y-1/2"
+                          />
                         </>
                       ) : (
                         <></>
@@ -147,7 +153,7 @@ export function FormMultiImagePicker({
                       type="button"
                       variant="outline"
                       size="icon"
-                      className="absolute bottom-2 right-2 rounded-full"
+                      className="absolute bottom-2 right-2 rounded-full w-8 h-8"
                       onClick={() => inputRef.current?.click()}
                     >
                       <Plus size={16} />
