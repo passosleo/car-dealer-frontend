@@ -1,9 +1,14 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, Paginated } from "@/services/types";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { Brand } from "../types/brand";
 
-export function useListBrandsService(appliedFilters: Partial<DefaultFilters>) {
+export function useListBrandsService(
+  appliedFilters: Partial<DefaultFilters>,
+  callbacks?: {
+    onSuccess?: (res: DefaultResponse<Paginated<Brand>>) => void;
+  }
+) {
   const searchParams = useSearchParams();
 
   const {
@@ -23,6 +28,9 @@ export function useListBrandsService(appliedFilters: Partial<DefaultFilters>) {
         res.data.items.length === 0
       ) {
         searchParams.removeSearchParam("page");
+      }
+      if (callbacks && callbacks.onSuccess) {
+        callbacks.onSuccess(res);
       }
     },
   });

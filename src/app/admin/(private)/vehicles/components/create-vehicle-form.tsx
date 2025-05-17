@@ -13,26 +13,29 @@ const createVehicleSchema = z.object({
   model: z
     .string({ required_error: messages.required_error })
     .nonempty({ message: messages.nonempty_error }),
-  year: z
+  year: z.coerce
     .number({ required_error: messages.required_error })
     .int({ message: messages.int_error })
     .positive({ message: messages.positive_error }),
   plate: z
     .string({ required_error: messages.required_error })
     .nonempty({ message: messages.nonempty_error })
-    .regex(/^[A-Z]{3}-\d{4}$/, {
-      message: "O formato da placa deve ser AAA-0A00",
+    .regex(/^([A-Z]{3}-\d{4}|[A-Z]{3}-\d[A-Z]\d{2})$/, {
+      message: "O formato da placa deve ser AAA-1234 ou AAA-0A00",
     }),
   description: z.string().nullable(),
-  price: z.number().nullable(),
-  mileage: z.number().nullable(),
+  price: z.coerce
+    .number({ required_error: messages.required_error })
+    .int({ message: messages.int_error })
+    .positive({ message: messages.positive_error }),
+  mileage: z.coerce.number().int({ message: messages.int_error }).nullable(),
   color: z.string().nullable(),
   transmission: z.string().nullable(),
   fuelType: z.string().nullable(),
-  doors: z.number().nullable(),
-  seats: z.number().nullable(),
-  horsepower: z.number().nullable(),
-  torque: z.number().nullable(),
+  doors: z.coerce.number().int({ message: messages.int_error }).nullable(),
+  seats: z.coerce.number().int({ message: messages.int_error }).nullable(),
+  horsepower: z.coerce.number().int({ message: messages.int_error }).nullable(),
+  torque: z.coerce.number().int({ message: messages.int_error }).nullable(),
   driveTrain: z.string().nullable(),
   brandId: z
     .string({ required_error: messages.required_error })
@@ -43,8 +46,8 @@ const createVehicleSchema = z.object({
     .uuid({ message: messages.required_error })
     .nonempty({ message: messages.nonempty_error }),
   active: z.boolean().default(true),
-  vehicleImages: z.array(z.string()),
-  vehicleFeatures: z.array(z.string()),
+  vehicleImages: z.array(z.string(), { message: messages.required_error }),
+  vehicleFeatures: z.array(z.string()).default([]),
 });
 
 type CreateVehicleSchema = z.infer<typeof createVehicleSchema>;
@@ -58,6 +61,7 @@ export function CreateVehicleForm(
   const { createVehicle, isPending } = useCreateVehicleService();
 
   function onSubmit(data: CreateVehicleSchema) {
+    console.log(" onSubmit ~ data", data);
     createVehicle({ payload: data });
   }
 

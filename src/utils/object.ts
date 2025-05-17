@@ -9,7 +9,7 @@ export function replaceEmptyWithNull<T>(data: T): T {
     return Object.fromEntries(
       Object.entries(data).map(([key, value]) => [
         key,
-        value === "" || value === undefined
+        value === "" || value === undefined || value === 0
           ? null
           : replaceEmptyWithNull(value),
       ])

@@ -8,7 +8,7 @@ export type Vehicle = {
   year: number;
   plate: string;
   description: string | null;
-  price: number | null;
+  price: number;
   mileage: number | null;
   color: string | null;
   transmission: string | null;
@@ -32,7 +32,7 @@ export type CreateVehicleRequest = {
   year: number;
   plate: string;
   description: string | null;
-  price: number | null;
+  price: number;
   mileage: number | null;
   color: string | null;
   transmission: string | null;
@@ -54,7 +54,7 @@ export type UpdateVehicleRequest = {
   year: number;
   plate: string;
   description: string | null;
-  price: number | null;
+  price: number;
   mileage: number | null;
   color: string | null;
   transmission: string | null;

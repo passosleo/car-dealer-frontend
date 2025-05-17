@@ -1,10 +1,13 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, Paginated } from "@/services/types";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { Category } from "../types/category";
 
 export function useListCategoriesService(
-  appliedFilters: Partial<DefaultFilters>
+  appliedFilters: Partial<DefaultFilters>,
+  callbacks?: {
+    onSuccess?: (res: DefaultResponse<Paginated<Category>>) => void;
+  }
 ) {
   const searchParams = useSearchParams();
 
@@ -25,6 +28,9 @@ export function useListCategoriesService(
         res.data.items.length === 0
       ) {
         searchParams.removeSearchParam("page");
+      }
+      if (callbacks && callbacks.onSuccess) {
+        callbacks.onSuccess(res);
       }
     },
   });
