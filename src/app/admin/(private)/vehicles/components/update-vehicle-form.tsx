@@ -20,27 +20,26 @@ const updateVehicleSchema = z.object({
     .nonempty({ message: messages.nonempty_error }),
   year: z.coerce
     .number({ required_error: messages.required_error })
-    .int({ message: messages.int_error })
-    .positive({ message: messages.positive_error }),
+    .positive({ message: messages.number_error }),
   plate: z
     .string({ required_error: messages.required_error })
     .nonempty({ message: messages.nonempty_error })
     .regex(/^([A-Z]{3}-\d{4}|[A-Z]{3}-\d[A-Z]\d{2})$/, {
       message: "O formato da placa deve ser AAA-1234 ou AAA-0A00",
-    }),
+    })
+    .transform((val) => val.toUpperCase()),
   description: z.string().nullable(),
   price: z.coerce
     .number({ required_error: messages.required_error })
-    .int({ message: messages.int_error })
-    .positive({ message: messages.positive_error }),
-  mileage: z.coerce.number().int({ message: messages.int_error }).nullable(),
+    .positive({ message: messages.number_error }),
+  mileage: z.coerce.number().nullable(),
   color: z.string().nullable(),
   transmission: z.string().nullable(),
   fuelType: z.string().nullable(),
-  doors: z.coerce.number().int({ message: messages.int_error }).nullable(),
-  seats: z.coerce.number().int({ message: messages.int_error }).nullable(),
-  horsepower: z.coerce.number().int({ message: messages.int_error }).nullable(),
-  torque: z.coerce.number().int({ message: messages.int_error }).nullable(),
+  doors: z.coerce.number().nullable(),
+  seats: z.coerce.number().nullable(),
+  horsepower: z.coerce.number().nullable(),
+  torque: z.coerce.number().nullable(),
   driveTrain: z.string().nullable(),
   brandId: z
     .string({ required_error: messages.required_error })

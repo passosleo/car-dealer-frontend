@@ -12,6 +12,9 @@ import { Brand } from "../../brands/types/brand";
 import { useListBrandsService } from "../../brands/services/use-list-brands-service";
 import { useListCategoriesService } from "../../categories/services/use-list-categories-service";
 import { Category } from "../../categories/types/category";
+import { formatInput } from "@/utils/input";
+import { useFormContext } from "react-hook-form";
+import { TextNormal } from "@/components/admin/text/text-normal";
 
 type VehicleFormContentProps = {
   isLoading: boolean;
@@ -23,6 +26,7 @@ export function VehicleFormContent({
   additionalButton,
 }: VehicleFormContentProps) {
   const router = useRouter();
+  const hookFormMethods = useFormContext();
 
   const [currentBrandPage, setCurrentBrandPage] = useState(1);
   const [brands, setBrands] = useState<Brand[]>([]);
@@ -91,28 +95,37 @@ export function VehicleFormContent({
       </div>
 
       <div className="flex flex-col gap-4 flex-1 w-full">
-        <FormInput label="Modelo" name="model" disabled={isLoading} />
+        <FormInput label="Modelo" name="model" disabled={isLoading} autoFocus />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormInput
             label="Ano"
             name="year"
-            type="number"
             disabled={isLoading}
+            onChange={(e) => formatInput(e, { mask: "0000" }, hookFormMethods)}
           />
-          <FormInput label="Placa" name="plate" disabled={isLoading} />
-        </div>
-
-        <FormTextArea
-          label="Descrição"
-          name="description"
-          disabled={isLoading}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormInput
+            label="Placa"
+            name="plate"
+            disabled={isLoading}
+            onChange={(e) =>
+              formatInput(
+                e,
+                {
+                  mask: "***-****",
+                  prepareChar: (char) => char.toUpperCase(),
+                  definitions: {
+                    "*": /[A-Za-z0-9]/,
+                  },
+                },
+                hookFormMethods
+              )
+            }
+          />
           <FormSelectPaginatedSearch
             label="Marca"
             name="brandId"
+            width="100%"
             data={brands.map((brand) => ({
               label: brand.name,
               value: brand.brandId,
@@ -122,12 +135,12 @@ export function VehicleFormContent({
             currentPage={currentBrandPage}
             totalPages={totalBrandsPages}
             disabled={isLoading}
-            className="w-full"
           />
 
           <FormSelectPaginatedSearch
             label="Categoria"
             name="categoryId"
+            width="100%"
             data={categories.map((category) => ({
               label: category.name,
               value: category.categoryId,
@@ -137,19 +150,26 @@ export function VehicleFormContent({
             currentPage={currentBrandPage}
             totalPages={totalCategoriesPages}
             disabled={isLoading}
-            className="w-full"
           />
+        </div>
 
+        <FormTextArea
+          label="Descrição"
+          name="description"
+          disabled={isLoading}
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FormInput
             label="Preço"
             name="price"
+            leftIcon={<TextNormal className="text-sm">R$</TextNormal>}
             disabled={isLoading}
-            type="number"
           />
           <FormInput
             label="Quilometragem"
             name="mileage"
-            type="number"
+            rightIcon={<TextNormal className="text-sm">km</TextNormal>}
             disabled={isLoading}
           />
           <FormInput label="Cor" name="color" disabled={isLoading} />
@@ -163,25 +183,29 @@ export function VehicleFormContent({
             label="Portas"
             name="doors"
             disabled={isLoading}
-            type="number"
+            onChange={(e) =>
+              formatInput(
+                e,
+                {
+                  mask: Number,
+                  scale: 0,
+                },
+                hookFormMethods
+              )
+            }
           />
-          <FormInput
-            label="Assentos"
-            name="seats"
-            disabled={isLoading}
-            type="number"
-          />
+          <FormInput label="Assentos" name="seats" disabled={isLoading} />
           <FormInput
             label="Potência"
             name="horsepower"
             disabled={isLoading}
-            type="number"
+            rightIcon={<TextNormal className="text-sm">cv</TextNormal>}
           />
           <FormInput
             label="Torque"
             name="torque"
             disabled={isLoading}
-            type="number"
+            rightIcon={<TextNormal className="text-sm">kgfm</TextNormal>}
           />
           <FormInput label="Tração" name="driveTrain" disabled={isLoading} />
         </div>

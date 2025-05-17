@@ -34,7 +34,7 @@ type SelectPaginatedSearchProps = {
   }[];
   totalPages?: number;
   currentPage?: number;
-  width?: number;
+  width?: number | string;
   emptyText?: string;
   className?: string;
 };

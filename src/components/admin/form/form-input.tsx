@@ -70,8 +70,8 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                     </div>
                   )}
                   <Input
-                    {...props}
                     {...field}
+                    {...props}
                     ref={ref}
                     type={type}
                     id={props.id || name}
@@ -81,6 +81,12 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
                       leftIcon && "pl-10",
                       rightIcon && "pr-10"
                     )}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      if (props.onChange) {
+                        props.onChange(e);
+                      }
+                    }}
                   />
                   {rightIcon && (
                     <div
