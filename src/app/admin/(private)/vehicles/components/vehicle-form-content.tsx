@@ -20,9 +20,8 @@ export function VehicleFormContent({
   const router = useRouter();
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 w-full">
-      {/* Imagem à esquerda em telas médias+ e acima nos mobile */}
-      <div className="md:w-1/3 w-full">
+    <div className="flex flex-col xl:flex-row items-center xl:items-start gap-4 xl:gap-4 w-full">
+      <div className="w-full xl:max-w-[365px] flex-shrink-0 flex justify-center xl:justify-start">
         <FormMultiImagePicker
           label="Ícone"
           name="vehicleImages"
@@ -30,8 +29,7 @@ export function VehicleFormContent({
         />
       </div>
 
-      {/* Inputs à direita ou abaixo */}
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 flex-1 w-full">
         <FormInput label="Modelo" name="model" disabled={isLoading} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
