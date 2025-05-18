@@ -34,7 +34,6 @@ type SelectPaginatedSearchProps = {
   }[];
   totalPages?: number;
   currentPage?: number;
-  width?: number | string;
   emptyText?: string;
   className?: string;
 };
@@ -48,7 +47,6 @@ const SelectPaginatedSearch = forwardRef(
       defaultValue = "",
       onValueChange,
       value,
-      width = 250,
       data = [],
       onSearch,
       disabled,
@@ -94,21 +92,17 @@ const SelectPaginatedSearch = forwardRef(
     }
 
     return (
-      <div
-        className={twMerge(disabled && "cursor-not-allowed")}
-        style={{ width }}
-      >
+      <div className={twMerge(disabled && "cursor-not-allowed w-full")}>
         <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger asChild disabled={disabled}>
+          <PopoverTrigger asChild disabled={disabled} className="w-full">
             <Button
               id={id}
               variant="outline"
               role="combobox"
               aria-expanded={open}
               disabled={disabled}
-              style={{ width }}
               className={twMerge(
-                `w-[${width}px] text-muted-foreground hover:bg-transparent hover:text-muted-foreground justify-between border-input font-normal text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground select-none`,
+                `w-full text-muted-foreground hover:bg-transparent hover:text-muted-foreground justify-between border-input font-normal text-sm shadow-sm ring-offset-background data-[placeholder]:text-muted-foreground select-none`,
                 selectedItem && "text-primary hover:text-primary",
                 className
               )}
@@ -117,7 +111,10 @@ const SelectPaginatedSearch = forwardRef(
               <ChevronDownIcon className="text-muted-foreground" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="p-0" style={{ width }}>
+          <PopoverContent
+            className="p-0 w-full min-w-[--radix-popover-trigger-width]"
+            align="start"
+          >
             <Command>
               <CommandInput
                 ref={ref}

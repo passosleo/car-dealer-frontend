@@ -17,6 +17,7 @@ export function formatInput(
   mask.value = value;
 
   const masked = mask.value;
+  const unmasked = mask.unmaskedValue;
 
   if (hookFormMethods) {
     const {
@@ -32,7 +33,7 @@ export function formatInput(
     setValue(elementId, masked, { shouldValidate });
   }
 
-  return { masked, unmasked: value };
+  return { masked, unmasked };
 }
 
 export function randomInputId() {

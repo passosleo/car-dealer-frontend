@@ -101,6 +101,7 @@ export function VehicleFormContent({
           <FormInput
             label="Ano"
             name="year"
+            type="number"
             disabled={isLoading}
             onChange={(e) => formatInput(e, { mask: "0000" }, hookFormMethods)}
           />
@@ -125,7 +126,6 @@ export function VehicleFormContent({
           <FormSelectPaginatedSearch
             label="Marca"
             name="brandId"
-            width="100%"
             data={brands.map((brand) => ({
               label: brand.name,
               value: brand.brandId,
@@ -140,7 +140,6 @@ export function VehicleFormContent({
           <FormSelectPaginatedSearch
             label="Categoria"
             name="categoryId"
-            width="100%"
             data={categories.map((category) => ({
               label: category.name,
               value: category.categoryId,
@@ -165,6 +164,7 @@ export function VehicleFormContent({
             name="price"
             leftIcon={<TextNormal className="text-sm">R$</TextNormal>}
             disabled={isLoading}
+            type="number"
           />
           <FormInput
             label="Quilometragem"
@@ -182,28 +182,26 @@ export function VehicleFormContent({
           <FormInput
             label="Portas"
             name="doors"
+            type="number"
             disabled={isLoading}
-            onChange={(e) =>
-              formatInput(
-                e,
-                {
-                  mask: Number,
-                  scale: 0,
-                },
-                hookFormMethods
-              )
-            }
           />
-          <FormInput label="Assentos" name="seats" disabled={isLoading} />
+          <FormInput
+            label="Assentos"
+            name="seats"
+            type="number"
+            disabled={isLoading}
+          />
           <FormInput
             label="Potência"
             name="horsepower"
+            type="number"
             disabled={isLoading}
             rightIcon={<TextNormal className="text-sm">cv</TextNormal>}
           />
           <FormInput
             label="Torque"
             name="torque"
+            type="number"
             disabled={isLoading}
             rightIcon={<TextNormal className="text-sm">kgfm</TextNormal>}
           />
