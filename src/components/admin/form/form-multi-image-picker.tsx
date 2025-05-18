@@ -79,6 +79,7 @@ export function FormMultiImagePicker({
               const updated = [...(field.value || [])];
               updated.splice(indexToRemove, 1);
               field.onChange(updated);
+              form.trigger(name);
             }
 
             const total = field.value?.length || 0;

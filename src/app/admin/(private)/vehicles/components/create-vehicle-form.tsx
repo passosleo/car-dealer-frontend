@@ -111,12 +111,11 @@ const createVehicleSchema = z.object({
     .nonempty({ message: messages.nonempty_error }),
 
   active: z.boolean().default(true),
-  vehicleImages: z.array(
-    z.string({ required_error: messages.required_error }),
-    {
+  vehicleImages: z
+    .array(z.string(), {
       required_error: messages.required_error,
-    }
-  ),
+    })
+    .min(1, { message: messages.required_error }),
   vehicleFeatures: z
     .array(z.string({ required_error: messages.required_error }))
     .default([]),
