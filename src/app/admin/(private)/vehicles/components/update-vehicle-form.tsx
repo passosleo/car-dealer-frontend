@@ -120,7 +120,10 @@ const updateVehicleSchema = z.object({
     .array(z.string(), {
       required_error: messages.required_error,
     })
-    .min(1, { message: messages.required_error }),
+    .min(1, { message: messages.required_error })
+    .max(10, {
+      message: messages.max_error_custom(10),
+    }),
   vehicleFeatures: z
     .array(z.string({ required_error: messages.required_error }))
     .default([]),
