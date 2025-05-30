@@ -15,6 +15,7 @@ import { Category } from "../../categories/types/category";
 import { formatInput } from "@/utils/input";
 import { useFormContext } from "react-hook-form";
 import { TextNormal } from "@/components/admin/text/text-normal";
+import { FormSelect } from "@/components/admin/form/form-select";
 
 type VehicleFormContentProps = {
   isLoading: boolean;
@@ -173,12 +174,42 @@ export function VehicleFormContent({
             disabled={isLoading}
           />
           <FormInput label="Cor" name="color" disabled={isLoading} />
-          <FormInput
+          <FormSelect
             label="Transmissão"
             name="transmission"
+            data={[
+              { label: "Manual", value: "MANUAL" },
+              { label: "Automática", value: "AUTOMATIC" },
+              { label: "Semi-Automática", value: "SEMI-AUTOMATIC" },
+            ]}
             disabled={isLoading}
+            allowClear
           />
-          <FormInput label="Combustível" name="fuelType" disabled={isLoading} />
+          <FormSelect
+            label="Combustível"
+            name="fuelType"
+            data={[
+              { label: "Gasolina", value: "GASOLINE" },
+              { label: "Álcool", value: "ETHANOL" },
+              { label: "Diesel", value: "DIESEL" },
+              { label: "Elétrico", value: "ELECTRIC" },
+              { label: "Híbrido", value: "HYBRID" },
+            ]}
+            disabled={isLoading}
+            allowClear
+          />
+          <FormSelect
+            label="Tração"
+            name="driveTrain"
+            data={[
+              { label: "Dianteira (FWD)", value: "FWD" },
+              { label: "Traseira (RWD)", value: "RWD" },
+              { label: "Integral (AWD)", value: "AWD" },
+              { label: "Tração 4x4 (4WD)", value: "4WD" },
+            ]}
+            disabled={isLoading}
+            allowClear
+          />
           <FormInput
             label="Portas"
             name="doors"
@@ -205,7 +236,6 @@ export function VehicleFormContent({
             disabled={isLoading}
             rightIcon={<TextNormal className="text-sm">kgfm</TextNormal>}
           />
-          <FormInput label="Tração" name="driveTrain" disabled={isLoading} />
         </div>
 
         <FormSwitch
@@ -216,7 +246,7 @@ export function VehicleFormContent({
         />
 
         <div className="flex flex-col md:flex-row gap-4 w-full mt-4">
-          {additionalButton ?? null}
+          {additionalButton ?? <></>}
 
           <Button
             type="button"
