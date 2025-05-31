@@ -194,6 +194,8 @@ export function VehicleFormContent({
               { label: "Diesel", value: "DIESEL" },
               { label: "Elétrico", value: "ELECTRIC" },
               { label: "Híbrido", value: "HYBRID" },
+              { label: "GNV", value: "CNG" },
+              { label: "Flex", value: "FLEX" },
             ]}
             disabled={isLoading}
             allowClear

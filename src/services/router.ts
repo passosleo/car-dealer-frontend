@@ -194,6 +194,22 @@ const routes = {
     uri: "/api/v1/admin/vehicle/:vehicleId",
     headers: ["Authorization"],
   },
+  listActiveVehicles: {
+    method: "GET",
+    uri: "/api/v1/public/vehicle",
+  },
+  listActiveCategories: {
+    method: "GET",
+    uri: "/api/v1/public/category",
+  },
+  listActiveBrands: {
+    method: "GET",
+    uri: "/api/v1/public/brand",
+  },
+  listActiveSellers: {
+    method: "GET",
+    uri: "/api/v1/public/seller",
+  },
 } as const;
 
 export { HOST, routes };
