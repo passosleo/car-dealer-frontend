@@ -1,4 +1,5 @@
 import { Vehicle } from "@/app/admin/(private)/vehicles/types/vehicle";
+import { formatToReal } from "@/utils/money";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,7 +23,7 @@ export function Shelf(vehicle: Vehicle) {
       <p className="text-2xl font-bold truncate">{model}</p>
       <div className="flex justify-between gap-4 text-gray-500">
         <p className="truncate">{brand.name}</p>
-        <p>{price}</p>
+        <p>{formatToReal(price)}</p>
       </div>
     </Link>
   );
