@@ -3,7 +3,6 @@ export type ListActiveVehicleFilters = {
   limit?: number;
   orderBy?: "asc" | "desc";
   search?: string;
-  status?: "all" | "active" | "inactive";
   priceStart?: number;
   priceEnd?: number;
   mileageStart?: number;
