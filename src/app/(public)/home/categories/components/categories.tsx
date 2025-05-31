@@ -26,8 +26,8 @@ export function Categories() {
           <Image
             src={category.imageUrl}
             alt={category.name}
-            width={180}
-            height={180}
+            width={100}
+            height={100}
           />
           {category.name ? (
             <p className="text-white font-bold text-sm mt-2">{category.name}</p>
