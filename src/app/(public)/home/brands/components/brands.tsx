@@ -21,8 +21,8 @@ export function Brands() {
             <Image
               src={brand.imageUrl}
               alt={`Link para a marca ${brand.name}`}
-              width={100}
-              height={100}
+              width={80}
+              height={80}
             />
           </div>
         </Link>
