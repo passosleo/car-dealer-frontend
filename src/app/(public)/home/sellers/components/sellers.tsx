@@ -3,6 +3,7 @@
 import { WhatsappIcon } from "@/assets/icons/Whatsapp";
 import { Section } from "../../components/section";
 import { useListActiveSellersService } from "../services/use-list-active-sellers-service";
+import { Avatar } from "@/components/admin/avatar/avatar";
 
 export function Sellers() {
   const { sellers } = useListActiveSellersService({
@@ -26,7 +27,10 @@ export function Sellers() {
               className="bg-zinc-900 rounded-lg shadow-md px-4 py-7 flex flex-col items-center transition-transform transform hover:scale-105 max-w-64"
             >
               <div className="w-16 h-16 mb-4 bg-white rounded-full overflow-hidden">
-                {/* <SellerAvatar name={`${employee.firstName} ${employee.lastName}`} /> */}
+                <Avatar
+                  name={`${seller.firstName} ${seller.lastName}`}
+                  src={seller.imageUrl}
+                />
               </div>
               <p className="text-xl font-semibold text-white">{`${seller.firstName} ${seller.lastName}`}</p>
               <p className="text-gray-300 text-sm mb-2">{seller.email}</p>
