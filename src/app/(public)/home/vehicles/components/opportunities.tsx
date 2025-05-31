@@ -16,7 +16,6 @@ export function Opportunities() {
     page: 1,
     limit: 100,
   });
-  console.log(" Opportunities ~ vehicles", vehicles);
   return (
     <Section bgColor="zinc-950" id="opportunities">
       <div className="flex items-center justify-between gap-10 flex-wrap">

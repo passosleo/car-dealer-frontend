@@ -135,7 +135,6 @@ export function CreateVehicleForm(
   const { createVehicle, isPending } = useCreateVehicleService();
 
   function onSubmit(data: CreateVehicleSchema) {
-    console.log(" onSubmit ~ data", data);
     createVehicle({ payload: data });
   }
 

@@ -15,7 +15,6 @@ export default async function VehiclesPage({
   searchParams: Promise<Partial<ListVehicleFilters>>;
 }) {
   const appliedFilters = await searchParams;
-  console.log("appliedFilters", appliedFilters);
   return (
     <PageLayout>
       <PageHeader
