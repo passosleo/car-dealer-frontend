@@ -14,7 +14,7 @@ export function Brands() {
   return (
     <Section positionBlur="left" bgColor="zinc-900" title="Marcas" id="brands">
       {brands.map((brand) => (
-        <Link href={brand.name} key={brand.brandId}>
+        <Link href={`/brands/${brand.brandId}`} key={brand.brandId}>
           <div
             className={`flex justify-center items-center p-4 flex-col bg-zinc-950 shadow-md rounded-full transition-transform transform hover:scale-105 w-36 h-36`}
           >

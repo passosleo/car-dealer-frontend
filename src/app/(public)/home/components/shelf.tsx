@@ -1,11 +1,15 @@
 import { Vehicle } from "@/app/admin/(private)/vehicles/types/vehicle";
 import Image from "next/image";
+import Link from "next/link";
 
 export function Shelf(vehicle: Vehicle) {
   const { model, brand, price, vehicleImages } = vehicle;
 
   return (
-    <div className="w-80 h-full flex flex-col gap-1 text-white">
+    <Link
+      href={`/vehicles/${vehicle.vehicleId}`}
+      className="w-80 h-full flex flex-col gap-1 text-white"
+    >
       <div className="h-48 mb-3">
         <Image
           src={vehicleImages[0] || ""}
@@ -20,6 +24,6 @@ export function Shelf(vehicle: Vehicle) {
         <p className="truncate">{brand.name}</p>
         <p>{price}</p>
       </div>
-    </div>
+    </Link>
   );
 }
