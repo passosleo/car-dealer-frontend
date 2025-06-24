@@ -5,13 +5,15 @@ import { LayoutComponent as LayoutComponentType } from "../types/layout-componen
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { GripVerticalIcon, LayoutDashboardIcon, LockIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
+import { DraggableStateSnapshot } from "@hello-pangea/dnd";
 
 interface LayoutComponentProps extends LayoutComponentType {
   isDraggable?: boolean;
+  snapshot: DraggableStateSnapshot;
 }
 
 const LayoutComponent = React.forwardRef<HTMLDivElement, LayoutComponentProps>(
-  ({ isDraggable, ...layoutComponent }, ref) => {
+  ({ isDraggable, snapshot, ...layoutComponent }, ref) => {
     const isActive = layoutComponent.active;
 
     const Wrapper: React.ElementType = isActive ? Link : "div";
