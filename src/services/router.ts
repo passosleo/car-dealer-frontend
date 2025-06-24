@@ -210,6 +210,11 @@ const routes = {
     method: "GET",
     uri: "/api/v1/public/seller",
   },
+  listLayoutComponents: {
+    method: "GET",
+    uri: "/api/v1/admin/layout",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };
