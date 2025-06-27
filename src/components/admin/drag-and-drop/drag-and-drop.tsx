@@ -28,33 +28,30 @@ export function DragAndDrop({
   ...props
 }: DragAndDropProps) {
   const { isClientSide } = useClientSide();
+  if (!isClientSide) return <></>;
   return (
     <DragDropContext {...props}>
-      {isClientSide ? (
-        <Droppable
-          droppableId={droppableId}
-          type={type}
-          mode={mode}
-          isDropDisabled={isDropDisabled}
-          isCombineEnabled={isCombineEnabled}
-          direction={direction}
-          ignoreContainerClipping={ignoreContainerClipping}
-          renderClone={renderClone}
-          getContainerForClone={getContainerForClone}
-        >
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle ? getListStyle(snapshot) : undefined}
-            >
-              {children}
-            </div>
-          )}
-        </Droppable>
-      ) : (
-        <></>
-      )}
+      <Droppable
+        droppableId={droppableId}
+        type={type}
+        mode={mode}
+        isDropDisabled={isDropDisabled}
+        isCombineEnabled={isCombineEnabled}
+        direction={direction}
+        ignoreContainerClipping={ignoreContainerClipping}
+        renderClone={renderClone}
+        getContainerForClone={getContainerForClone}
+      >
+        {(provided, snapshot) => (
+          <div
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            style={getListStyle ? getListStyle(snapshot) : undefined}
+          >
+            {children}
+          </div>
+        )}
+      </Droppable>
     </DragDropContext>
   );
 }
