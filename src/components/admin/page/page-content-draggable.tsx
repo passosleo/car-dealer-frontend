@@ -2,14 +2,18 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import { DragAndDrop } from "../drag-and-drop/drag-and-drop";
 import { DraggableList } from "../drag-and-drop/draggable-list";
-import { DraggableStateSnapshot, DropResult } from "@hello-pangea/dnd";
+import {
+  DraggableStateSnapshot,
+  DropResult,
+  ResponderProvided,
+} from "@hello-pangea/dnd";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "../loader/loader-circle";
 import { SaveIcon, XIcon } from "lucide-react";
 
 type PageContentDraggableProps<T> = Omit<
   React.ComponentProps<"section">,
-  "children"
+  "children" | "onDragEnd"
 > & {
   items: T[];
   renderItem: (
@@ -17,7 +21,7 @@ type PageContentDraggableProps<T> = Omit<
     index: number,
     snapshot: DraggableStateSnapshot
   ) => React.ReactNode;
-  onDragEnd: (dropResult: DropResult) => void;
+  onDragEnd: (result: DropResult, provided: ResponderProvided) => void;
   isLoading?: boolean;
 };
 

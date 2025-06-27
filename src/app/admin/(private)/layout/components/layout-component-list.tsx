@@ -41,7 +41,7 @@ export function LayoutComponentList() {
             width={180}
             height={180}
           />
-          <TextNormal className="my-4">Nenhuma categoria encontrada</TextNormal>
+          <TextNormal className="my-4">Nenhum componente encontrado</TextNormal>
         </div>
       ) : (
         <>
