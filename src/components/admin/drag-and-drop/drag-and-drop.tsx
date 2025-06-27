@@ -6,6 +6,7 @@ import {
   DroppableProps,
   DroppableStateSnapshot,
 } from "@hello-pangea/dnd";
+import { useClientSide } from "@/hooks/use-client-side";
 
 type DragAndDropProps = DragDropContextProps &
   Omit<DroppableProps, "children"> & {
@@ -26,29 +27,34 @@ export function DragAndDrop({
   getContainerForClone,
   ...props
 }: DragAndDropProps) {
+  const { isClientSide } = useClientSide();
   return (
     <DragDropContext {...props}>
-      <Droppable
-        droppableId={droppableId}
-        type={type}
-        mode={mode}
-        isDropDisabled={isDropDisabled}
-        isCombineEnabled={isCombineEnabled}
-        direction={direction}
-        ignoreContainerClipping={ignoreContainerClipping}
-        renderClone={renderClone}
-        getContainerForClone={getContainerForClone}
-      >
-        {(provided, snapshot) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={getListStyle ? getListStyle(snapshot) : undefined}
-          >
-            {children}
-          </div>
-        )}
-      </Droppable>
+      {isClientSide ? (
+        <Droppable
+          droppableId={droppableId}
+          type={type}
+          mode={mode}
+          isDropDisabled={isDropDisabled}
+          isCombineEnabled={isCombineEnabled}
+          direction={direction}
+          ignoreContainerClipping={ignoreContainerClipping}
+          renderClone={renderClone}
+          getContainerForClone={getContainerForClone}
+        >
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={getListStyle ? getListStyle(snapshot) : undefined}
+            >
+              {children}
+            </div>
+          )}
+        </Droppable>
+      ) : (
+        <></>
+      )}
     </DragDropContext>
   );
 }
