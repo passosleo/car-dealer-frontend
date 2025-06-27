@@ -13,7 +13,7 @@ interface LayoutComponentProps extends LayoutComponentType {
 }
 
 const LayoutComponent = React.forwardRef<HTMLDivElement, LayoutComponentProps>(
-  ({ isDraggable, snapshot, ...layoutComponent }, ref) => {
+  ({ isDraggable, ...layoutComponent }, ref) => {
     const isActive = layoutComponent.active;
 
     const Wrapper: React.ElementType = isActive ? Link : "div";
