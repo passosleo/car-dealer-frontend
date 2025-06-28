@@ -52,7 +52,7 @@ const PageContentDraggableInner = <T,>(
           isCombineEnabled={false}
           ignoreContainerClipping={false}
           direction="vertical"
-          droppableId="teste"
+          droppableId="droppableId"
         >
           <DraggableList items={items} renderItem={renderItem} />
         </DragAndDrop>

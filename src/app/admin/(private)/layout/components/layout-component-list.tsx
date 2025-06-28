@@ -7,13 +7,16 @@ import { useListLayoutComponentsService } from "../services/use-list-layout-comp
 import { LayoutComponent } from "./layout-component";
 import { PageContentDraggable } from "@/components/admin/page/page-content-draggable";
 import { DropResult } from "@hello-pangea/dnd";
+import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
 
 export function LayoutComponentList() {
-  const { layoutComponents, isPending, isEmpty } =
-    useListLayoutComponentsService();
+  const [layoutComponentsState, setLayoutComponentsState] = React.useState<
+    LayoutComponentType[]
+  >([]);
 
-  const [layoutComponentsState, setLayoutComponentsState] =
-    React.useState(layoutComponents);
+  const { isPending, isEmpty } = useListLayoutComponentsService({
+    onSuccess: setLayoutComponentsState,
+  });
 
   function onDragEnd(dropResult: DropResult) {
     if (!dropResult.destination) {
