@@ -215,6 +215,11 @@ const routes = {
     uri: "/api/v1/admin/layout",
     headers: ["Authorization"],
   },
+  updateLayoutComponentPositions: {
+    method: "PUT",
+    uri: "/api/v1/admin/layout/position/:page",
+    headers: ["Authorization"],
+  },
 } as const;
 
 export { HOST, routes };

@@ -8,3 +8,7 @@ export type LayoutComponent = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type UpdateLayoutComponentPositionsRequest = {
+  layoutComponentId: string;
+}[];

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
@@ -8,31 +8,46 @@ import { LayoutComponent } from "./layout-component";
 import { PageContentDraggable } from "@/components/admin/page/page-content-draggable";
 import { DropResult } from "@hello-pangea/dnd";
 import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
+import { useUpdateLayoutComponentPositionsService } from "../services/use-update-layout-component-positions-service";
 
 export function LayoutComponentList() {
-  const [layoutComponentsState, setLayoutComponentsState] = React.useState<
+  const [layoutComponentsState, setLayoutComponentsState] = useState<
     LayoutComponentType[]
   >([]);
 
-  const { isPending, isEmpty } = useListLayoutComponentsService({
-    onSuccess: setLayoutComponentsState,
+  const { isPending: isListPending, isEmpty } = useListLayoutComponentsService({
+    onSuccess: (data) => {
+      setLayoutComponentsState(data);
+    },
   });
 
-  function onDragEnd(dropResult: DropResult) {
-    if (!dropResult.destination) {
-      return;
-    }
+  const { updateLayoutComponentPositions } =
+    useUpdateLayoutComponentPositionsService();
 
-    const reorderedComponents = Array.from(layoutComponentsState);
-    const [removed] = reorderedComponents.splice(dropResult.source.index, 1);
-    reorderedComponents.splice(dropResult.destination.index, 0, removed);
+  const onDragEnd = useCallback(
+    (dropResult: DropResult) => {
+      const { source, destination } = dropResult;
+      if (!destination || source.index === destination.index) return;
 
-    setLayoutComponentsState(reorderedComponents);
-  }
+      const updatedComponents = [...layoutComponentsState];
+      const [moved] = updatedComponents.splice(source.index, 1);
+      updatedComponents.splice(destination.index, 0, moved);
+
+      setLayoutComponentsState(updatedComponents);
+
+      updateLayoutComponentPositions({
+        params: { page: "home" },
+        payload: updatedComponents.map((component) => ({
+          layoutComponentId: component.layoutComponentId,
+        })),
+      });
+    },
+    [layoutComponentsState, updateLayoutComponentPositions]
+  );
 
   return (
     <>
-      {isPending ? (
+      {isListPending ? (
         <div className="flex justify-center items-center h-full">
           <LoaderCustom />
         </div>
@@ -47,19 +62,17 @@ export function LayoutComponentList() {
           <TextNormal className="my-4">Nenhum componente encontrado</TextNormal>
         </div>
       ) : (
-        <>
-          <PageContentDraggable
-            items={layoutComponentsState}
-            renderItem={(layoutComponent, _, snapshot) => (
-              <LayoutComponent
-                {...layoutComponent}
-                snapshot={snapshot}
-                isDraggable
-              />
-            )}
-            onDragEnd={onDragEnd}
-          />
-        </>
+        <PageContentDraggable
+          items={layoutComponentsState}
+          renderItem={(layoutComponent, _, snapshot) => (
+            <LayoutComponent
+              {...layoutComponent}
+              snapshot={snapshot}
+              isDraggable
+            />
+          )}
+          onDragEnd={onDragEnd}
+        />
       )}
     </>
   );

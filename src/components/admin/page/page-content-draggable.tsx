@@ -22,6 +22,10 @@ type PageContentDraggableProps<T> = Omit<
     snapshot: DraggableStateSnapshot
   ) => React.ReactNode;
   onDragEnd: (result: DropResult, provided: ResponderProvided) => void;
+  isDropDisabled?: boolean;
+  isCombineEnabled?: boolean;
+  ignoreContainerClipping?: boolean;
+  direction?: "horizontal" | "vertical";
   isLoading?: boolean;
 };
 
@@ -32,6 +36,10 @@ const PageContentDraggableInner = <T,>(
     className,
     isLoading,
     onDragEnd,
+    isDropDisabled = false,
+    isCombineEnabled = false,
+    ignoreContainerClipping = false,
+    direction = "vertical",
     ...props
   }: PageContentDraggableProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>
@@ -48,11 +56,11 @@ const PageContentDraggableInner = <T,>(
       >
         <DragAndDrop
           onDragEnd={onDragEnd}
-          isDropDisabled={false}
-          isCombineEnabled={false}
-          ignoreContainerClipping={false}
-          direction="vertical"
-          droppableId="droppableId"
+          isDropDisabled={isDropDisabled}
+          isCombineEnabled={isCombineEnabled}
+          ignoreContainerClipping={ignoreContainerClipping}
+          direction={direction}
+          droppableId="page-content-draggable"
         >
           <DraggableList items={items} renderItem={renderItem} />
         </DragAndDrop>
