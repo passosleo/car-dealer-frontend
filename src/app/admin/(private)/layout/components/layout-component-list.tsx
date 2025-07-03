@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Image from "next/image";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
@@ -8,21 +8,22 @@ import { LayoutComponent } from "./layout-component";
 import { PageContentDraggable } from "@/components/admin/page/page-content-draggable";
 import { DropResult } from "@hello-pangea/dnd";
 import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
-import { useUpdateLayoutComponentPositionsService } from "../services/use-update-layout-component-positions-service";
 
 export function LayoutComponentList() {
   const [layoutComponentsState, setLayoutComponentsState] = useState<
     LayoutComponentType[]
   >([]);
+  const [enableDragAndDrop, setEnableDragAndDrop] = useState(true);
 
-  const { isPending: isListPending, isEmpty } = useListLayoutComponentsService({
+  const {
+    layoutComponents,
+    isPending: isListPending,
+    isEmpty,
+  } = useListLayoutComponentsService({
     onSuccess: (data) => {
       setLayoutComponentsState(data);
     },
   });
-
-  const { updateLayoutComponentPositions } =
-    useUpdateLayoutComponentPositionsService();
 
   const onDragEnd = useCallback(
     (dropResult: DropResult) => {
@@ -33,17 +34,26 @@ export function LayoutComponentList() {
       const [moved] = updatedComponents.splice(source.index, 1);
       updatedComponents.splice(destination.index, 0, moved);
 
-      setLayoutComponentsState(updatedComponents);
+      const isSameOrder = updatedComponents.every(
+        (component, index) =>
+          component.layoutComponentId ===
+          layoutComponentsState[index].layoutComponentId
+      );
 
-      updateLayoutComponentPositions({
-        params: { page: "home" },
-        payload: updatedComponents.map((component) => ({
-          layoutComponentId: component.layoutComponentId,
-        })),
-      });
+      if (!isSameOrder) {
+        setLayoutComponentsState(updatedComponents);
+      }
     },
-    [layoutComponentsState, updateLayoutComponentPositions]
+    [layoutComponentsState]
   );
+
+  const hasUnsavedChanges = useMemo(() => {
+    return layoutComponentsState.some(
+      (component, index) =>
+        component.layoutComponentId !==
+        layoutComponents[index]?.layoutComponentId
+    );
+  }, [layoutComponentsState, layoutComponents]);
 
   return (
     <>
@@ -68,10 +78,17 @@ export function LayoutComponentList() {
             <LayoutComponent
               {...layoutComponent}
               snapshot={snapshot}
-              isDraggable
+              isDraggable={enableDragAndDrop}
             />
           )}
           onDragEnd={onDragEnd}
+          isDragDisabled={!enableDragAndDrop}
+          enableFooter={hasUnsavedChanges}
+          onClickSave={() => null}
+          onClickCancel={() => {
+            setLayoutComponentsState(layoutComponents);
+            setEnableDragAndDrop(false);
+          }}
         />
       )}
     </>
