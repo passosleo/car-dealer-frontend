@@ -12,7 +12,7 @@ const items: SidebarMenuOption[] = [
   {
     title: "Dashboard",
     url: "/admin/dashboard",
-    icon: "LayoutDashboard",
+    icon: "CircleGauge",
   },
   {
     title: "Layout",

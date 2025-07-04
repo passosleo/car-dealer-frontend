@@ -32,6 +32,7 @@ type PageContentDraggableProps<T> = Omit<
   enableFooter?: boolean;
   onClickSave?: () => void;
   onClickCancel?: () => void;
+  hasUnsavedChanges?: boolean;
 };
 
 const PageContentDraggableInner = <T,>(
@@ -49,6 +50,7 @@ const PageContentDraggableInner = <T,>(
     enableFooter,
     onClickSave,
     onClickCancel,
+    hasUnsavedChanges,
     ...props
   }: PageContentDraggableProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>
@@ -95,7 +97,14 @@ const PageContentDraggableInner = <T,>(
               <XIcon />
               Cancelar
             </Button>
-            <Button className="max-w-48 w-full" onClick={onClickSave}>
+            <Button
+              className="relative max-w-48 w-full transition-all"
+              onClick={onClickSave}
+              disabled={isLoading || !hasUnsavedChanges}
+            >
+              {hasUnsavedChanges && (
+                <span className="absolute top-[-8px] right-[-4px] h-4 w-4 rounded-full bg-destructive" />
+              )}
               {isLoading ? <LoaderCircle color="secondary" /> : <SaveIcon />}
               Salvar
             </Button>

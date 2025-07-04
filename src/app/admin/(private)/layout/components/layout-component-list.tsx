@@ -1,63 +1,35 @@
-"use client";
-import { useCallback, useMemo, useState } from "react";
 import Image from "next/image";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { useListLayoutComponentsService } from "../services/use-list-layout-components-service";
 import { LayoutComponent } from "./layout-component";
 import { PageContentDraggable } from "@/components/admin/page/page-content-draggable";
-import { DropResult } from "@hello-pangea/dnd";
+import { DropResult, ResponderProvided } from "@hello-pangea/dnd";
 import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
 
-export function LayoutComponentList() {
-  const [layoutComponentsState, setLayoutComponentsState] = useState<
-    LayoutComponentType[]
-  >([]);
-  const [enableDragAndDrop, setEnableDragAndDrop] = useState(true);
-
-  const {
-    layoutComponents,
-    isPending: isListPending,
-    isEmpty,
-  } = useListLayoutComponentsService({
-    onSuccess: (data) => {
-      setLayoutComponentsState(data);
-    },
-  });
-
-  const onDragEnd = useCallback(
-    (dropResult: DropResult) => {
-      const { source, destination } = dropResult;
-      if (!destination || source.index === destination.index) return;
-
-      const updatedComponents = [...layoutComponentsState];
-      const [moved] = updatedComponents.splice(source.index, 1);
-      updatedComponents.splice(destination.index, 0, moved);
-
-      const isSameOrder = updatedComponents.every(
-        (component, index) =>
-          component.layoutComponentId ===
-          layoutComponentsState[index].layoutComponentId
-      );
-
-      if (!isSameOrder) {
-        setLayoutComponentsState(updatedComponents);
-      }
-    },
-    [layoutComponentsState]
-  );
-
-  const hasUnsavedChanges = useMemo(() => {
-    return layoutComponentsState.some(
-      (component, index) =>
-        component.layoutComponentId !==
-        layoutComponents[index]?.layoutComponentId
-    );
-  }, [layoutComponentsState, layoutComponents]);
-
+export function LayoutComponentList({
+  isLoading,
+  isListLoading,
+  isEmpty,
+  isDragAndDropEnabled,
+  layoutComponents = [],
+  onDragEnd,
+  onClickSave,
+  onClickCancel,
+  hasUnsavedChanges,
+}: {
+  isListLoading?: boolean;
+  isLoading?: boolean;
+  isEmpty?: boolean;
+  isDragAndDropEnabled?: boolean;
+  layoutComponents?: LayoutComponentType[];
+  onDragEnd: (result: DropResult, provided: ResponderProvided) => void;
+  onClickSave: () => void;
+  onClickCancel: () => void;
+  hasUnsavedChanges?: boolean;
+}) {
   return (
     <>
-      {isListPending ? (
+      {isListLoading ? (
         <div className="flex justify-center items-center h-full">
           <LoaderCustom />
         </div>
@@ -73,22 +45,21 @@ export function LayoutComponentList() {
         </div>
       ) : (
         <PageContentDraggable
-          items={layoutComponentsState}
+          items={layoutComponents}
           renderItem={(layoutComponent, _, snapshot) => (
             <LayoutComponent
               {...layoutComponent}
               snapshot={snapshot}
-              isDraggable={enableDragAndDrop}
+              isDraggable={isDragAndDropEnabled && layoutComponent.active}
             />
           )}
+          enableFooter={isDragAndDropEnabled}
+          isDragDisabled={!isDragAndDropEnabled}
+          isLoading={isLoading}
+          hasUnsavedChanges={hasUnsavedChanges}
           onDragEnd={onDragEnd}
-          isDragDisabled={!enableDragAndDrop}
-          enableFooter={hasUnsavedChanges}
-          onClickSave={() => null}
-          onClickCancel={() => {
-            setLayoutComponentsState(layoutComponents);
-            setEnableDragAndDrop(false);
-          }}
+          onClickSave={onClickSave}
+          onClickCancel={onClickCancel}
         />
       )}
     </>
