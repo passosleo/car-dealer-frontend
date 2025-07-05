@@ -29,7 +29,9 @@ const UserProfile = React.forwardRef<HTMLAnchorElement, UserProfileProps>(
       >
         <Avatar name={fullName} className="w-10 h-10 text-md" />
         <div>
-          <TextSubheading className="text-sm">{fullName}</TextSubheading>
+          <TextSubheading className="text-sm font-normal">
+            {fullName}
+          </TextSubheading>
           <TextNormal className="text-xs">{userInfo.profile.name}</TextNormal>
         </div>
       </Link>

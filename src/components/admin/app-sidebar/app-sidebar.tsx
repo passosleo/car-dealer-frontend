@@ -12,7 +12,7 @@ const items: SidebarMenuOption[] = [
   {
     title: "Dashboard",
     url: "/admin/dashboard",
-    icon: "LayoutDashboard",
+    icon: "CircleGauge",
   },
   {
     title: "Layout",
@@ -54,11 +54,11 @@ const items: SidebarMenuOption[] = [
     url: "/admin/users",
     icon: "UserCogIcon",
   },
-  {
-    title: "Configurações",
-    url: "/admin/settings",
-    icon: "Settings",
-  },
+  // {
+  //   title: "Configurações",
+  //   url: "/admin/settings",
+  //   icon: "Settings",
+  // },
 ];
 
 export function AppSidebar() {

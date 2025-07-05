@@ -11,9 +11,9 @@ import { twMerge } from "tailwind-merge";
 import {
   CarFront,
   ChartNoAxesGanttIcon,
+  CircleGauge,
   Image,
   Layout,
-  LayoutDashboard,
   LogOut,
   Settings,
   ShieldEllipsis,
@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 
 const menuIconMap = {
-  LayoutDashboard,
   Layout,
   Image,
   CarFront,
@@ -34,6 +33,7 @@ const menuIconMap = {
   LogOut,
   ChartNoAxesGanttIcon,
   UserCogIcon,
+  CircleGauge,
 };
 
 type MenuIconMap = keyof typeof menuIconMap;
