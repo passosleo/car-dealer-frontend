@@ -134,7 +134,7 @@ export default function AdminDashboardPage() {
                   tickMargin={8}
                 />
                 <ChartTooltip content={<ChartTooltipContent />} />
-                <ChartLegend content={<ChartLegendContent payload={{}} />} />
+                <ChartLegend content={<ChartLegendContent payload={[]} />} />
                 <Bar dataKey="desktop" fill="hsl(var(--primary))" radius={4} />
                 <Bar
                   dataKey="mobile"
