@@ -11,7 +11,7 @@ import { useListLayoutComponentsService } from "../services/use-list-layout-comp
 import { DropResult } from "@hello-pangea/dnd";
 import { useUpdateLayoutComponentPositionsService } from "../services/use-update-layout-component-positions-service";
 
-export const DEFAULT_LAYOUT_ORDER = [
+const DEFAULT_LAYOUT_ORDER = [
   "top-bar",
   "header",
   "banners",
