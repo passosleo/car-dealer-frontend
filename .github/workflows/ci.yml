@@ -93,4 +93,4 @@ jobs:
           push: true
           tags: leopassos/car-dealer-frontend:local
           build-args: |
-            API_URL=${{ secrets.API_URL }}
+            API_URL=http://localhost:4000
