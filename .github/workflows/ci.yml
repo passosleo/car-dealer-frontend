@@ -91,6 +91,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: leopassos/car-dealer-frontend:latest
+          tags: leopassos/car-dealer-frontend:local
           build-args: |
             API_URL=${{ secrets.API_URL }}
