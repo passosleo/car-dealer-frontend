@@ -1,6 +1,13 @@
-"use client";;
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Logo } from "./components/Logo";
+"use client";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Logo } from "../../components/public/logo/logo";
 import { Navbar, Page } from "./components/Navbar";
 
 import { Menu } from "lucide-react";
@@ -37,5 +44,5 @@ export function HeaderMobile({ data }: Props) {
         </SheetContent>
       </Sheet>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { Logo } from "./components/Logo";
+import { Logo } from "../../components/public/logo/logo";
 import { Navbar, Page } from "./components/Navbar";
 
 type Props = {
@@ -15,10 +15,12 @@ export function HeaderDesktop({ data }: Props) {
   return (
     <header className="md:flex hidden justify-center h-20 w-full bg-zinc-900 border-b border-zinc-800">
       <div className={`flex justify-between items-center max-w-9xl w-full`}>
-        <Logo logo={logo} title={title} />
+        <Logo logoImageUrl={logo} title={title} />
         <div className="flex items-center gap-9">
           <Navbar pages={pages} color="white" />
-          <a href="/admin" className="text-white">admin</a>
+          <a href="/admin" className="text-white">
+            admin
+          </a>
         </div>
       </div>
     </header>
