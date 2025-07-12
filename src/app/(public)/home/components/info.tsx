@@ -13,12 +13,11 @@ const items = [
   },
 ];
 
-export function HighlightSection() {
+export function Info() {
   return (
     <div className="flex lg:flex-row flex-col justify-center items-center lg:gap-12 gap-4 bg-zinc-900 text-gray-400 lg:h-28 border-b border-t border-zinc-800 px-2 lg:px-0 lg:py-0 py-5">
       <div className="flex items-center gap-6">
-        <div
-          className="bg-zinc-950 rounded-full w-11 h-11 p-2" />
+        <div className="bg-zinc-950 rounded-full w-11 h-11 p-2" />
         <span className="text-sm">@mercedes</span>
       </div>
       <div className="bg-zinc-800 w-[1px] h-full" />
@@ -30,6 +29,6 @@ export function HighlightSection() {
           </div>
         ))}
       </div>
-    </div >
+    </div>
   );
 }

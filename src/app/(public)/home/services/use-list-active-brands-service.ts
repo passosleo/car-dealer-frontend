@@ -1,11 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { ListActiveCategoryFilters } from "../types/category";
-import { Category } from "@/app/admin/(private)/categories/types/category";
+import { Brand } from "@/app/admin/(private)/brands/types/brand";
+import { ListActiveBrandFilters } from "../types/brand";
 
-export function useListActiveCategoriesService(
-  appliedFilters: Partial<ListActiveCategoryFilters>
+export function useListActiveBrandsService(
+  appliedFilters: Partial<ListActiveBrandFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -15,13 +15,9 @@ export function useListActiveCategoriesService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<
-    void,
-    Partial<ListActiveCategoryFilters>,
-    Paginated<Category>
-  >({
-    routeName: "listActiveCategories",
-    queryKey: ["listActiveCategories", appliedFilters],
+  } = useCustomQuery<void, Partial<ListActiveBrandFilters>, Paginated<Brand>>({
+    routeName: "listActiveBrands",
+    queryKey: ["listActiveBrands", appliedFilters],
     query: appliedFilters,
     onSuccess: (res) => {
       if (
@@ -34,12 +30,12 @@ export function useListActiveCategoriesService(
     },
   });
 
-  const categories = res ? res.data.items : [];
+  const brands = res ? res.data.items : [];
   const totalPages = res ? res.data.totalPages : 0;
   const isEmpty = res ? res.data.items.length === 0 : true;
 
   return {
-    categories,
+    brands,
     totalPages,
     isEmpty,
     isPending: isPending || isLoading || isFetching,

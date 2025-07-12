@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Section } from "../../components/section";
 import { useListActiveCategoriesService } from "../services/use-list-active-categories-service";
 import Link from "next/link";
+import { Section } from "./section";
 
 export function Categories() {
   const { categories } = useListActiveCategoriesService({

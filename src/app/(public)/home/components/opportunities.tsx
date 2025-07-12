@@ -1,7 +1,5 @@
 "use client";
 
-import { Section } from "../../components/section";
-import { Shelf } from "../../components/shelf";
 import {
   Carousel,
   CarouselContent,
@@ -10,6 +8,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useListActiveVehiclesService } from "../services/use-list-active-vehicles-service";
+import { Section } from "./section";
+import { Shelf } from "./shelf";
 
 export function Opportunities() {
   const { vehicles } = useListActiveVehiclesService({

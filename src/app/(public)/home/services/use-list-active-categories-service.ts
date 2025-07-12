@@ -1,11 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { ListActiveVehicleFilters } from "../types/vehicle";
-import { Vehicle } from "@/app/admin/(private)/vehicles/types/vehicle";
+import { Category } from "@/app/admin/(private)/categories/types/category";
+import { ListActiveCategoryFilters } from "../types/category";
 
-export function useListActiveVehiclesService(
-  appliedFilters: Partial<ListActiveVehicleFilters>
+export function useListActiveCategoriesService(
+  appliedFilters: Partial<ListActiveCategoryFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -17,11 +17,11 @@ export function useListActiveVehiclesService(
     ...data
   } = useCustomQuery<
     void,
-    Partial<ListActiveVehicleFilters>,
-    Paginated<Vehicle>
+    Partial<ListActiveCategoryFilters>,
+    Paginated<Category>
   >({
-    routeName: "listActiveVehicles",
-    queryKey: ["listActiveVehicles", appliedFilters],
+    routeName: "listActiveCategories",
+    queryKey: ["listActiveCategories", appliedFilters],
     query: appliedFilters,
     onSuccess: (res) => {
       if (
@@ -34,12 +34,12 @@ export function useListActiveVehiclesService(
     },
   });
 
-  const vehicles = res ? res.data.items : [];
+  const categories = res ? res.data.items : [];
   const totalPages = res ? res.data.totalPages : 0;
   const isEmpty = res ? res.data.items.length === 0 : true;
 
   return {
-    vehicles,
+    categories,
     totalPages,
     isEmpty,
     isPending: isPending || isLoading || isFetching,
