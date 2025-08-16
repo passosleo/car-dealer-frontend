@@ -2,7 +2,7 @@ import { Label } from "@/components/ui/label";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { DatePicker, DatePickerProps } from "../date-picker/date-picker";
-import { ConnectForm } from "@/components/shared/connect-form";
+import { ConnectForm } from "@/components/shared/form/connect-form";
 import { isValid, parseISO, format } from "date-fns";
 
 type FilterDatePickerProps = DatePickerProps & {

@@ -1,5 +1,5 @@
 import React from "react";
-import { ConnectForm } from "@/components/shared/connect-form";
+import { ConnectForm } from "@/components/shared/form/connect-form";
 import { Label } from "@/components/ui/label";
 import { Controller } from "react-hook-form";
 import { twMerge } from "tailwind-merge";

@@ -1,4 +1,4 @@
-import { ConnectForm } from "@/components/shared/connect-form";
+import { ConnectForm } from "@/components/shared/form/connect-form";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {

@@ -1,4 +1,4 @@
-import { ConnectForm } from "@/components/shared/connect-form";
+import { ConnectForm } from "@/components/shared/form/connect-form";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import React from "react";

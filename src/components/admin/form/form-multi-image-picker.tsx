@@ -15,7 +15,7 @@ import { Controller } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ConnectForm } from "@/components/shared/connect-form";
+import { ConnectForm } from "@/components/shared/form/connect-form";
 
 type FormMultiImagePickerProps = {
   name: string;

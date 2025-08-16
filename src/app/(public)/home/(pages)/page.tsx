@@ -1,4 +1,3 @@
-import { TopBar } from "@/layout/public/topbar";
 import { Banners } from "../components/banners";
 import { Brands } from "../components/brands";
 import { Categories } from "../components/categories";
@@ -8,28 +7,19 @@ import { Opportunities } from "../components/opportunities";
 import { Sellers } from "../components/sellers";
 import { Suspense } from "react";
 import { WhatsappButton } from "@/layout/public/whatsapp-button";
-import { Header } from "@/layout/public/header";
 
 export default function HomePage() {
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <TopBar isEnabled />
-        <Header />
-      </div>
-      <div className="flex flex-1 mt-28 pt-1">
-        <div className="w-full ">
-          <Suspense>
-            <Banners />
-            <Info />
-            <Opportunities />
-            <Categories />
-            <Brands />
-            <Sellers />
-            <Contact />
-          </Suspense>
-        </div>
-      </div>
+      <Suspense>
+        <Banners />
+        <Info />
+        <Opportunities />
+        <Categories />
+        <Brands />
+        <Sellers />
+        <Contact />
+      </Suspense>
       <WhatsappButton />
     </>
   );

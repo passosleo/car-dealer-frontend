@@ -2,20 +2,19 @@
 
 import { Input } from "@/components/ui/input";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { XIcon } from "lucide-react";
+import { Search, XIcon } from "lucide-react";
 import React, { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const SearchInput = React.forwardRef<
   HTMLInputElement,
-  React.ComponentProps<typeof Input>
+  Omit<React.ComponentProps<typeof Input>, "value" | "onChange">
 >(
   (
     {
       id = "search",
       name = "search",
       type = "search",
-      size = 30,
       placeholder = "Buscar",
       className,
       ...props
@@ -30,23 +29,20 @@ const SearchInput = React.forwardRef<
     const hasText = !!(value && value.length);
 
     return (
-      <div className="relative w-full max-w-xl mx-auto">
+      <div className="relative flex-1 max-w-5xl mx-auto">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
         <Input
           {...props}
           ref={ref}
           id={id}
           name={name}
           type={type}
-          size={size}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
-          className={twMerge(
-            "w-full pr-10 border-zinc-500 shadow-none outline-none focus:border-zinc-400 focus:ring-0 placeholder:text-zinc-500 bg-white h-10 !text-lg",
-            className
-          )}
+          className={twMerge("pl-9 bg-zinc-200", className)}
         />
-        {hasText ? (
+        {hasText && (
           <XIcon
             className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer transition-all rounded-md hover:bg-zinc-200 text-zinc-500 hover:text-zinc-800"
             size={18}
@@ -55,8 +51,6 @@ const SearchInput = React.forwardRef<
               clearSearchParams(["search"]);
             }}
           />
-        ) : (
-          <></>
         )}
       </div>
     );
