@@ -2,7 +2,7 @@ import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { Seller } from "@/app/admin/(private)/sellers/types/seller";
-import { ListActiveSellerFilters } from "../types/seller";
+import { ListActiveSellerFilters } from "../(types)/seller";
 
 export function useListActiveSellersService(
   appliedFilters: Partial<ListActiveSellerFilters>

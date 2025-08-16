@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Section } from "../../../../components/public/section/section";
-import { useListActiveBrandsService } from "../services/use-list-active-brands-service";
+import { useListActiveBrandsService } from "../../(services)/use-list-active-brands-service";
 
 export function Brands() {
   const { brands } = useListActiveBrandsService({

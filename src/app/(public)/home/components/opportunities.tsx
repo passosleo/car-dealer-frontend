@@ -7,9 +7,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useListActiveVehiclesService } from "../services/use-list-active-vehicles-service";
 import { Section } from "../../../../components/public/section/section";
 import { Shelf } from "./shelf";
+import { useListActiveVehiclesService } from "../../(services)/use-list-active-vehicles-service";
 
 export function Opportunities() {
   const { vehicles } = useListActiveVehiclesService({

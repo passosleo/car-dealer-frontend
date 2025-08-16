@@ -2,8 +2,8 @@
 
 import { WhatsappIcon } from "@/assets/icons/Whatsapp";
 import { Section } from "../../../../components/public/section/section";
-import { useListActiveSellersService } from "../services/use-list-active-sellers-service";
 import { Avatar } from "@/components/admin/avatar/avatar";
+import { useListActiveSellersService } from "../../(services)/use-list-active-sellers-service";
 
 export function Sellers() {
   const { sellers } = useListActiveSellersService({

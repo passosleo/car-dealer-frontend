@@ -2,7 +2,7 @@ import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { Category } from "@/app/admin/(private)/categories/types/category";
-import { ListActiveCategoryFilters } from "../types/category";
+import { ListActiveCategoryFilters } from "../(types)/category";
 
 export function useListActiveCategoriesService(
   appliedFilters: Partial<ListActiveCategoryFilters>
