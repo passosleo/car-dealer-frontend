@@ -7,10 +7,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Logo } from "../../components/public/logo/logo";
 import { Navbar, Page } from "./components/Navbar";
 
 import { Menu } from "lucide-react";
+import { Logo } from "@/components/public/logo/logo";
 
 type Props = {
   data: {

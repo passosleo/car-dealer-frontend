@@ -1,4 +1,4 @@
-import { Section } from "../components/section";
+import { Section } from "../../../../components/public/section/section";
 
 export function Contact() {
   return (
@@ -14,11 +14,17 @@ export function Contact() {
 
         <div className="bg-zinc-800 p-6 rounded-lg shadow-md text-white flex flex-col">
           <h3 className="text-2xl font-bold mb-4">Informações de Contato</h3>
-          <p className="mb-2"><strong>Endereço:</strong> Rua Exemplo, 123 - Cidade, Estado</p>
-          <p className="mb-2"><strong>Telefone:</strong> (11) 1234-5678</p>
-          <p className="mb-2"><strong>E-mail:</strong> contato@exemplo.com</p>
+          <p className="mb-2">
+            <strong>Endereço:</strong> Rua Exemplo, 123 - Cidade, Estado
+          </p>
+          <p className="mb-2">
+            <strong>Telefone:</strong> (11) 1234-5678
+          </p>
+          <p className="mb-2">
+            <strong>E-mail:</strong> contato@exemplo.com
+          </p>
         </div>
       </div>
     </Section>
-  )
+  );
 }

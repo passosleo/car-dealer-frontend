@@ -1,4 +1,4 @@
-import { TopBar } from "@/layout/topbar";
+import { TopBar } from "@/layout/public/topbar";
 import { Banners } from "../components/banners";
 import { Brands } from "../components/brands";
 import { Categories } from "../components/categories";
@@ -6,9 +6,9 @@ import { Contact } from "../components/contact";
 import { Info } from "../components/info";
 import { Opportunities } from "../components/opportunities";
 import { Sellers } from "../components/sellers";
-import { Header } from "@/layout/header";
 import { Suspense } from "react";
-import { WhatsappButton } from "@/layout/whatsapp-button";
+import { WhatsappButton } from "@/layout/public/whatsapp-button";
+import { Header } from "@/layout/public/header";
 
 export default function HomePage() {
   return (

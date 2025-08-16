@@ -1,7 +1,7 @@
 "use client";
 
 import { WhatsappIcon } from "@/assets/icons/Whatsapp";
-import { Section } from "./section";
+import { Section } from "../../../../components/public/section/section";
 import { useListActiveSellersService } from "../services/use-list-active-sellers-service";
 import { Avatar } from "@/components/admin/avatar/avatar";
 

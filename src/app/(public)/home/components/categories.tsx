@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useListActiveCategoriesService } from "../services/use-list-active-categories-service";
 import Link from "next/link";
-import { Section } from "./section";
+import { Section } from "../../../../components/public/section/section";
 
 export function Categories() {
   const { categories } = useListActiveCategoriesService({

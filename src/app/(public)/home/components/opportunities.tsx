@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useListActiveVehiclesService } from "../services/use-list-active-vehicles-service";
-import { Section } from "./section";
+import { Section } from "../../../../components/public/section/section";
 import { Shelf } from "./shelf";
 
 export function Opportunities() {

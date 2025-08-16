@@ -1,4 +1,4 @@
-import { Logo } from "../../components/public/logo/logo";
+import { Logo } from "@/components/public/logo/logo";
 import { Navbar, Page } from "./components/Navbar";
 
 type Props = {
