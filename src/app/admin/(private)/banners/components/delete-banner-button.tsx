@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteBannerService } from "../services/use-delete-banner-service";
+import { useDeleteBannerService } from "@/services/private/banners/use-delete-banner-service";
 
 const DeleteBannerButton = forwardRef<HTMLButtonElement, { bannerId: string }>(
   ({ bannerId }, ref) => {

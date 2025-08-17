@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { User } from "./user";
-import { DefaultFilters } from "@/services/types";
 import { PageContentList } from "@/components/admin/page/page-content-list";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { useListUsersService } from "../services/use-list-users-service";
+import { DefaultFilters } from "@/types/generic";
+import { useListUsersService } from "@/services/private/users/use-list-users-service";
 
 export function UserList({
   appliedFilters,

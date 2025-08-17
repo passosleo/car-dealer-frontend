@@ -6,8 +6,8 @@ import { config } from "@/config";
 import { MailIcon, SendIcon } from "lucide-react";
 import { FormContext } from "@/components/admin/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
-import { useSendRecoverPasswordEmailService } from "../services/use-send-recover-password-email-service";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { useSendRecoverPasswordEmailService } from "@/services/private/session/use-send-recover-password-email-service";
 
 const messages = config.messages.validation;
 

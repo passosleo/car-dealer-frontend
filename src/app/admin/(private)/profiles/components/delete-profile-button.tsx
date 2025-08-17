@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteProfileService } from "../services/use-delete-profile-service";
+import { useDeleteProfileService } from "@/services/private/profiles/use-delete-profile-service";
 
 const DeleteProfileButton = forwardRef<
   HTMLButtonElement,

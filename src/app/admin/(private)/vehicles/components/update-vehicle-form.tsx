@@ -7,10 +7,10 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useGetVehicleByIdService } from "../services/use-get-vehicle-by-id-service";
-import { useUpdateVehicleService } from "../services/use-update-vehicle-service";
-import { useDeleteVehicleService } from "../services/use-delete-vehicle-service";
 import { VehicleFormContent } from "./vehicle-form-content";
+import { useGetVehicleByIdService } from "@/services/private/vehicles/use-get-vehicle-by-id-service";
+import { useUpdateVehicleService } from "@/services/private/vehicles/use-update-vehicle-service";
+import { useDeleteVehicleService } from "@/services/private/vehicles/use-delete-vehicle-service";
 
 const messages = config.messages.validation;
 

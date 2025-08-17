@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { ListPlusIcon, PencilLineIcon } from "lucide-react";
 import Link from "next/link";
-import { Vehicle as VehicleType } from "../types/vehicle";
+import { Vehicle as VehicleType } from "@/types/vehicle";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/utils/date";

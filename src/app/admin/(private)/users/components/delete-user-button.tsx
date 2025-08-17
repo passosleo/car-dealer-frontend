@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Trash2Icon } from "lucide-react";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
-import { useDeleteUserService } from "../services/use-delete-user-service";
+import { useDeleteUserService } from "@/services/private/users/use-delete-user-service";
 
 const DeleteUserButton = forwardRef<HTMLButtonElement, { userId: string }>(
   ({ userId }, ref) => {

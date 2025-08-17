@@ -13,10 +13,10 @@ import {
 } from "lucide-react";
 import { FormContext } from "@/components/admin/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
-import { useCreateSessionService } from "../services/use-create-session-service";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { FormCheckbox } from "@/components/admin/form/form-checkbox";
 import { useCookies } from "@/hooks/use-cookies";
+import { useCreateSessionService } from "@/services/private/session/use-create-session-service";
 
 const messages = config.messages.validation;
 

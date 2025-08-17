@@ -5,7 +5,7 @@ import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { ProfileFormContent } from "./profile-form-content";
-import { useCreateProfileService } from "../services/use-create-profile-service";
+import { useCreateProfileService } from "@/services/private/profiles/use-create-profile-service";
 
 const messages = config.messages.validation;
 

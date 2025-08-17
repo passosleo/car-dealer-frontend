@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteCategoryService } from "../services/use-delete-category-service";
+import { useDeleteCategoryService } from "@/services/private/categories/use-delete-category-service";
 
 const DeleteCategoryButton = forwardRef<
   HTMLButtonElement,

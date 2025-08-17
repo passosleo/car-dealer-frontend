@@ -1,0 +1,49 @@
+import { useCustomQuery } from "@/services/hooks/use-custom-query";
+import { useSearchParams } from "@/hooks/use-search-params";
+import { Brand } from "@/types/brand";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+
+export function useListBrandsService(
+  appliedFilters: Partial<DefaultFilters>,
+  callbacks?: {
+    onSuccess?: (res: DefaultResponse<Paginated<Brand>>) => void;
+  }
+) {
+  const searchParams = useSearchParams();
+
+  const {
+    data: res,
+    isPending,
+    isLoading,
+    isFetching,
+    ...data
+  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Brand>>({
+    routeName: "listBrands",
+    queryKey: ["listBrands", appliedFilters],
+    query: appliedFilters,
+    onSuccess: (res) => {
+      if (
+        appliedFilters.page &&
+        appliedFilters.page > 1 &&
+        res.data.items.length === 0
+      ) {
+        searchParams.removeSearchParam("page");
+      }
+      if (callbacks && callbacks.onSuccess) {
+        callbacks.onSuccess(res);
+      }
+    },
+  });
+
+  const brands = res ? res.data.items : [];
+  const totalPages = res ? res.data.totalPages : 0;
+  const isEmpty = res ? res.data.items.length === 0 : true;
+
+  return {
+    brands,
+    totalPages,
+    isEmpty,
+    isPending: isPending || isLoading || isFetching,
+    ...data,
+  };
+}

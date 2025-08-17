@@ -3,8 +3,8 @@ import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
-import { useCreateCategoryService } from "../services/use-create-category-service";
 import { CategoryFormContent } from "./category-form-content";
+import { useCreateCategoryService } from "@/services/private/categories/use-create-category-service";
 
 const messages = config.messages.validation;
 

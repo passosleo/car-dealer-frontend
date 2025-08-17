@@ -7,10 +7,10 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useGetBannerByIdService } from "../services/use-get-banner-by-id-service";
-import { useUpdateBannerService } from "../services/use-update-banner-service";
-import { useDeleteBannerService } from "../services/use-delete-banner-service";
 import { BannerFormContent } from "./banner-form-content";
+import { useGetBannerByIdService } from "@/services/private/banners/use-get-banner-by-id-service";
+import { useUpdateBannerService } from "@/services/private/banners/use-update-banner-service";
+import { useDeleteBannerService } from "@/services/private/banners/use-delete-banner-service";
 
 const messages = config.messages.validation;
 

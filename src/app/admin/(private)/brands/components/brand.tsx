@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { ListPlusIcon, PencilLineIcon } from "lucide-react";
 import Link from "next/link";
-import { Brand as BrandType } from "../types/brand";
+import { Brand as BrandType } from "@/types/brand";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { formatDate } from "@/utils/date";

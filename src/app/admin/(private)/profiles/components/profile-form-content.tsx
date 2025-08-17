@@ -4,13 +4,13 @@ import { SaveIcon, TypeIcon, XIcon } from "lucide-react";
 import { FormInput } from "@/components/admin/form/form-input";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
-import { Role } from "../../roles/types/roles";
 import { Switch } from "@/components/ui/switch";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { UseFormReturn } from "react-hook-form";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
-import { useListRolesService } from "../../roles/services/use-list-roles-service";
+import { useListRolesService } from "@/services/private/roles/use-list-roles-service";
+import { Role } from "@/types/roles";
 
 type ProfileFormContentProps = {
   isLoading: boolean;

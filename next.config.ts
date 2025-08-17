@@ -57,6 +57,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "assets.volkswagen.com",
       },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
     ],
   },
   rewrites: async () => {

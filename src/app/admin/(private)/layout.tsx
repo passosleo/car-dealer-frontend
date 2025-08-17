@@ -2,7 +2,7 @@ import { AppSidebar } from "@/components/admin/app-sidebar/app-sidebar";
 import { UserProfile } from "@/components/admin/user-profile/user-profile";
 import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { UserInfo } from "@/services/types";
+import { UserInfo } from "@/types/user";
 import { EyeIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";

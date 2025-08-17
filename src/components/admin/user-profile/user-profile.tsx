@@ -1,10 +1,10 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
-import { UserInfo } from "@/services/types";
 import { TextSubheading } from "../text/text-subheading";
 import { TextNormal } from "../text/text-normal";
 import { Avatar } from "../avatar/avatar";
+import { UserInfo } from "@/types/user";
 
 type UserProfileProps = Omit<
   React.ComponentProps<typeof Link>,

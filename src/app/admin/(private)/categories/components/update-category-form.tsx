@@ -9,9 +9,9 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useGetCategoryByIdService } from "../services/use-get-category-by-id-service";
-import { useUpdateCategoryService } from "../services/use-update-category-service";
-import { useDeleteCategoryService } from "../services/use-delete-category-service";
+import { useGetCategoryByIdService } from "@/services/private/categories/use-get-category-by-id-service";
+import { useUpdateCategoryService } from "@/services/private/categories/use-update-category-service";
+import { useDeleteCategoryService } from "@/services/private/categories/use-delete-category-service";
 
 const messages = config.messages.validation;
 

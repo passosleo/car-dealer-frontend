@@ -6,10 +6,10 @@ import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/admin/avatar/avatar";
 import { UseFormReturn } from "react-hook-form";
-import { useListProfilesService } from "../../profiles/services/use-list-profiles-service";
 import { useState } from "react";
-import { Profile } from "../../profiles/types/profile";
 import { FormSelectPaginatedSearch } from "@/components/admin/form/form-select-paginated-search";
+import { Profile } from "@/types/profile";
+import { useListProfilesService } from "@/services/private/profiles/use-list-profiles-service";
 
 type UserFormContentProps = {
   isLoading: boolean;

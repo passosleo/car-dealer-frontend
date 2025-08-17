@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 import { FormTextArea } from "@/components/admin/form/form-textarea";
 import { FormMultiImagePicker } from "@/components/admin/form/form-multi-image-picker";
 import { FormSelectPaginatedSearch } from "@/components/admin/form/form-select-paginated-search";
-import { Brand } from "../../brands/types/brand";
-import { useListBrandsService } from "../../brands/services/use-list-brands-service";
-import { useListCategoriesService } from "../../categories/services/use-list-categories-service";
-import { Category } from "../../categories/types/category";
 import { formatInput } from "@/utils/input";
 import { useFormContext } from "react-hook-form";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { FormSelect } from "@/components/admin/form/form-select";
+import { Brand } from "@/types/brand";
+import { Category } from "@/types/category";
+import { useListBrandsService } from "@/services/private/brands/use-list-brands-service";
+import { useListCategoriesService } from "@/services/private/categories/use-list-categories-service";
 
 type VehicleFormContentProps = {
   isLoading: boolean;

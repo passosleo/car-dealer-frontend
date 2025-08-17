@@ -2,9 +2,9 @@ import axios from "axios";
 import { useCookies } from "./use-cookies";
 import { redirect } from "next/navigation";
 import { getTokenExpirationDate } from "@/utils/jwt";
-import { DefaultResponse } from "@/services/types";
 import { HOST } from "@/services/router";
-import { Session } from "@/app/admin/(public)/login/types/login";
+import { Session } from "@/types/session";
+import { DefaultResponse } from "@/types/generic";
 
 export function useSession() {
   const { getCookie, setCookie } = useCookies();

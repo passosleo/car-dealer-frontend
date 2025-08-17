@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
-import { DefaultResponse, UserInfo } from "./services/types";
 import axios, { AxiosError } from "axios";
 import { HOST } from "./services/router";
-import { Session } from "./app/admin/(public)/login/types/login";
+import { Session } from "./types/session";
+import { DefaultResponse } from "./types/generic";
+import { UserInfo } from "./types/user";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
-import { Profile as ProfileType } from "../types/profile";
+import { Profile as ProfileType } from "@/types/profile";
 import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { ListPlusIcon, PencilLineIcon } from "lucide-react";

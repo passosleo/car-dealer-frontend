@@ -4,8 +4,8 @@ import { Vehicle } from "./vehicle";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { PageContentList } from "@/components/admin/page/page-content-list";
-import { useListVehiclesService } from "../services/use-list-vehicles-service";
-import { ListVehicleFilters } from "../types/vehicle";
+import { ListVehicleFilters } from "@/types/vehicle";
+import { useListVehiclesService } from "@/services/private/vehicles/use-list-vehicles-service";
 
 export function VehicleList({
   appliedFilters,

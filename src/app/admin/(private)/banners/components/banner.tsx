@@ -12,7 +12,7 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { Separator } from "@/components/ui/separator";
-import { Banner as BannerType } from "../types/banner";
+import { Banner as BannerType } from "@/types/banner";
 import { TextHeading } from "@/components/admin/text/text-heading";
 import { ActiveTag } from "@/components/admin/tag/active-tag";
 import { TextNormal } from "@/components/admin/text/text-normal";

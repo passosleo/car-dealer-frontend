@@ -3,11 +3,11 @@ import { SearchBar } from "@/components/admin/search/search-bar";
 import { OrderBar } from "@/components/admin/order/order-bar";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageHeader } from "@/components/admin/page/page-header";
-import { DefaultFilters } from "@/services/types";
 import { UserFilterBar } from "../components/user-filter-bar";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import { UserList } from "../components/user-list";
+import { DefaultFilters } from "@/types/generic";
 
 export default async function UsersPage({
   searchParams,

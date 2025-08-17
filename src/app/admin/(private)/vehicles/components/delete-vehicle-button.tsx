@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteVehicleService } from "../services/use-delete-vehicle-service";
+import { useDeleteVehicleService } from "@/services/private/vehicles/use-delete-vehicle-service";
 
 const DeleteVehicleButton = forwardRef<
   HTMLButtonElement,

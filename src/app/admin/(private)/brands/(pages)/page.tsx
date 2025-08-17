@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { CirclePlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DefaultFilters } from "@/services/types";
 import { BrandGrid } from "../components/brand-grid";
 import { OrderBar } from "@/components/admin/order/order-bar";
 import { BrandFilterBar } from "../components/brand-filter-bar";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { SearchBar } from "@/components/admin/search/search-bar";
+import { DefaultFilters } from "@/types/generic";
 
 export default async function BrandsPage({
   searchParams,
