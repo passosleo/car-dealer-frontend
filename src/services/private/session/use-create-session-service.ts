@@ -1,6 +1,6 @@
 import { useSession } from "@/hooks/use-session";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { CreateSessionRequest, Session } from "@/types/login";
+import { CreateSessionRequest, Session } from "@/types/session";
 import { useRouter } from "next/navigation";
 
 export function useCreateSessionService() {

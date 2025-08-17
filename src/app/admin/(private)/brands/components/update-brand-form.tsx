@@ -9,9 +9,9 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useGetBrandByIdService } from "../services/use-get-brand-by-id-service";
-import { useUpdateBrandService } from "../services/use-update-brand-service";
-import { useDeleteBrandService } from "../services/use-delete-brand-service";
+import { useGetBrandByIdService } from "@/services/private/brands/use-get-brand-by-id-service";
+import { useUpdateBrandService } from "@/services/private/brands/use-update-brand-service";
+import { useDeleteBrandService } from "@/services/private/brands/use-delete-brand-service";
 
 const messages = config.messages.validation;
 

@@ -2,7 +2,7 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteBrandService } from "../services/use-delete-brand-service";
+import { useDeleteBrandService } from "@/services/private/brands/use-delete-brand-service";
 
 const DeleteBrandButton = forwardRef<HTMLButtonElement, { brandId: string }>(
   ({ brandId }, ref) => {

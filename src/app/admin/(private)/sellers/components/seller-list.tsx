@@ -2,11 +2,11 @@
 
 import { PageContentList } from "@/components/admin/page/page-content-list";
 import { Seller } from "./seller";
-import { useListSellersService } from "../services/use-list-sellers-service";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import Image from "next/image";
 import { DefaultFilters } from "@/types/generic";
+import { useListSellersService } from "@/services/private/sellers/use-list-sellers-service";
 
 export function SellerList({
   appliedFilters,

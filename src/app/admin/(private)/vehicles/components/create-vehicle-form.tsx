@@ -4,8 +4,8 @@ import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
-import { useCreateVehicleService } from "../services/use-create-vehicle-service";
 import { VehicleFormContent } from "./vehicle-form-content";
+import { useCreateVehicleService } from "@/services/private/vehicles/use-create-vehicle-service";
 
 const messages = config.messages.validation;
 

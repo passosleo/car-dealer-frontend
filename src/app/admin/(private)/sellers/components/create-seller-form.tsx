@@ -4,8 +4,8 @@ import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
-import { useCreateSellerService } from "../services/use-create-seller-service";
 import { SellerFormContent } from "./seller-form-content";
+import { useCreateSellerService } from "@/services/private/sellers/use-create-seller-service";
 
 const messages = config.messages.validation;
 

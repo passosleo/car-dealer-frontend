@@ -3,7 +3,7 @@ import { useCookies } from "./use-cookies";
 import { redirect } from "next/navigation";
 import { getTokenExpirationDate } from "@/utils/jwt";
 import { HOST } from "@/services/router";
-import { Session } from "@/types/login";
+import { Session } from "@/types/session";
 import { DefaultResponse } from "@/types/generic";
 
 export function useSession() {

@@ -5,8 +5,8 @@ import { Category } from "./category";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { useListCategoriesService } from "../services/use-list-categories-service";
 import { DefaultFilters } from "@/types/generic";
+import { useListCategoriesService } from "@/services/private/categories/use-list-categories-service";
 
 export function CategoryGrid({
   appliedFilters,

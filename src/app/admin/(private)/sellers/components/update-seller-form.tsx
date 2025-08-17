@@ -6,12 +6,12 @@ import { config } from "@/config";
 import { FormContext } from "@/components/admin/form/form-context";
 import { SellerFormContent } from "./seller-form-content";
 import { useParams } from "next/navigation";
-import { useGetSellerByIdService } from "../services/use-get-seller-by-id-service";
-import { useUpdateSellerService } from "../services/use-update-seller-service";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteSellerService } from "../services/use-delete-seller-service";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { useGetSellerByIdService } from "@/services/private/sellers/use-get-seller-by-id-service";
+import { useUpdateSellerService } from "@/services/private/sellers/use-update-seller-service";
+import { useDeleteSellerService } from "@/services/private/sellers/use-delete-seller-service";
 
 const messages = config.messages.validation;
 

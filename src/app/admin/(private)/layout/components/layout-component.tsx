@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
+import { LayoutComponent as LayoutComponentType } from "@/types/layout-component";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { GripVerticalIcon, LayoutDashboardIcon, LockIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";

@@ -6,10 +6,10 @@ import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { LayoutComponentList } from "../components/layout-component-list";
 import { useCallback, useMemo, useState } from "react";
-import { LayoutComponent as LayoutComponentType } from "../types/layout-component";
-import { useListLayoutComponentsService } from "../services/use-list-layout-components-service";
+import { LayoutComponent as LayoutComponentType } from "@/types/layout-component";
 import { DropResult } from "@hello-pangea/dnd";
-import { useUpdateLayoutComponentPositionsService } from "../services/use-update-layout-component-positions-service";
+import { useListLayoutComponentsService } from "@/services/private/layout/use-list-layout-components-service";
+import { useUpdateLayoutComponentPositionsService } from "@/services/private/layout/use-update-layout-component-positions-service";
 
 const DEFAULT_LAYOUT_ORDER = [
   "top-bar",

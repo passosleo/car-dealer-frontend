@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { getTokenExpirationDate, isTokenValid } from "./utils/jwt";
 import axios, { AxiosError } from "axios";
 import { HOST } from "./services/router";
-import { Session } from "./types/login";
+import { Session } from "./types/session";
 import { DefaultResponse } from "./types/generic";
 import { UserInfo } from "./types/user";
 

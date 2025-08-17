@@ -1,8 +1,8 @@
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Trash2Icon } from "lucide-react";
-import { useDeleteSellerService } from "../services/use-delete-seller-service";
 import { forwardRef } from "react";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { useDeleteSellerService } from "@/services/private/sellers/use-delete-seller-service";
 
 const DeleteSellerButton = forwardRef<HTMLButtonElement, { sellerId: string }>(
   ({ sellerId }, ref) => {

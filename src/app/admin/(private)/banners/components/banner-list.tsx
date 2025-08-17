@@ -5,8 +5,8 @@ import { Banner } from "./banner";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
-import { useListBannersService } from "../services/use-list-banners-service";
 import { DefaultFilters } from "@/types/generic";
+import { useListBannersService } from "@/services/private/banners/use-list-banners-service";
 
 export function BannerList({
   appliedFilters,

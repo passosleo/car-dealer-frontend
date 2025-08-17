@@ -2,10 +2,10 @@
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import Image from "next/image";
-import { useListProfilesService } from "../services/use-list-profiles-service";
 import { Profile } from "./profile";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { DefaultFilters } from "@/types/generic";
+import { useListProfilesService } from "@/services/private/profiles/use-list-profiles-service";
 
 export function ProfileGrid({
   appliedFilters,

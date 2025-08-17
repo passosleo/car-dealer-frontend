@@ -3,7 +3,7 @@ import { useToaster } from "@/hooks/use-toaster";
 import {
   LayoutComponent,
   UpdateLayoutComponentPositionsRequest,
-} from "../types/layout-component";
+} from "@/types/layout-component";
 
 export function useUpdateLayoutComponentPositionsService() {
   const toaster = useToaster();

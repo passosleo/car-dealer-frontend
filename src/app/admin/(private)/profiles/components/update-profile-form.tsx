@@ -8,10 +8,10 @@ import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useGetProfileByIdService } from "../services/use-get-profile-by-id-service";
 import { ProfileFormContent } from "./profile-form-content";
-import { useDeleteProfileService } from "../services/use-delete-profile-service";
-import { useUpdateProfileService } from "../services/use-update-profile-service";
+import { useGetProfileByIdService } from "@/services/private/profiles/use-get-profile-by-id-service";
+import { useUpdateProfileService } from "@/services/private/profiles/use-update-profile-service";
+import { useDeleteProfileService } from "@/services/private/profiles/use-delete-profile-service";
 
 const messages = config.messages.validation;
 

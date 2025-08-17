@@ -1,5 +1,5 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { LayoutComponent } from "../types/layout-component";
+import { LayoutComponent } from "@/types/layout-component";
 
 type ListLayoutComponentsService = {
   onSuccess?: (data: LayoutComponent[]) => void;
