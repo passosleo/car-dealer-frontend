@@ -1,6 +1,6 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { CreateVehicleRequest, Vehicle } from "../types/vehicle";
+import { CreateVehicleRequest, Vehicle } from "@/types/vehicle";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateVehicleService() {

@@ -4,8 +4,8 @@ import { OrderBar } from "@/components/admin/order/order-bar";
 import { SellerFilterBar } from "../components/seller-filter-bar";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageHeader } from "@/components/admin/page/page-header";
-import { DefaultFilters } from "@/services/types";
 import { SellerList } from "../components/seller-list";
+import { DefaultFilters } from "@/types/generic";
 
 export default async function SellersPage({
   searchParams,

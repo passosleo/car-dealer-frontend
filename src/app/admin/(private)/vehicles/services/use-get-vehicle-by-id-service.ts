@@ -1,6 +1,6 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useRouter } from "next/navigation";
-import { Vehicle } from "../types/vehicle";
+import { Vehicle } from "@/types/vehicle";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetVehicleByIdService(vehicleId: string) {

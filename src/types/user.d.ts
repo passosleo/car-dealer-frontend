@@ -1,4 +1,15 @@
-import { Profile } from "../../profiles/types/profile";
+import { Profile } from "./profile";
+
+export type UserInfo = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  active: boolean;
+  profile: {
+    name: string;
+    roles: string[];
+  };
+};
 
 export type User = {
   userId: string;

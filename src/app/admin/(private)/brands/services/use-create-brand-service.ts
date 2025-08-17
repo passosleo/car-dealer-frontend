@@ -1,7 +1,7 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { Brand, CreateBrandRequest } from "../types/brand";
 import { useToaster } from "@/hooks/use-toaster";
+import { Brand, CreateBrandRequest } from "@/types/brand";
 
 export function useCreateBrandService() {
   const router = useRouter();

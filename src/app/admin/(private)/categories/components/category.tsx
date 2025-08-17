@@ -8,7 +8,7 @@ import { formatDate } from "@/utils/date";
 import { ActiveTag } from "@/components/admin/tag/active-tag";
 import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { Category as CategoryType } from "../types/category";
+import { Category as CategoryType } from "@/types/category";
 import { DeleteCategoryButton } from "./delete-category-button";
 
 const Category = React.forwardRef<HTMLDivElement, CategoryType>(

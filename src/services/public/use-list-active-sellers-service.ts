@@ -1,11 +1,10 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Seller } from "@/app/admin/(private)/sellers/types/seller";
-import { ListActiveSellerFilters } from "../(types)/seller";
+import { Paginated } from "@/types/generic";
+import { ListActiveSellerFilters, Seller } from "@/types/seller";
 
 export function useListActiveSellersService(
-  appliedFilters: Partial<ListActiveSellerFilters>
+  appliedFilters?: Partial<ListActiveSellerFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -22,6 +21,7 @@ export function useListActiveSellersService(
       query: appliedFilters,
       onSuccess: (res) => {
         if (
+          appliedFilters &&
           appliedFilters.page &&
           appliedFilters.page > 1 &&
           res.data.items.length === 0

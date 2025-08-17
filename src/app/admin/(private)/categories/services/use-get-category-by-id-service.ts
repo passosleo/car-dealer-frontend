@@ -1,6 +1,6 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useRouter } from "next/navigation";
-import { Category } from "../types/category";
+import { Category } from "@/types/category";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetCategoryByIdService(categoryId: string) {

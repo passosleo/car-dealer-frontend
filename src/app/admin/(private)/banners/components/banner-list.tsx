@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import { Banner } from "./banner";
-import { DefaultFilters } from "@/services/types";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
 import { useListBannersService } from "../services/use-list-banners-service";
+import { DefaultFilters } from "@/types/generic";
 
 export function BannerList({
   appliedFilters,

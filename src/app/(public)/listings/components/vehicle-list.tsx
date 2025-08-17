@@ -1,5 +1,5 @@
 "use client";
-import { useListActiveVehiclesService } from "../../(services)/use-list-active-vehicles-service";
+import { useListActiveVehiclesService } from "@/services/public/use-list-active-vehicles-service";
 import { Vehicle } from "./vehicle";
 
 export function VehicleList() {

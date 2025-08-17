@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useRouter } from "next/navigation";
-import { Banner } from "../types/banner";
 import { useToaster } from "@/hooks/use-toaster";
+import { Banner } from "@/types/banner";
 
 export function useGetBannerByIdService(bannerId: string) {
   const router = useRouter();

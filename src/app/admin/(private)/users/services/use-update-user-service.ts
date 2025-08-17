@@ -1,7 +1,7 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { UpdateUserRequest, User } from "../types/user";
 import { useToaster } from "@/hooks/use-toaster";
+import { UpdateUserRequest, User } from "@/types/user";
 
 export function useUpdateUserService() {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { Profile, UpdateProfileRequest } from "../types/profile";
+import { Profile, UpdateProfileRequest } from "@/types/profile";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useUpdateProfileService() {

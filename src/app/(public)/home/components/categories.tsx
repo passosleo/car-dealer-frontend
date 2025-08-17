@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Section } from "../../../../components/public/section/section";
-import { useListActiveCategoriesService } from "../../(services)/use-list-active-categories-service";
-
+import { Section } from "@/components/public/section/section";
+import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
 export function Categories() {
   const { categories } = useListActiveCategoriesService({
     page: 1,

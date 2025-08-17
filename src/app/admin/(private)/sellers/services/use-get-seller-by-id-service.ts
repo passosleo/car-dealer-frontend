@@ -1,5 +1,5 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Seller } from "../types/seller";
+import { Seller } from "@/types/seller";
 import { useRouter } from "next/navigation";
 import { useToaster } from "@/hooks/use-toaster";
 

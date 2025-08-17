@@ -1,6 +1,6 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { Category, CreateCategoryRequest } from "../types/category";
+import { Category, CreateCategoryRequest } from "@/types/category";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateCategoryService() {

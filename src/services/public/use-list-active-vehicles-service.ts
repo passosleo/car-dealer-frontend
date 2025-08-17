@@ -1,11 +1,10 @@
-import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Brand } from "@/app/admin/(private)/brands/types/brand";
-import { ListActiveBrandFilters } from "../(types)/brand";
+import { useCustomQuery } from "@/services/hooks/use-custom-query";
+import { Paginated } from "@/types/generic";
+import { ListActiveVehicleFilters, Vehicle } from "@/types/vehicle";
 
-export function useListActiveBrandsService(
-  appliedFilters: Partial<ListActiveBrandFilters>
+export function useListActiveVehiclesService(
+  appliedFilters?: Partial<ListActiveVehicleFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -15,12 +14,17 @@ export function useListActiveBrandsService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<ListActiveBrandFilters>, Paginated<Brand>>({
-    routeName: "listActiveBrands",
-    queryKey: ["listActiveBrands", appliedFilters],
+  } = useCustomQuery<
+    void,
+    Partial<ListActiveVehicleFilters>,
+    Paginated<Vehicle>
+  >({
+    routeName: "listActiveVehicles",
+    queryKey: ["listActiveVehicles", appliedFilters],
     query: appliedFilters,
     onSuccess: (res) => {
       if (
+        appliedFilters &&
         appliedFilters.page &&
         appliedFilters.page > 1 &&
         res.data.items.length === 0
@@ -30,12 +34,12 @@ export function useListActiveBrandsService(
     },
   });
 
-  const brands = res ? res.data.items : [];
+  const vehicles = res ? res.data.items : [];
   const totalPages = res ? res.data.totalPages : 0;
   const isEmpty = res ? res.data.items.length === 0 : true;
 
   return {
-    brands,
+    vehicles,
     totalPages,
     isEmpty,
     isPending: isPending || isLoading || isFetching,

@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, Paginated } from "@/services/types";
-import { Seller } from "../types/seller";
 import { useSearchParams } from "@/hooks/use-search-params";
+import { DefaultFilters, Paginated } from "@/types/generic";
+import { Seller } from "@/types/seller";
 
 export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
   const searchParams = useSearchParams();

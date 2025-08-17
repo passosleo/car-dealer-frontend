@@ -1,6 +1,6 @@
-import { DefaultFilters } from "@/services/types";
-import { Brand } from "../../brands/types/brand";
-import { Category } from "../../categories/types/category";
+import { Brand } from "./brand";
+import { Category } from "./category";
+import { DefaultFilters } from "./generic";
 
 export type Vehicle = {
   vehicleId: string;
@@ -72,6 +72,23 @@ export type UpdateVehicleRequest = {
 };
 
 export type ListVehicleFilters = DefaultFilters & {
+  priceStart?: number;
+  priceEnd?: number;
+  mileageStart?: number;
+  mileageEnd?: number;
+  yearStart?: number;
+  yearEnd?: number;
+  doors?: number;
+  seats?: number;
+  horsepowerStart?: number;
+  horsepowerEnd?: number;
+};
+
+export type ListActiveVehicleFilters = {
+  page?: number;
+  limit?: number;
+  orderBy?: "asc" | "desc";
+  search?: string;
   priceStart?: number;
   priceEnd?: number;
   mileageStart?: number;

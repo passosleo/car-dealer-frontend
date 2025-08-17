@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Profile } from "../types/profile";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+import { Profile } from "@/types/profile";
 
 export function useListProfilesService(
   appliedFilters: Partial<DefaultFilters>,

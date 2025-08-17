@@ -1,6 +1,6 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { CreateProfileRequest, Profile } from "../types/profile";
+import { CreateProfileRequest, Profile } from "@/types/profile";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useCreateProfileService() {

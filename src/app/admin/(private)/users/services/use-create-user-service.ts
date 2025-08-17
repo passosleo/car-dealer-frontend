@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { CreateUserRequest, User } from "../types/user";
+import { CreateUserRequest, User } from "@/types/user";
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useToaster } from "@/hooks/use-toaster";
 

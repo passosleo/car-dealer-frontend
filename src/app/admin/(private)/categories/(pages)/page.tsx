@@ -3,11 +3,11 @@ import { SearchBar } from "@/components/admin/search/search-bar";
 import { OrderBar } from "@/components/admin/order/order-bar";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
-import { DefaultFilters } from "@/services/types";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { CategoryFilterBar } from "../components/category-filter-bar";
 import { CategoryGrid } from "../components/category-grid";
+import { DefaultFilters } from "@/types/generic";
 
 export default async function CategoriesPage({
   searchParams,

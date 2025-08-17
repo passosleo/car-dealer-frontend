@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { User } from "../types/user";
+import { User } from "@/types/user";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetUserByIdService(userId: string) {

@@ -1,5 +1,5 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Role } from "../types/roles";
+import { Role } from "@/types/roles";
 
 export function useListRolesService() {
   const {

@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Banner } from "../types/banner";
+import { DefaultFilters, Paginated } from "@/types/generic";
+import { Banner } from "@/types/banner";
 
 export function useListBannersService(
   appliedFilters: Partial<

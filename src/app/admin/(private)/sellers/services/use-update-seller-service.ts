@@ -1,5 +1,5 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
-import { Seller, UpdateSellerRequest } from "../types/seller";
+import { Seller, UpdateSellerRequest } from "@/types/seller";
 import { useRouter } from "next/navigation";
 import { useToaster } from "@/hooks/use-toaster";
 

@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Category } from "../types/category";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+import { Category } from "@/types/category";
 
 export function useListCategoriesService(
   appliedFilters: Partial<DefaultFilters>,

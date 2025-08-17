@@ -1,7 +1,7 @@
 import { useCustomMutate } from "@/services/hooks/use-custom-mutate";
 import { useRouter } from "next/navigation";
-import { Banner, UpdateBannerRequest } from "../types/banner";
 import { useToaster } from "@/hooks/use-toaster";
+import { Banner, UpdateBannerRequest } from "@/types/banner";
 
 export function useUpdateBannerService() {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useRouter } from "next/navigation";
-import { Brand } from "../types/brand";
+import { Brand } from "@/types/brand";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetBrandByIdService(brandId: string) {

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CirclePlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ListVehicleFilters } from "../types/vehicle";
+import { ListVehicleFilters } from "@/types/vehicle";
 import { VehicleList } from "../components/vehicle-list";
 import { OrderBar } from "@/components/admin/order/order-bar";
 import { PageHeader } from "@/components/admin/page/page-header";

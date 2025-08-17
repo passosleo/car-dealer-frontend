@@ -1,4 +1,4 @@
-import { Vehicle } from "@/app/admin/(private)/vehicles/types/vehicle";
+import { Vehicle } from "@/types/vehicle";
 import { formatToReal } from "@/utils/money";
 import Image from "next/image";
 import Link from "next/link";

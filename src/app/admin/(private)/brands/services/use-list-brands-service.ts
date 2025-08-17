@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Brand } from "../types/brand";
+import { Brand } from "@/types/brand";
+import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
 
 export function useListBrandsService(
   appliedFilters: Partial<DefaultFilters>,

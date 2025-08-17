@@ -1,6 +1,6 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useRouter } from "next/navigation";
-import { Profile } from "../types/profile";
+import { Profile } from "@/types/profile";
 import { useToaster } from "@/hooks/use-toaster";
 
 export function useGetProfileByIdService(profileId: string) {

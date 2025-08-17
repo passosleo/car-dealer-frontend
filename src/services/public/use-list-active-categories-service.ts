@@ -1,11 +1,10 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Category } from "@/app/admin/(private)/categories/types/category";
-import { ListActiveCategoryFilters } from "../(types)/category";
+import { Paginated } from "@/types/generic";
+import { Category, ListActiveCategoryFilters } from "@/types/category";
 
 export function useListActiveCategoriesService(
-  appliedFilters: Partial<ListActiveCategoryFilters>
+  appliedFilters?: Partial<ListActiveCategoryFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -25,6 +24,7 @@ export function useListActiveCategoriesService(
     query: appliedFilters,
     onSuccess: (res) => {
       if (
+        appliedFilters &&
         appliedFilters.page &&
         appliedFilters.page > 1 &&
         res.data.items.length === 0

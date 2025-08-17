@@ -10,17 +10,15 @@ import { WhatsappButton } from "@/layout/public/whatsapp-button";
 
 export default function HomePage() {
   return (
-    <>
-      <Suspense>
-        <Banners />
-        <Info />
-        <Opportunities />
-        <Categories />
-        <Brands />
-        <Sellers />
-        <Contact />
-      </Suspense>
+    <Suspense>
+      <Banners />
+      <Info />
+      <Opportunities />
+      <Categories />
+      <Brands />
+      <Sellers />
+      <Contact />
       <WhatsappButton />
-    </>
+    </Suspense>
   );
 }

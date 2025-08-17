@@ -1,7 +1,7 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
-import { Paginated } from "@/services/types";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { ListVehicleFilters, Vehicle } from "../types/vehicle";
+import { ListVehicleFilters, Vehicle } from "@/types/vehicle";
+import { Paginated } from "@/types/generic";
 
 export function useListVehiclesService(
   appliedFilters: Partial<ListVehicleFilters>

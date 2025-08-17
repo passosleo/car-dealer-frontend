@@ -1,7 +1,8 @@
 import { QueryKey, UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { useMiddleware } from "../middleware/use-middleware";
-import { DefaultResponse, Params, RouteName } from "../types";
+import { Params, RouteName } from "../types";
 import { AxiosError } from "axios";
+import { DefaultResponse } from "@/types/generic";
 
 export type CustomQueryProps<
   ParamsType = Params,

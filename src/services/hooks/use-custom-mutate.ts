@@ -1,7 +1,8 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
 import { useQueryClient, useMutation, QueryKey } from "@tanstack/react-query";
 import { useMiddleware } from "../middleware/use-middleware";
-import { DefaultResponse, RouteName } from "../types";
+import { RouteName } from "../types";
+import { DefaultResponse } from "@/types/generic";
 
 export type CustomMutationProps<
   ParamsType,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { Vehicle as VehicleType } from "@/app/admin/(private)/vehicles/types/vehicle";
+import { Vehicle as VehicleType } from "@/types/vehicle";
 
 const Vehicle = React.forwardRef<HTMLDivElement, VehicleType>(
   (vehicle, ref) => {

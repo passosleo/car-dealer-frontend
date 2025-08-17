@@ -1,9 +1,10 @@
 import { SearchBar } from "@/components/public/search/search-bar";
 import { VehicleList } from "../components/vehicle-list";
+import { Suspense } from "react";
 
 export default function ListingsPage() {
   return (
-    <>
+    <Suspense>
       <SearchBar />
 
       {/* Conteúdo principal (mantém o que você já tinha) */}
@@ -20,6 +21,6 @@ export default function ListingsPage() {
 
         <VehicleList />
       </div>
-    </>
+    </Suspense>
   );
 }
