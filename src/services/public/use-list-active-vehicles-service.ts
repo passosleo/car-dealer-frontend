@@ -4,7 +4,12 @@ import { Paginated } from "@/types/generic";
 import { ListActiveVehicleFilters, Vehicle } from "@/types/vehicle";
 
 export function useListActiveVehiclesService(
-  appliedFilters?: Partial<ListActiveVehicleFilters>
+  appliedFilters?: Partial<ListActiveVehicleFilters>,
+  {
+    onSuccess,
+  }: {
+    onSuccess?: (res: Paginated<Vehicle>) => void;
+  } = {}
 ) {
   const searchParams = useSearchParams();
 
@@ -30,6 +35,9 @@ export function useListActiveVehiclesService(
         res.data.items.length === 0
       ) {
         searchParams.removeSearchParam("page");
+      }
+      if (onSuccess) {
+        onSuccess(res.data);
       }
     },
   });

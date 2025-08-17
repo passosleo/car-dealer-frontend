@@ -1,14 +1,73 @@
 "use client";
-import { useListActiveVehiclesService } from "@/services/public/use-list-active-vehicles-service";
-import { Vehicle } from "./vehicle";
 
-export function VehicleList() {
-  const { vehicles } = useListActiveVehiclesService();
+import { useEffect, useRef, useState } from "react";
+import { useListActiveVehiclesService } from "@/services/public/use-list-active-vehicles-service";
+import { Vehicle as VehicleType } from "@/types/vehicle";
+import { Vehicle } from "./vehicle";
+import { useObserverCallback } from "@/hooks/use-observer-callback";
+import { VehicleSkeleton } from "@/app/(public)/listings/components/vehicle-skeleton";
+import { DefaultFilters } from "@/types/generic";
+
+export function VehicleList({
+  appliedFilters,
+}: {
+  appliedFilters: Partial<DefaultFilters>;
+}) {
+  const vehiclesPerPage = 12;
+  const [page, setPage] = useState(1);
+  const [vehiclesState, setVehiclesState] = useState<VehicleType[]>([]);
+  const isFirstLoad = useRef(true);
+
+  const { isPending, totalPages } = useListActiveVehiclesService(
+    { page, limit: vehiclesPerPage, ...appliedFilters },
+    {
+      onSuccess: (res) => {
+        setVehiclesState((prev) => {
+          const existingIds = new Set(prev.map((v) => v.vehicleId));
+          const newVehicles = res.items.filter(
+            (v) => !existingIds.has(v.vehicleId)
+          );
+          return [...prev, ...newVehicles];
+        });
+      },
+    }
+  );
+
+  const { observerRef } = useObserverCallback(
+    () => setPage((prev) => prev + 1),
+    { enabled: !isPending && page < totalPages },
+    [page, totalPages, isPending]
+  );
+
+  useEffect(() => {
+    if (isFirstLoad.current) {
+      isFirstLoad.current = false;
+      return;
+    }
+    setPage(1);
+    setVehiclesState([]);
+  }, [appliedFilters]);
+
   return (
     <main className="flex-1 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {vehicles.map((vehicle) => (
-        <Vehicle key={vehicle.vehicleId} {...vehicle} />
-      ))}
+      {isPending ? (
+        <VehicleSkeleton count={vehiclesPerPage} />
+      ) : vehiclesState.length > 0 ? (
+        <>
+          {vehiclesState.map((vehicle, i) => (
+            <div
+              key={vehicle.vehicleId}
+              ref={i === vehiclesState.length - 1 ? observerRef : null}
+            >
+              <Vehicle {...vehicle} />
+            </div>
+          ))}
+        </>
+      ) : (
+        <div className="col-span-full text-center text-zinc-400">
+          Nenhum veículo encontrado.
+        </div>
+      )}
     </main>
   );
 }

@@ -18,10 +18,3 @@ export type UpdateCategoryRequest = {
   image: string;
   active: boolean;
 };
-
-export type ListActiveCategoryFilters = {
-  page?: number;
-  limit?: number;
-  orderBy?: "asc" | "desc";
-  search?: string;
-};

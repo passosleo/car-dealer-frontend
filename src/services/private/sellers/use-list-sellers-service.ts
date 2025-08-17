@@ -1,9 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { DefaultFilters, Paginated } from "@/types/generic";
+import { DefaultPrivateFilters, Paginated } from "@/types/generic";
 import { Seller } from "@/types/seller";
 
-export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
+export function useListSellersService(
+  appliedFilters: Partial<DefaultPrivateFilters>
+) {
   const searchParams = useSearchParams();
 
   const {
@@ -12,7 +14,7 @@ export function useListSellersService(appliedFilters: Partial<DefaultFilters>) {
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Seller>>({
+  } = useCustomQuery<void, Partial<DefaultPrivateFilters>, Paginated<Seller>>({
     routeName: "listSellers",
     queryKey: ["listSellers", appliedFilters],
     query: appliedFilters,

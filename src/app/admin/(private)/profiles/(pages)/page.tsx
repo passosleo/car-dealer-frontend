@@ -7,12 +7,12 @@ import { ProfileFilterBar } from "../components/profile-filter-bar";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import { ProfileGrid } from "../components/profile-grid";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function ProfilesPage({
   searchParams,
 }: {
-  searchParams: Promise<Partial<DefaultFilters>>;
+  searchParams: Promise<Partial<DefaultPrivateFilters>>;
 }) {
   const appliedFilters = await searchParams;
   return (

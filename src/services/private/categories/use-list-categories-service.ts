@@ -1,10 +1,14 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+import {
+  DefaultPrivateFilters,
+  DefaultResponse,
+  Paginated,
+} from "@/types/generic";
 import { Category } from "@/types/category";
 
 export function useListCategoriesService(
-  appliedFilters: Partial<DefaultFilters>,
+  appliedFilters: Partial<DefaultPrivateFilters>,
   callbacks?: {
     onSuccess?: (res: DefaultResponse<Paginated<Category>>) => void;
   }
@@ -17,23 +21,25 @@ export function useListCategoriesService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Category>>({
-    routeName: "listCategories",
-    queryKey: ["listCategories", appliedFilters],
-    query: appliedFilters,
-    onSuccess: (res) => {
-      if (
-        appliedFilters.page &&
-        appliedFilters.page > 1 &&
-        res.data.items.length === 0
-      ) {
-        searchParams.removeSearchParam("page");
-      }
-      if (callbacks && callbacks.onSuccess) {
-        callbacks.onSuccess(res);
-      }
-    },
-  });
+  } = useCustomQuery<void, Partial<DefaultPrivateFilters>, Paginated<Category>>(
+    {
+      routeName: "listCategories",
+      queryKey: ["listCategories", appliedFilters],
+      query: appliedFilters,
+      onSuccess: (res) => {
+        if (
+          appliedFilters.page &&
+          appliedFilters.page > 1 &&
+          res.data.items.length === 0
+        ) {
+          searchParams.removeSearchParam("page");
+        }
+        if (callbacks && callbacks.onSuccess) {
+          callbacks.onSuccess(res);
+        }
+      },
+    }
+  );
 
   const categories = res ? res.data.items : [];
   const totalPages = res ? res.data.totalPages : 0;

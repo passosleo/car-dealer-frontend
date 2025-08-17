@@ -5,13 +5,13 @@ import { User } from "./user";
 import { PageContentList } from "@/components/admin/page/page-content-list";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 import { useListUsersService } from "@/services/private/users/use-list-users-service";
 
 export function UserList({
   appliedFilters,
 }: {
-  appliedFilters: Partial<DefaultFilters>;
+  appliedFilters: Partial<DefaultPrivateFilters>;
 }) {
   const { users, totalPages, isPending, isEmpty } =
     useListUsersService(appliedFilters);

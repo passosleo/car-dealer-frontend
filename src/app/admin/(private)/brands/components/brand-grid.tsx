@@ -5,13 +5,13 @@ import { Brand } from "./brand";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 import { useListBrandsService } from "@/services/private/brands/use-list-brands-service";
 
 export function BrandGrid({
   appliedFilters,
 }: {
-  appliedFilters: Partial<DefaultFilters>;
+  appliedFilters: Partial<DefaultPrivateFilters>;
 }) {
   const { brands, totalPages, isPending, isEmpty } =
     useListBrandsService(appliedFilters);

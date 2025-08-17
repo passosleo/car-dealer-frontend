@@ -7,12 +7,12 @@ import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { CategoryFilterBar } from "../components/category-filter-bar";
 import { CategoryGrid } from "../components/category-grid";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function CategoriesPage({
   searchParams,
 }: {
-  searchParams: Promise<Partial<DefaultFilters>>;
+  searchParams: Promise<Partial<DefaultPrivateFilters>>;
 }) {
   const appliedFilters = await searchParams;
   return (

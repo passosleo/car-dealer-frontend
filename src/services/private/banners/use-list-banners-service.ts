@@ -1,11 +1,11 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { DefaultFilters, Paginated } from "@/types/generic";
+import { DefaultPrivateFilters, Paginated } from "@/types/generic";
 import { Banner } from "@/types/banner";
 
 export function useListBannersService(
   appliedFilters: Partial<
-    DefaultFilters & {
+    DefaultPrivateFilters & {
       visible: "all" | "visible" | "hidden";
     }
   >
@@ -18,7 +18,7 @@ export function useListBannersService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Banner>>({
+  } = useCustomQuery<void, Partial<DefaultPrivateFilters>, Paginated<Banner>>({
     routeName: "listBanners",
     queryKey: ["listBanners", appliedFilters],
     query: appliedFilters,

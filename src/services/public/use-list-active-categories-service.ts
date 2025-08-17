@@ -1,10 +1,10 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Paginated } from "@/types/generic";
-import { Category, ListActiveCategoryFilters } from "@/types/category";
+import { DefaultFilters, Paginated } from "@/types/generic";
+import { Category } from "@/types/category";
 
 export function useListActiveCategoriesService(
-  appliedFilters?: Partial<ListActiveCategoryFilters>
+  appliedFilters?: Partial<DefaultFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -14,11 +14,7 @@ export function useListActiveCategoriesService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<
-    void,
-    Partial<ListActiveCategoryFilters>,
-    Paginated<Category>
-  >({
+  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Category>>({
     routeName: "listActiveCategories",
     queryKey: ["listActiveCategories", appliedFilters],
     query: appliedFilters,

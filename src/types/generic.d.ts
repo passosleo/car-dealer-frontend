@@ -9,6 +9,9 @@ export type DefaultFilters = {
   limit?: number;
   orderBy?: "asc" | "desc";
   search?: string;
+};
+
+export type DefaultPrivateFilters = DefaultFilters & {
   status?: "all" | "active" | "inactive";
   createdAtStart?: string;
   createdAtEnd?: string;

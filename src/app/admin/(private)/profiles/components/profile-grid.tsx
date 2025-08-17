@@ -4,13 +4,13 @@ import { TextNormal } from "@/components/admin/text/text-normal";
 import Image from "next/image";
 import { Profile } from "./profile";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 import { useListProfilesService } from "@/services/private/profiles/use-list-profiles-service";
 
 export function ProfileGrid({
   appliedFilters,
 }: {
-  appliedFilters: Partial<DefaultFilters>;
+  appliedFilters: Partial<DefaultPrivateFilters>;
 }) {
   const { profiles, totalPages, isPending, isEmpty } =
     useListProfilesService(appliedFilters);

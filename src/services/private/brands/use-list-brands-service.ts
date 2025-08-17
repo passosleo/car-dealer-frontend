@@ -1,10 +1,14 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
 import { Brand } from "@/types/brand";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+import {
+  DefaultPrivateFilters,
+  DefaultResponse,
+  Paginated,
+} from "@/types/generic";
 
 export function useListBrandsService(
-  appliedFilters: Partial<DefaultFilters>,
+  appliedFilters: Partial<DefaultPrivateFilters>,
   callbacks?: {
     onSuccess?: (res: DefaultResponse<Paginated<Brand>>) => void;
   }
@@ -17,7 +21,7 @@ export function useListBrandsService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Brand>>({
+  } = useCustomQuery<void, Partial<DefaultPrivateFilters>, Paginated<Brand>>({
     routeName: "listBrands",
     queryKey: ["listBrands", appliedFilters],
     query: appliedFilters,

@@ -7,12 +7,12 @@ import { BrandFilterBar } from "../components/brand-filter-bar";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { SearchBar } from "@/components/admin/search/search-bar";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function BrandsPage({
   searchParams,
 }: {
-  searchParams: Promise<Partial<DefaultFilters>>;
+  searchParams: Promise<Partial<DefaultPrivateFilters>>;
 }) {
   const appliedFilters = await searchParams;
   return (

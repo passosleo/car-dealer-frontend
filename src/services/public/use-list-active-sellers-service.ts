@@ -1,10 +1,10 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Paginated } from "@/types/generic";
-import { ListActiveSellerFilters, Seller } from "@/types/seller";
+import { DefaultFilters, Paginated } from "@/types/generic";
+import { Seller } from "@/types/seller";
 
 export function useListActiveSellersService(
-  appliedFilters?: Partial<ListActiveSellerFilters>
+  appliedFilters?: Partial<DefaultFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -14,23 +14,21 @@ export function useListActiveSellersService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<ListActiveSellerFilters>, Paginated<Seller>>(
-    {
-      routeName: "listActiveSellers",
-      queryKey: ["listActiveSellers", appliedFilters],
-      query: appliedFilters,
-      onSuccess: (res) => {
-        if (
-          appliedFilters &&
-          appliedFilters.page &&
-          appliedFilters.page > 1 &&
-          res.data.items.length === 0
-        ) {
-          searchParams.removeSearchParam("page");
-        }
-      },
-    }
-  );
+  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Seller>>({
+    routeName: "listActiveSellers",
+    queryKey: ["listActiveSellers", appliedFilters],
+    query: appliedFilters,
+    onSuccess: (res) => {
+      if (
+        appliedFilters &&
+        appliedFilters.page &&
+        appliedFilters.page > 1 &&
+        res.data.items.length === 0
+      ) {
+        searchParams.removeSearchParam("page");
+      }
+    },
+  });
 
   const sellers = res ? res.data.items : [];
   const totalPages = res ? res.data.totalPages : 0;

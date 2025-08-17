@@ -5,13 +5,13 @@ import { Seller } from "./seller";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import Image from "next/image";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 import { useListSellersService } from "@/services/private/sellers/use-list-sellers-service";
 
 export function SellerList({
   appliedFilters,
 }: {
-  appliedFilters: Partial<DefaultFilters>;
+  appliedFilters: Partial<DefaultPrivateFilters>;
 }) {
   const { sellers, totalPages, isPending, isEmpty } =
     useListSellersService(appliedFilters);

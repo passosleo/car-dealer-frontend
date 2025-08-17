@@ -7,14 +7,14 @@ import { BannerFilterBar } from "../components/banner-filter-bar";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { BannerList } from "../components/banner-list";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function BannersPage({
   searchParams,
 }: {
   searchParams: Promise<
     Partial<
-      DefaultFilters & {
+      DefaultPrivateFilters & {
         visible: "all" | "visible" | "hidden";
       }
     >

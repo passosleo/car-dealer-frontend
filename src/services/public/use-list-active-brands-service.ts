@@ -1,10 +1,10 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { Paginated } from "@/types/generic";
-import { Brand, ListActiveBrandFilters } from "@/types/brand";
+import { DefaultFilters, Paginated } from "@/types/generic";
+import { Brand } from "@/types/brand";
 
 export function useListActiveBrandsService(
-  appliedFilters?: Partial<ListActiveBrandFilters>
+  appliedFilters?: Partial<DefaultFilters>
 ) {
   const searchParams = useSearchParams();
 
@@ -14,7 +14,7 @@ export function useListActiveBrandsService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<ListActiveBrandFilters>, Paginated<Brand>>({
+  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Brand>>({
     routeName: "listActiveBrands",
     queryKey: ["listActiveBrands", appliedFilters],
     query: appliedFilters,

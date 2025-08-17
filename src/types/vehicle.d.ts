@@ -1,6 +1,6 @@
 import { Brand } from "./brand";
 import { Category } from "./category";
-import { DefaultFilters } from "./generic";
+import { DefaultFilters, DefaultPrivateFilters } from "./generic";
 
 export type Vehicle = {
   vehicleId: string;
@@ -71,7 +71,7 @@ export type UpdateVehicleRequest = {
   vehicleFeatures: string[];
 };
 
-export type ListVehicleFilters = DefaultFilters & {
+export type ListVehicleFilters = DefaultPrivateFilters & {
   priceStart?: number;
   priceEnd?: number;
   mileageStart?: number;
@@ -84,11 +84,7 @@ export type ListVehicleFilters = DefaultFilters & {
   horsepowerEnd?: number;
 };
 
-export type ListActiveVehicleFilters = {
-  page?: number;
-  limit?: number;
-  orderBy?: "asc" | "desc";
-  search?: string;
+export type ListActiveVehicleFilters = DefaultFilters & {
   priceStart?: number;
   priceEnd?: number;
   mileageStart?: number;

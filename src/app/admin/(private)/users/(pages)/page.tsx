@@ -7,12 +7,12 @@ import { UserFilterBar } from "../components/user-filter-bar";
 import { Button } from "@/components/ui/button";
 import { CirclePlusIcon } from "lucide-react";
 import { UserList } from "../components/user-list";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function UsersPage({
   searchParams,
 }: {
-  searchParams: Promise<Partial<DefaultFilters>>;
+  searchParams: Promise<Partial<DefaultPrivateFilters>>;
 }) {
   const appliedFilters = await searchParams;
   return (

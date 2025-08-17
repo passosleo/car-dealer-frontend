@@ -1,10 +1,14 @@
 import { useCustomQuery } from "@/services/hooks/use-custom-query";
 import { useSearchParams } from "@/hooks/use-search-params";
-import { DefaultFilters, DefaultResponse, Paginated } from "@/types/generic";
+import {
+  DefaultPrivateFilters,
+  DefaultResponse,
+  Paginated,
+} from "@/types/generic";
 import { Profile } from "@/types/profile";
 
 export function useListProfilesService(
-  appliedFilters: Partial<DefaultFilters>,
+  appliedFilters: Partial<DefaultPrivateFilters>,
   callbacks?: {
     onSuccess?: (res: DefaultResponse<Paginated<Profile>>) => void;
   }
@@ -17,7 +21,7 @@ export function useListProfilesService(
     isLoading,
     isFetching,
     ...data
-  } = useCustomQuery<void, Partial<DefaultFilters>, Paginated<Profile>>({
+  } = useCustomQuery<void, Partial<DefaultPrivateFilters>, Paginated<Profile>>({
     routeName: "listProfiles",
     queryKey: ["listProfiles", appliedFilters],
     query: appliedFilters,

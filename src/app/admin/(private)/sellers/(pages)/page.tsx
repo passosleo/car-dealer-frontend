@@ -5,12 +5,12 @@ import { SellerFilterBar } from "../components/seller-filter-bar";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { SellerList } from "../components/seller-list";
-import { DefaultFilters } from "@/types/generic";
+import { DefaultPrivateFilters } from "@/types/generic";
 
 export default async function SellersPage({
   searchParams,
 }: {
-  searchParams: Promise<Partial<DefaultFilters>>;
+  searchParams: Promise<Partial<DefaultPrivateFilters>>;
 }) {
   const appliedFilters = await searchParams;
   return (

@@ -1,13 +1,18 @@
-import { SearchBar } from "@/components/public/search/search-bar";
 import { VehicleList } from "../components/vehicle-list";
 import { Suspense } from "react";
+import { DefaultFilters } from "@/types/generic";
+import { VehicleSearchSection } from "../components/vehicle-search-section";
 
-export default function ListingsPage() {
+export default async function ListingsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Partial<DefaultFilters>>;
+}) {
+  const appliedFilters = await searchParams;
   return (
     <Suspense>
-      <SearchBar />
+      <VehicleSearchSection />
 
-      {/* Conteúdo principal (mantém o que você já tinha) */}
       <div className="flex flex-1">
         <aside className="w-64 p-4 border-r border-zinc-800">
           <h2 className="font-semibold mb-4 text-white">Filtros</h2>
@@ -19,7 +24,7 @@ export default function ListingsPage() {
           </ul>
         </aside>
 
-        <VehicleList />
+        <VehicleList appliedFilters={appliedFilters} />
       </div>
     </Suspense>
   );
