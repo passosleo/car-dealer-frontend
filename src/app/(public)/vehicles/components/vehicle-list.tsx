@@ -34,8 +34,10 @@ export function VehicleList({
 
   const { observerRef } = useObserverCallback(
     () => setPage((prev) => prev + 1),
-    { enabled: !isPending && page < totalPages },
-    [page, totalPages, isPending]
+    {
+      enabled: !isPending && page < totalPages,
+      reobserveOn: [page, totalPages, isPending],
+    }
   );
 
   return (

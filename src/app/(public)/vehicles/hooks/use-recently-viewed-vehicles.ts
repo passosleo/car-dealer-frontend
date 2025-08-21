@@ -16,7 +16,7 @@ export function useRecentlyViewedVehicles() {
     const vehicles = getStoredData<Vehicle[]>(storeKey, []);
     setRecentlyViewedVehicles(vehicles);
     setIsLoading(false);
-  }, []);
+  }, [getStoredData]);
 
   function saveRecentlyViewedVehicle(vehicle: Vehicle) {
     const accessedVehicles = getStoredData<Vehicle[]>(storeKey, []);

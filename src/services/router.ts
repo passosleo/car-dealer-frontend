@@ -194,6 +194,16 @@ const routes = {
     uri: "/api/v1/admin/vehicle/:vehicleId",
     headers: ["Authorization"],
   },
+  listLayoutComponents: {
+    method: "GET",
+    uri: "/api/v1/admin/layout",
+    headers: ["Authorization"],
+  },
+  updateLayoutComponentPositions: {
+    method: "PUT",
+    uri: "/api/v1/admin/layout/position/:page",
+    headers: ["Authorization"],
+  },
   listActiveVehicles: {
     method: "GET",
     uri: "/api/v1/public/vehicle",
@@ -210,15 +220,9 @@ const routes = {
     method: "GET",
     uri: "/api/v1/public/seller",
   },
-  listLayoutComponents: {
+  getActiveVehicleById: {
     method: "GET",
-    uri: "/api/v1/admin/layout",
-    headers: ["Authorization"],
-  },
-  updateLayoutComponentPositions: {
-    method: "PUT",
-    uri: "/api/v1/admin/layout/position/:page",
-    headers: ["Authorization"],
+    uri: "/api/v1/public/vehicle/:vehicleId",
   },
 } as const;
 
