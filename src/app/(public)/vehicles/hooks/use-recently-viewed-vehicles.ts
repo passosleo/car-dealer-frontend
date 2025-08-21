@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { Vehicle } from "@/types/vehicle";
 
@@ -6,17 +6,10 @@ export function useRecentlyViewedVehicles() {
   const storeKey = "recently-viewed-vehicles";
   const maxItems = 3;
   const { getStoredData, storeData } = useLocalStorage();
+  const vehicles = getStoredData<Vehicle[]>(storeKey, []);
 
-  const [recentlyViewedVehicles, setRecentlyViewedVehicles] = useState<
-    Vehicle[]
-  >([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const vehicles = getStoredData<Vehicle[]>(storeKey, []);
-    setRecentlyViewedVehicles(vehicles);
-    setIsLoading(false);
-  }, [getStoredData]);
+  const [recentlyViewedVehicles, setRecentlyViewedVehicles] =
+    useState<Vehicle[]>(vehicles);
 
   function saveRecentlyViewedVehicle(vehicle: Vehicle) {
     const accessedVehicles = getStoredData<Vehicle[]>(storeKey, []);
@@ -34,5 +27,5 @@ export function useRecentlyViewedVehicles() {
     setRecentlyViewedVehicles(updatedAccessedVehicles);
   }
 
-  return { recentlyViewedVehicles, isLoading, saveRecentlyViewedVehicle };
+  return { recentlyViewedVehicles, saveRecentlyViewedVehicle };
 }
