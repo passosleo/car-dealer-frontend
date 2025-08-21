@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRecentlyViewedVehicles } from "../hooks/use-recently-viewed-vehicles";
 
 export function VehicleRecentlyViewed() {
-  const { recentlyViewedVehicles, isLoading } = useRecentlyViewedVehicles();
-  if (isLoading || recentlyViewedVehicles.length === 0) return null;
+  const { recentlyViewedVehicles } = useRecentlyViewedVehicles();
+  if (recentlyViewedVehicles.length === 0) return null;
   return (
     <div className="max-w-5xl mx-auto mt-6">
       <h2 className="text-sm text-white font-semibold mb-2">
