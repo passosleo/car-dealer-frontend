@@ -15,7 +15,7 @@ export function VehicleRecentlyViewed() {
         {recentlyViewedVehicles.map((vehicle) => (
           <Link
             key={vehicle.vehicleId}
-            href={`/listings/${vehicle.vehicleId}`}
+            href={`/vehicles/${vehicle.vehicleId}`}
             className="min-w-[200px] bg-zinc-800 text-white rounded-md p-3 shadow-md hover:bg-zinc-700 transition cursor-pointer w-full max-w-xs"
           >
             <h3 className="font-semibold truncate">{vehicle.model}</h3>

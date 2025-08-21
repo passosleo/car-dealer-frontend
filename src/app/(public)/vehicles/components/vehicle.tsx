@@ -11,7 +11,7 @@ const Vehicle = React.forwardRef<HTMLDivElement, VehicleType>(
 
     return (
       <Link
-        href={`/listings/${vehicle.vehicleId}`}
+        href={`/vehicles/${vehicle.vehicleId}`}
         onClick={() => saveRecentlyViewedVehicle(vehicle)}
       >
         <Card

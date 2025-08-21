@@ -22,7 +22,7 @@ export function Header({ data }: Props) {
           <Navbar pages={pages} color="white" />
 
           <Link
-            href="/listings"
+            href="/vehicles"
             className="text-white flex items-center gap-2 hover:text-zinc-300 transition-colors"
           >
             <Search className="w-4 h-4" />

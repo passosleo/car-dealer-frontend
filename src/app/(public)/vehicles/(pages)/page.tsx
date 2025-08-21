@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { DefaultFilters } from "@/types/generic";
 import { VehicleSearchSection } from "../components/vehicle-search-section";
 
-export default async function ListingsPage({
+export default async function VehiclesPage({
   searchParams,
 }: {
   searchParams: Promise<Partial<DefaultFilters>>;

@@ -1,5 +1,5 @@
 import React from "react";
-import { VehicleRecentlyViewed } from "@/app/(public)/listings/components/vehicle-recently-viewed";
+import { VehicleRecentlyViewed } from "@/app/(public)/vehicles/components/vehicle-recently-viewed";
 import { SearchForm } from "@/components/shared/search/search-form";
 import { SearchBar } from "@/components/public/search/search-bar";
 

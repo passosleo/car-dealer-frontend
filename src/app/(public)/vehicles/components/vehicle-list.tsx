@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useListActiveVehiclesService } from "@/services/public/use-list-active-vehicles-service";
 import { Vehicle as VehicleType } from "@/types/vehicle";
 import { Vehicle } from "./vehicle";
 import { useObserverCallback } from "@/hooks/use-observer-callback";
-import { VehicleSkeleton } from "@/app/(public)/listings/components/vehicle-skeleton";
+import { VehicleSkeleton } from "@/app/(public)/vehicles/components/vehicle-skeleton";
 import { DefaultFilters } from "@/types/generic";
 
 export function VehicleList({
@@ -16,7 +16,6 @@ export function VehicleList({
   const vehiclesPerPage = 12;
   const [page, setPage] = useState(1);
   const [vehiclesState, setVehiclesState] = useState<VehicleType[]>([]);
-  const isFirstLoad = useRef(true);
 
   const { isPending, totalPages } = useListActiveVehiclesService(
     { page, limit: vehiclesPerPage, ...appliedFilters },
@@ -39,18 +38,9 @@ export function VehicleList({
     [page, totalPages, isPending]
   );
 
-  useEffect(() => {
-    if (isFirstLoad.current) {
-      isFirstLoad.current = false;
-      return;
-    }
-    setPage(1);
-    setVehiclesState([]);
-  }, [appliedFilters]);
-
   return (
-    <main className="flex-1 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {isPending ? (
+    <section className="flex-1 p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {isPending && vehiclesState.length === 0 ? (
         <VehicleSkeleton count={vehiclesPerPage} />
       ) : vehiclesState.length > 0 ? (
         <>
@@ -62,12 +52,13 @@ export function VehicleList({
               <Vehicle {...vehicle} />
             </div>
           ))}
+          {isPending && <VehicleSkeleton count={8} />}
         </>
       ) : (
         <div className="col-span-full text-center text-zinc-400">
           Nenhum veículo encontrado.
         </div>
       )}
-    </main>
+    </section>
   );
 }
