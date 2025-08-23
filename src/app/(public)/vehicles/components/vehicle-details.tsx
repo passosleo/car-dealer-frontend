@@ -1,7 +1,7 @@
 "use client";
-
 import { useGetActiveVehicleByIdService } from "@/services/public/use-get-active-vehicle-by-id-service";
 import { useParams } from "next/navigation";
+import { VehicleImages } from "./vehicle-images";
 
 function formatBRL(value?: number | null) {
   if (value == null) return "-";
@@ -14,7 +14,6 @@ function formatBRL(value?: number | null) {
 
 export function VehicleDetails() {
   const { vehicleId } = useParams<{ vehicleId: string }>();
-
   const { vehicle } = useGetActiveVehicleByIdService(vehicleId);
 
   if (!vehicle) {
@@ -35,48 +34,13 @@ export function VehicleDetails() {
         </nav>
 
         <h1 className="text-2xl sm:text-3xl font-bold">
-          {vehicle.brand?.name} {vehicle.model}{" "}
+          {vehicle.model}
           {vehicle.year ? `(${vehicle.year})` : ""}
         </h1>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {vehicle.category?.name && (
-            <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs">
-              {vehicle.category.name}
-            </span>
-          )}
-          {vehicle.fuelType && (
-            <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs">
-              {vehicle.fuelType}
-            </span>
-          )}
-          {vehicle.transmission && (
-            <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs">
-              {vehicle.transmission}
-            </span>
-          )}
-        </div>
       </header>
 
-      {/* Grid principal: imagem à esquerda, info/preço à direita */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* === Placeholder do Carrossel de Imagens === */}
-        <div className="w-full">
-          <div className="aspect-[16/10] w-full rounded-xl border border-zinc-800 bg-gradient-to-br from-zinc-900 to-zinc-950 flex items-center justify-center">
-            <span className="text-zinc-400">
-              [Carrossel de imagens do veículo]
-            </span>
-          </div>
-
-          {/* Thumbs placeholder (opcional) */}
-          <div className="mt-4 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-16 rounded-lg border border-dashed border-zinc-800 bg-zinc-900/40"
-              />
-            ))}
-          </div>
-        </div>
+        <VehicleImages images={vehicle.vehicleImages} />
 
         {/* Painel de informações e preço */}
         <aside className="w-full rounded-xl border border-zinc-800 bg-zinc-900/30 p-6">
