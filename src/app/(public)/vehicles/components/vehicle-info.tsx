@@ -20,13 +20,11 @@ export function VehicleInfo({
       )}
       {...props}
     >
-      {/* Título */}
       <div>
         <p className="text-sm text-zinc-400">{vehicle.brand.name}</p>
         <h2 className="text-2xl font-bold text-zinc-100">{vehicle.model}</h2>
       </div>
 
-      {/* Preço + Botão */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <p className="text-sm text-zinc-400">Preço</p>
@@ -40,7 +38,6 @@ export function VehicleInfo({
         </button>
       </div>
 
-      {/* Especificações */}
       <div>
         <h3 className="text-base font-semibold text-zinc-200 mb-4">
           Especificações técnicas

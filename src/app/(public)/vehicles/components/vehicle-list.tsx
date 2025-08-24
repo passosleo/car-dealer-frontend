@@ -5,7 +5,7 @@ import { useListActiveVehiclesService } from "@/services/public/use-list-active-
 import { Vehicle as VehicleType } from "@/types/vehicle";
 import { Vehicle } from "./vehicle";
 import { useObserverCallback } from "@/hooks/use-observer-callback";
-import { VehicleSkeleton } from "@/app/(public)/vehicles/components/vehicle-skeleton";
+import { VehicleSkeleton } from "@/app/(public)/vehicles/components/skeletons/vehicle-skeleton";
 import { DefaultFilters } from "@/types/generic";
 
 export function VehicleList({

@@ -6,54 +6,48 @@ import { VehicleInfo } from "./vehicle-info";
 import { VehicleDescription } from "./vehicle-description";
 import { VehicleFeatures } from "./vehicle-features";
 import { VehicleRelatedCarousel } from "./vehicle-related-carousel";
-import Link from "next/link";
+import { VehicleBreadcrumb } from "./vehicle-breadcrumb";
+import { VehicleImagesSkeleton } from "./skeletons/vehicle-image-skeleton";
+import { VehicleInfoSkeleton } from "./skeletons/vehicle-info-skeleton";
+import { VehicleBreadcrumbSkeleton } from "./skeletons/vehicle-breadcrumb-skeleton";
+import { VehicleDescriptionSkeleton } from "./skeletons/vehicle-description-skeleton";
+import { VehicleFeaturesSkeleton } from "./skeletons/vehicle-features-skeleton";
 
 export function VehicleDetails() {
   const { vehicleId } = useParams<{ vehicleId: string }>();
-  const { vehicle } = useGetActiveVehicleByIdService(vehicleId);
+  const { vehicle, isPending } = useGetActiveVehicleByIdService(vehicleId);
+
+  if (isPending) {
+    return (
+      <>
+        <VehicleBreadcrumbSkeleton />
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <VehicleImagesSkeleton />
+          <VehicleInfoSkeleton />
+        </section>
+        <VehicleDescriptionSkeleton />
+        <VehicleFeaturesSkeleton />
+      </>
+    );
+  }
 
   if (!vehicle) {
-    return null;
+    return (
+      <div className="text-center text-zinc-400 min-h-screen flex items-center justify-center">
+        Veículo não encontrado.
+      </div>
+    );
   }
 
   return (
     <>
-      <header className="mb-6">
-        <nav className="text-sm text-zinc-400 mb-2">
-          <Link
-            href="/vehicles"
-            className="hover:text-white transition-colors cursor-pointer"
-          >
-            Veículos
-          </Link>
-          <span className="mx-2 text-zinc-600">/</span>
-          <Link
-            href={`/vehicles?brand=${vehicle.brand?.brandId}`}
-            className="hover:text-white transition-colors cursor-pointer"
-          >
-            {vehicle.brand?.name}
-          </Link>
-          <span className="mx-2 text-zinc-600">/</span>
-          <Link
-            href={`/vehicles/${vehicle.vehicleId}`}
-            className="text-zinc-100"
-          >
-            {vehicle.model}
-          </Link>
-        </nav>
-
-        {/* <h1 className="text-2xl sm:text-3xl font-bold">{vehicle.model}</h1> */}
-      </header>
-
+      <VehicleBreadcrumb vehicle={vehicle} />
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <VehicleImages images={vehicle.vehicleImages} />
         <VehicleInfo vehicle={vehicle} />
       </section>
-
       <VehicleDescription description={vehicle.description} />
-
       <VehicleFeatures features={vehicle.vehicleFeatures} />
-
       <VehicleRelatedCarousel />
     </>
   );

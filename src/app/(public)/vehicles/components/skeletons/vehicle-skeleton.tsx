@@ -10,7 +10,7 @@ export function VehicleSkeleton({ count = 1 }: VehicleSkeletonProps) {
       {Array.from({ length: count }).map((_, i) => (
         <Card
           key={i}
-          className="bg-zinc-800 transition-colors border border-none shadow-lg cursor-pointer h-fit animate-pulse"
+          className="bg-zinc-800 transition-colors border border-none shadow-lg h-fit animate-pulse"
         >
           <CardContent className="p-4">
             <div className="relative w-full h-[200px] bg-zinc-700 rounded-xl" />

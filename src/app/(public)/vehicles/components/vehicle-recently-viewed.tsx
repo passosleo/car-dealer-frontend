@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRecentlyViewedVehicles } from "../hooks/use-recently-viewed-vehicles";
 
 export function VehicleRecentlyViewed() {
-  const { recentlyViewedVehicles } = useRecentlyViewedVehicles();
+  const { recentlyViewedVehicles, saveRecentlyViewedVehicle } =
+    useRecentlyViewedVehicles();
   if (recentlyViewedVehicles.length === 0) return null;
   return (
     <div className="max-w-5xl mx-auto mt-6">
@@ -16,6 +17,9 @@ export function VehicleRecentlyViewed() {
           <Link
             key={vehicle.vehicleId}
             href={`/vehicles/${vehicle.vehicleId}`}
+            onClick={
+              () => setTimeout(() => saveRecentlyViewedVehicle(vehicle), 500) //avoid changing state before navigation
+            }
             className="min-w-[200px] bg-zinc-800 text-white rounded-md p-3 shadow-md hover:bg-zinc-700 transition cursor-pointer w-full max-w-xs"
           >
             <h3 className="font-semibold truncate">{vehicle.model}</h3>
