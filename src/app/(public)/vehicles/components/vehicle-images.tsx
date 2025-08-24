@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type VehicleImagesProps = React.ComponentProps<"div"> & {
@@ -15,10 +15,10 @@ export function VehicleImages({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const autoPlayTimeout = 5000; // 5 segundos
 
-  function startAutoPlay() {
+  const startAutoPlay = useCallback(() => {
     if (!images.length) return;
 
-    intervalRef.current && clearInterval(intervalRef.current);
+    if (intervalRef.current) clearInterval(intervalRef.current);
 
     intervalRef.current = setInterval(() => {
       setSelectedImage((current) => {
@@ -28,14 +28,14 @@ export function VehicleImages({
         return images[nextIndex];
       });
     }, autoPlayTimeout);
-  }
+  }, [images]);
 
   useEffect(() => {
     startAutoPlay();
     return () => {
-      intervalRef.current && clearInterval(intervalRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [images]);
+  }, [images, startAutoPlay]);
 
   return (
     <div className={twMerge("w-full", className)} {...props}>
