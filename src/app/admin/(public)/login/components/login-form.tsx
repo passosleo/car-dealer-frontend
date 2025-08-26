@@ -11,7 +11,7 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { FormCheckbox } from "@/components/admin/form/form-checkbox";

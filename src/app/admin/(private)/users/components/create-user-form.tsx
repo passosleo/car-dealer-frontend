@@ -2,7 +2,7 @@
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { UserFormContent } from "./user-form-content";
 import { useCreateUserService } from "@/services/private/users/use-create-user-service";
 

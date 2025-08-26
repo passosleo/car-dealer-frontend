@@ -3,7 +3,7 @@
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { VehicleFormContent } from "./vehicle-form-content";
 import { useCreateVehicleService } from "@/services/private/vehicles/use-create-vehicle-service";
 

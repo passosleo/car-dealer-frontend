@@ -4,7 +4,7 @@ import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
 import { MailIcon, SendIcon } from "lucide-react";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { FormInput } from "@/components/admin/form/form-input";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { useSendRecoverPasswordEmailService } from "@/services/private/session/use-send-recover-password-email-service";

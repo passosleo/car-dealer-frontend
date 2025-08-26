@@ -3,7 +3,7 @@
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { BrandFormContent } from "./brand-form-content";
 import { useCreateBrandService } from "@/services/private/brands/use-create-brand-service";
 

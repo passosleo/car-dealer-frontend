@@ -10,12 +10,22 @@ export function useSearchParams<T extends Record<string, string>>() {
   const pathname = usePathname();
 
   function addSearchParam<K extends keyof T>(key: K, value: T[K]) {
+    const isEmptyArray = Array.isArray(value) && value.length === 0;
+    const isEmptyValue =
+      value === undefined || value === null || value === "" || isEmptyArray;
+
+    if (isEmptyValue) return;
+
+    const stringValue = String(value);
+
     const paramExistsWithSameValue =
       searchParams.has(key as string) &&
-      searchParams.get(key as string) === String(value);
+      searchParams.get(key as string) === stringValue;
+
     if (paramExistsWithSameValue) return;
+
     const params = new URLSearchParams(searchParams.toString());
-    params.set(key as string, String(value));
+    params.set(key as string, stringValue);
     router.push(`?${params.toString()}`);
   }
 
@@ -32,13 +42,18 @@ export function useSearchParams<T extends Record<string, string>>() {
     let hasChanged = false;
 
     Object.entries(paramsObject).forEach(([key, value]) => {
-      if (value === undefined || value === null || value === "") {
+      const isEmptyArray = Array.isArray(value) && value.length === 0;
+      const isEmptyValue =
+        value === undefined || value === null || value === "" || isEmptyArray;
+
+      if (isEmptyValue) {
         if (params.has(key)) {
           params.delete(key);
           hasChanged = true;
         }
       } else {
         const stringValue = String(value);
+
         if (!params.has(key) || params.get(key) !== stringValue) {
           params.set(key, stringValue);
           hasChanged = true;

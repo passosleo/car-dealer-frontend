@@ -17,7 +17,7 @@ import { FilterToggleButton } from "./filter-toggle-button";
 import { FilterMultiSelectInput } from "./filter-multi-select-input";
 import { FilterSelectInput } from "./filter-select-input";
 import { FilterDatePicker } from "./filter-date-picker";
-import { FormContext } from "../form/form-context";
+import { FormContext } from "../../shared/form/form-context";
 
 export type FilterBarProps = Omit<PopoverProps, "children"> & {
   className?: string;

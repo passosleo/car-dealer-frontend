@@ -3,7 +3,7 @@
 import React from "react";
 import { z } from "zod";
 import { config } from "@/config";
-import { FormContext } from "@/components/admin/form/form-context";
+import { FormContext } from "@/components/shared/form/form-context";
 import { SellerFormContent } from "./seller-form-content";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
