@@ -1,3 +1,4 @@
+import { Card } from "@/components/public/card/card";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
@@ -18,9 +19,9 @@ export function VehicleRelatedCarousel({
           Ver todos
         </Link>
       </div>
-      <div className="rounded-xl border border-dashed border-zinc-800 bg-zinc-900/20 p-10 text-center text-zinc-400">
+      <Card className="border-dashed p-10 text-center text-zinc-400">
         [Carrossel de veículos semelhantes]
-      </div>
+      </Card>
     </section>
   );
 }

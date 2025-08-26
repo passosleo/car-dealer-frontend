@@ -99,7 +99,7 @@ export function VehicleImages({
               loading="lazy"
               className={twMerge(
                 "h-16 rounded-lg bg-zinc-900/40 cursor-pointer object-cover hover:opacity-80 transition-opacity",
-                selectedImage === img && "border-2 border-blue-500"
+                selectedImage === img && "border-2 border-blue-600"
               )}
             />
           ))}

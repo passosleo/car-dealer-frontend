@@ -1,3 +1,4 @@
+import { Card } from "@/components/public/card/card";
 import { twMerge } from "tailwind-merge";
 
 type VehicleFeaturesProps = React.ComponentProps<"section"> & {
@@ -12,7 +13,7 @@ export function VehicleFeatures({
   return (
     <section className={twMerge("mt-10", className)} {...props}>
       <h3 className="text-lg font-semibold mb-3">Itens e recursos</h3>
-      <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-6">
+      <Card>
         {!!features.length ? (
           <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-zinc-300">
             {features.map((feat) => (
@@ -25,7 +26,7 @@ export function VehicleFeatures({
         ) : (
           <span className="text-zinc-300">Nenhum item ou recurso listado.</span>
         )}
-      </div>
+      </Card>
     </section>
   );
 }

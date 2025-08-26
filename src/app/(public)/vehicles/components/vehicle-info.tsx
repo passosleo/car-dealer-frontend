@@ -1,9 +1,10 @@
+import { Card } from "@/components/public/card/card";
 import { Vehicle } from "@/types/vehicle";
 import { formatToReal } from "@/utils/money";
 import { MessagesSquareIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-type VehicleInfoProps = React.ComponentProps<"aside"> & {
+type VehicleInfoProps = React.ComponentProps<typeof Card> & {
   vehicle: Vehicle;
 };
 
@@ -13,13 +14,7 @@ export function VehicleInfo({
   ...props
 }: VehicleInfoProps) {
   return (
-    <aside
-      className={twMerge(
-        "w-full rounded-xl border border-zinc-800 bg-zinc-900/40 p-6 flex flex-col gap-8",
-        className
-      )}
-      {...props}
-    >
+    <Card className={twMerge("flex flex-col gap-8", className)} {...props}>
       <div>
         <p className="text-sm text-zinc-400">{vehicle.brand.name}</p>
         <h2 className="text-2xl font-bold text-zinc-100">{vehicle.model}</h2>
@@ -66,7 +61,7 @@ export function VehicleInfo({
           <Spec label="Tração" value={vehicle.driveTrain ?? "-"} />
         </dl>
       </div>
-    </aside>
+    </Card>
   );
 }
 
