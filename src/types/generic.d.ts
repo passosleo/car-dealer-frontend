@@ -26,3 +26,5 @@ export type Paginated<T> = {
   totalPages: number;
   items: T[];
 };
+
+export type Tuple<V1 = string | number, V2 = string | number> = [V1, V2];

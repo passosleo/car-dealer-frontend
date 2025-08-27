@@ -1,24 +1,24 @@
 import { ConnectForm } from "@/components/shared/form/connect-form";
-import { SliderRangeInput } from "@/components/shared/range/slider-range-input";
 import { Label } from "@/components/ui/label";
-import { Tuple } from "@/types/generic";
 import React from "react";
 import { Controller } from "react-hook-form";
+import { RangeInput } from "../range/range-input";
+import { Tuple } from "@/types/generic";
 
-type FilterSliderRangeInputProps = Omit<
-  React.ComponentProps<typeof SliderRangeInput>,
+export type FilterRangeInputProps = Omit<
+  React.ComponentProps<typeof RangeInput>,
   "value" | "onChange"
 > & {
   name: string;
   label: string;
+  labels?: Tuple<string, string>;
   onChange?: (v: Tuple) => void;
 };
 
-const FilterSliderRangeInput = React.forwardRef<
+const FilterRangeInput = React.forwardRef<
   HTMLDivElement,
-  FilterSliderRangeInputProps
->(({ name, label, min = 0, max = 100, disabled, ...props }, ref) => {
-  const defaultValue: [number, number] = [min, max];
+  FilterRangeInputProps
+>(({ name, label, disabled, defaultValue, ...props }, ref) => {
   return (
     <ConnectForm>
       {(form) => (
@@ -33,16 +33,13 @@ const FilterSliderRangeInput = React.forwardRef<
             defaultValue={defaultValue}
             render={({ field, fieldState }) => (
               <div className="flex flex-col">
-                <SliderRangeInput
-                  {...props}
+                <RangeInput
                   {...field}
+                  {...props}
                   onChange={(v) => {
                     if (props.onChange) props.onChange(v);
                     field.onChange(v);
                   }}
-                  name={name}
-                  min={min}
-                  max={max}
                   disabled={disabled}
                 />
                 <div className="text-destructive text-xs min-h-5 pt-1">
@@ -57,6 +54,6 @@ const FilterSliderRangeInput = React.forwardRef<
   );
 });
 
-FilterSliderRangeInput.displayName = "FilterSliderRangeInput";
+FilterRangeInput.displayName = "FilterRangeInput";
 
-export { FilterSliderRangeInput };
+export { FilterRangeInput };

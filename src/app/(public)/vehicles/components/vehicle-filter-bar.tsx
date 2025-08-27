@@ -44,7 +44,7 @@ export function VehicleFilterBar({
             isLoading: isCategoriesLoading,
           },
           {
-            type: "range",
+            type: "slider-range",
             label: "Preço",
             name: "price",
             min: 0,
@@ -52,11 +52,18 @@ export function VehicleFilterBar({
             step: 4000,
             format: formatToReal,
           },
+          {
+            type: "range",
+            label: "Ano",
+            name: "year",
+            placeholders: ["2000", new Date().getFullYear().toString()],
+          },
         ]}
         zodSchema={z.object({
           brands: z.array(z.string()).optional(),
           categories: z.array(z.string()).optional(),
-          price: z.tuple([z.number(), z.number()]).optional(),
+          price: z.array(z.number()).optional(),
+          year: z.array(z.string()).optional(),
         })}
         className={className}
       />

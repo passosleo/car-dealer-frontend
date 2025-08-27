@@ -7,7 +7,8 @@ import { ZodSchema } from "zod";
 import { FilterMultiCheckbox } from "./filter-multi-checkbox";
 import { useArraySearchParams } from "@/hooks/use-array-search-params";
 import { FilterSliderRangeInput } from "./filter-slider-range-input";
-import { RangeInput } from "../range/range-input";
+import { FilterRangeInput } from "./filter-range-input";
+import { Tuple } from "@/types/generic";
 
 export type FilterBarProps = {
   className?: string;
@@ -21,6 +22,12 @@ export type FilterBarProps = {
       }
     | {
         type: "range";
+        label: string;
+        name: string;
+        placeholders?: Tuple<string, string>;
+      }
+    | {
+        type: "slider-range";
         label: string;
         name: string;
         min: number;
@@ -80,15 +87,6 @@ export function FilterBar({
     >
       {(form) => (
         <>
-          <RangeInput
-            className="mb-6"
-            fromProps={{
-              placeholder: "R$ 0,00",
-            }}
-            toProps={{
-              placeholder: "R$ 0,00",
-            }}
-          />
           {filterOptions.map((filterOption) => {
             switch (filterOption.type) {
               case "multi-checkbox":
@@ -104,6 +102,17 @@ export function FilterBar({
                 );
 
               case "range":
+                return (
+                  <div key={filterOption.name}>
+                    <FilterRangeInput
+                      name={filterOption.name}
+                      label={filterOption.label}
+                      placeholders={filterOption.placeholders}
+                    />
+                  </div>
+                );
+
+              case "slider-range":
                 return (
                   <div key={filterOption.name}>
                     <FilterSliderRangeInput

@@ -6,7 +6,7 @@ type Tuple<V1 = number, V2 = number> = [V1, V2];
 
 export type SliderRangeInputProps = Omit<
   React.ComponentProps<typeof SliderPrimitive.Root>,
-  "onValueChange" | "value"
+  "onValueChange" | "value" | "onChange"
 > & {
   value: Tuple | number[] | undefined;
   onChange: (v: Tuple) => void;
