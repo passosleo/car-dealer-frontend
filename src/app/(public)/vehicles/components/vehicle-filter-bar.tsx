@@ -56,7 +56,7 @@ export function VehicleFilterBar({
         zodSchema={z.object({
           brands: z.array(z.string()).optional(),
           categories: z.array(z.string()).optional(),
-          price: z.array(z.number()).optional(),
+          price: z.tuple([z.number(), z.number()]).optional(),
         })}
         className={className}
       />

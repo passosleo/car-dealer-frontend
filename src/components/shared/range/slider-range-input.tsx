@@ -2,9 +2,9 @@
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { twMerge } from "tailwind-merge";
 
-type Tuple = [number, number];
+type Tuple<V1 = number, V2 = number> = [V1, V2];
 
-export type RangeProps = Omit<
+export type SliderRangeInputProps = Omit<
   React.ComponentProps<typeof SliderPrimitive.Root>,
   "onValueChange" | "value"
 > & {
@@ -26,19 +26,15 @@ function normalizeTuple(
   max: number
 ): Tuple {
   const a =
-    typeof v?.[0] === "number" || typeof v?.[0] === "string"
-      ? (v as number[])[0]
-      : min;
+    typeof v?.[0] === "number" || typeof v?.[0] === "string" ? v[0] : min;
   const b =
-    typeof v?.[1] === "number" || typeof v?.[1] === "string"
-      ? (v as number[])[1]
-      : max;
+    typeof v?.[1] === "number" || typeof v?.[1] === "string" ? v[1] : max;
   const lo = clamp(Math.min(a, b), min, max);
   const hi = clamp(Math.max(a, b), min, max);
   return [lo, hi];
 }
 
-export function Range({
+export function SliderRangeInput({
   value,
   onChange,
   min = 0,
@@ -51,17 +47,7 @@ export function Range({
   suffix = "",
   showInputs = false,
   ...props
-}: RangeProps) {
-  const fmt =
-    format ??
-    ((n: number) =>
-      new Intl.NumberFormat("pt-BR", {
-        useGrouping: true,
-        maximumFractionDigits: String(step).includes(".")
-          ? String(step).split(".")[1]?.length ?? 4
-          : 0,
-      }).format(n));
-
+}: SliderRangeInputProps) {
   const [lo, hi] = normalizeTuple(value, min, max);
 
   function handleSliderChange(v: number[]) {
@@ -78,16 +64,16 @@ export function Range({
   }
 
   return (
-    <div className={twMerge("flex flex-col gap-3", className)}>
+    <div className={twMerge("flex flex-col gap-1", className)}>
       <div className="flex items-center justify-between text-sm text-zinc-300">
         <span className="tabular-nums">
           {prefix}
-          {fmt(lo)}
+          {format ? format(lo) : lo}
           {suffix}
         </span>
         <span className="tabular-nums">
           {prefix}
-          {fmt(hi)}
+          {format ? format(hi) : hi}
           {suffix}
         </span>
       </div>

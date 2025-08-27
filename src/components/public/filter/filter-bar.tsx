@@ -6,7 +6,8 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import { ZodSchema } from "zod";
 import { FilterMultiCheckbox } from "./filter-multi-checkbox";
 import { useArraySearchParams } from "@/hooks/use-array-search-params";
-import { FilterRange } from "./filter-range";
+import { FilterSliderRangeInput } from "./filter-slider-range-input";
+import { RangeInput } from "../range/range-input";
 
 export type FilterBarProps = {
   className?: string;
@@ -79,6 +80,15 @@ export function FilterBar({
     >
       {(form) => (
         <>
+          <RangeInput
+            className="mb-6"
+            fromProps={{
+              placeholder: "R$ 0,00",
+            }}
+            toProps={{
+              placeholder: "R$ 0,00",
+            }}
+          />
           {filterOptions.map((filterOption) => {
             switch (filterOption.type) {
               case "multi-checkbox":
@@ -96,7 +106,7 @@ export function FilterBar({
               case "range":
                 return (
                   <div key={filterOption.name}>
-                    <FilterRange
+                    <FilterSliderRangeInput
                       name={filterOption.name}
                       label={filterOption.label}
                       min={filterOption.min}
