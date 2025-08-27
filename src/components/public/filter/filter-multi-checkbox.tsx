@@ -5,18 +5,39 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
 
-export type FilterMultiCheckboxInputProps = React.ComponentProps<"div"> & {
+export type FilterMultiCheckboxProps = React.ComponentProps<"div"> & {
   data: { label: string; value: string }[];
   label: string;
   name: string;
   className?: string;
   disabled?: boolean;
+  isLoading?: boolean;
 };
 
-const FilterMultiCheckboxInput = React.forwardRef<
+const FilterMultiCheckbox = React.forwardRef<
   HTMLDivElement,
-  FilterMultiCheckboxInputProps
->(({ name, label, disabled, data, className, ...props }, ref) => {
+  FilterMultiCheckboxProps
+>(({ name, label, disabled, data, className, isLoading, ...props }, ref) => {
+  if (isLoading) {
+    return (
+      <div
+        ref={ref}
+        className={twMerge("flex flex-col gap-4 animate-pulse mb-5", className)}
+        {...props}
+      >
+        <div className="h-4 w-40 bg-zinc-700 rounded" />
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-2 w-fit">
+              <div className="h-5 w-5 bg-zinc-700 rounded" />
+              <div className="h-3 w-24 bg-zinc-700 rounded" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <ConnectForm>
       {(form) => (
@@ -82,6 +103,6 @@ const FilterMultiCheckboxInput = React.forwardRef<
   );
 });
 
-FilterMultiCheckboxInput.displayName = "Filter.MultiCheckboxInput";
+FilterMultiCheckbox.displayName = "Filter.MultiCheckboxInput";
 
-export { FilterMultiCheckboxInput };
+export { FilterMultiCheckbox };

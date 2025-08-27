@@ -3,12 +3,20 @@ import {
   FilterBar,
   FilterBarProps,
 } from "@/components/public/filter/filter-bar";
+import { useListActiveBrandsService } from "@/services/public/use-list-active-brands-service";
+import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
 import { z } from "zod";
 
 export function VehicleFilterBar({
   className,
   ...props
 }: Omit<FilterBarProps, "filterOptions" | "zodSchema">) {
+  const { brands, isPending: isBrandsLoading } = useListActiveBrandsService({
+    limit: 100,
+  });
+  const { categories, isPending: isCategoriesLoading } =
+    useListActiveCategoriesService({ limit: 100 });
+
   return (
     <aside className="w-80 p-6 border-r border-zinc-800 bg-zinc-900/40">
       <FilterBar
@@ -18,34 +26,21 @@ export function VehicleFilterBar({
             type: "multi-checkbox",
             label: "Marcas",
             name: "brands",
-            data: [
-              { label: "Ford", value: "ford" },
-              { label: "Chevrolet", value: "chevrolet" },
-              { label: "Toyota", value: "toyota" },
-              { label: "Honda", value: "honda" },
-              { label: "Volkswagen", value: "volkswagen" },
-              { label: "Nissan", value: "nissan" },
-              { label: "Hyundai", value: "hyundai" },
-              { label: "Kia", value: "kia" },
-              { label: "Jeep", value: "jeep" },
-              { label: "Subaru", value: "subaru" },
-            ],
+            data: brands.map((brand) => ({
+              label: brand.name,
+              value: brand.brandId,
+            })),
+            isLoading: isBrandsLoading,
           },
           {
             type: "multi-checkbox",
             label: "Categorias",
             name: "categories",
-            data: [
-              { label: "Hatchback", value: "hatchback" },
-              { label: "Sedan", value: "sedan" },
-              { label: "SUV", value: "suv" },
-              { label: "Crossover", value: "crossover" },
-              { label: "Pickup", value: "pickup" },
-              { label: "Convertible", value: "convertible" },
-              { label: "Coupe", value: "coupe" },
-              { label: "Minivan", value: "minivan" },
-              { label: "Wagon", value: "wagon" },
-            ],
+            data: categories.map((category) => ({
+              label: category.name,
+              value: category.categoryId,
+            })),
+            isLoading: isCategoriesLoading,
           },
           // {
           //   type: "number",

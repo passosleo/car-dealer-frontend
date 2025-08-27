@@ -1,12 +1,11 @@
 "use client";
 import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "@/hooks/use-search-params";
 import { Trash2Icon } from "lucide-react";
-import { useState } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { ZodSchema } from "zod";
-import { FilterMultiCheckboxInput } from "./filter-multi-checkbox";
+import { FilterMultiCheckbox } from "./filter-multi-checkbox";
+import { useArraySearchParams } from "@/hooks/use-array-search-params";
 
 export type FilterBarProps = {
   className?: string;
@@ -15,6 +14,7 @@ export type FilterBarProps = {
     label: string;
     name: string;
     data: { label: string; value: string }[];
+    isLoading?: boolean;
   }[];
   zodSchema: ZodSchema<FieldValues>;
 };
@@ -26,37 +26,36 @@ export function FilterBar({
 }: FilterBarProps) {
   const searchParamNames = filterOptions.map((option) => option.name);
 
-  const { getSearchParams, addSearchParams, clearSearchParams } =
-    useSearchParams();
+  const {
+    getSearchParams,
+    addSearchParams,
+    clearSearchParams,
+    isUrlParamsEmpty,
+  } = useArraySearchParams();
 
   const searchParams = getSearchParams(searchParamNames);
 
-  const [, setTotalActiveFilters] = useState(
-    getTotalActiveFilters(searchParams)
-  );
-
-  function getTotalActiveFilters(
-    filterObject: Record<string, string | number | boolean | undefined>
-  ) {
-    const activeFilters = Object.values(filterObject).filter(
-      (filter) => filter
-    );
-    return activeFilters.length;
-  }
+  // const totalActiveFilters = useMemo(() => {
+  //   return Object.values(searchParams).reduce((total, value) => {
+  //     if (Array.isArray(value)) {
+  //       return total + value.length;
+  //     }
+  //     return total + 1;
+  //   }, 0);
+  // }, [searchParams]);
 
   function handleSubmit(data: FieldValues) {
     addSearchParams(data);
-    if (data && Object.keys(data).length) {
-      const totalActive = getTotalActiveFilters(data);
-      setTotalActiveFilters(totalActive);
-    }
   }
 
   function handleClear(form: UseFormReturn<FieldValues>) {
-    form.reset();
+    if (isUrlParamsEmpty) return;
+    searchParamNames.forEach((param) => {
+      form.setValue(param, []);
+    });
     clearSearchParams(searchParamNames);
-    setTotalActiveFilters(0);
   }
+
   return (
     <FormContext
       onSubmit={handleSubmit}
@@ -73,10 +72,11 @@ export function FilterBar({
               case "multi-checkbox":
                 return (
                   <div key={filterOption.name}>
-                    <FilterMultiCheckboxInput
+                    <FilterMultiCheckbox
                       name={filterOption.name}
                       label={filterOption.label}
                       data={filterOption.data}
+                      isLoading={filterOption.isLoading}
                     />
                   </div>
                 );

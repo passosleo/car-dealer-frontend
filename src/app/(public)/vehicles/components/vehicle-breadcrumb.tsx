@@ -22,7 +22,7 @@ export function VehicleBreadcrumb({
         </Link>
         <span className="mx-2 text-zinc-600">/</span>
         <Link
-          href={`/vehicles?brand=${vehicle.brand?.brandId}`}
+          href={`/vehicles?brands=${vehicle.brand?.brandId}`}
           className="hover:text-white transition-colors cursor-pointer"
         >
           {vehicle.brand?.name}
