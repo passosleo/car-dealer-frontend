@@ -5,6 +5,7 @@ import {
 } from "@/components/public/filter/filter-bar";
 import { useListActiveBrandsService } from "@/services/public/use-list-active-brands-service";
 import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
+import { formatToReal } from "@/utils/money";
 import { z } from "zod";
 
 export function VehicleFilterBar({
@@ -42,60 +43,20 @@ export function VehicleFilterBar({
             })),
             isLoading: isCategoriesLoading,
           },
-          // {
-          //   type: "number",
-          //   label: "Preço a partir de:",
-          //   name: "priceStart",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Preço até:",
-          //   name: "priceEnd",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Quilometragem a partir de:",
-          //   name: "mileageStart",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Quilometragem até:",
-          //   name: "mileageEnd",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Ano a partir de:",
-          //   name: "yearStart",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Ano até:",
-          //   name: "yearEnd",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Portas",
-          //   name: "doors",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Assentos",
-          //   name: "seats",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Cavalos a partir de:",
-          //   name: "horsepowerStart",
-          // },
-          // {
-          //   type: "number",
-          //   label: "Cavalos até:",
-          //   name: "horsepowerEnd",
-          // },
+          {
+            type: "range",
+            label: "Preço",
+            name: "price",
+            min: 0,
+            max: 500000,
+            step: 4000,
+            format: formatToReal,
+          },
         ]}
         zodSchema={z.object({
           brands: z.array(z.string()).optional(),
           categories: z.array(z.string()).optional(),
+          price: z.array(z.number()).optional(),
         })}
         className={className}
       />

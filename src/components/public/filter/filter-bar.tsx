@@ -6,16 +6,28 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import { ZodSchema } from "zod";
 import { FilterMultiCheckbox } from "./filter-multi-checkbox";
 import { useArraySearchParams } from "@/hooks/use-array-search-params";
+import { FilterRange } from "./filter-range";
 
 export type FilterBarProps = {
   className?: string;
-  filterOptions: {
-    type: "multi-checkbox";
-    label: string;
-    name: string;
-    data: { label: string; value: string }[];
-    isLoading?: boolean;
-  }[];
+  filterOptions: (
+    | {
+        type: "multi-checkbox";
+        label: string;
+        name: string;
+        data: { label: string; value: string }[];
+        isLoading?: boolean;
+      }
+    | {
+        type: "range";
+        label: string;
+        name: string;
+        min: number;
+        max: number;
+        step?: number;
+        format?: (n: number) => string;
+      }
+  )[];
   zodSchema: ZodSchema<FieldValues>;
 };
 
@@ -77,6 +89,20 @@ export function FilterBar({
                       label={filterOption.label}
                       data={filterOption.data}
                       isLoading={filterOption.isLoading}
+                    />
+                  </div>
+                );
+
+              case "range":
+                return (
+                  <div key={filterOption.name}>
+                    <FilterRange
+                      name={filterOption.name}
+                      label={filterOption.label}
+                      min={filterOption.min}
+                      max={filterOption.max}
+                      step={filterOption.step}
+                      format={filterOption.format}
                     />
                   </div>
                 );
