@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Tuple } from "@/types/generic";
 import React from "react";
 import { Controller } from "react-hook-form";
+import { Accordion } from "../accordion/accordion";
 
 type FilterSliderRangeInputProps = Omit<
   React.ComponentProps<typeof SliderRangeInput>,
@@ -22,10 +23,14 @@ const FilterSliderRangeInput = React.forwardRef<
   return (
     <ConnectForm>
       {(form) => (
-        <div ref={ref} className="flex flex-col gap-4">
-          <Label className="text-base font-semibold text-zinc-300 select-none">
-            {label}
-          </Label>
+        <Accordion
+          ref={ref}
+          trigger={
+            <Label className="text-base font-semibold text-zinc-300 select-none cursor-pointer">
+              {label}
+            </Label>
+          }
+        >
           <Controller
             name={name}
             control={form.control}
@@ -51,7 +56,7 @@ const FilterSliderRangeInput = React.forwardRef<
               </div>
             )}
           />
-        </div>
+        </Accordion>
       )}
     </ConnectForm>
   );

@@ -4,8 +4,12 @@ import { Label } from "@/components/ui/label";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
+import { Accordion } from "../accordion/accordion";
 
-export type FilterMultiCheckboxProps = React.ComponentProps<"div"> & {
+export type FilterMultiCheckboxProps = Omit<
+  React.ComponentProps<typeof Accordion>,
+  "trigger"
+> & {
   data: { label: string; value: string }[];
   label: string;
   name: string;
@@ -22,7 +26,7 @@ const FilterMultiCheckbox = React.forwardRef<
     return (
       <div
         ref={ref}
-        className={twMerge("flex flex-col gap-4 animate-pulse mb-5", className)}
+        className={twMerge("flex flex-col gap-3 animate-pulse mb-5", className)}
         {...props}
       >
         <div className="h-4 w-40 bg-zinc-700 rounded" />
@@ -41,14 +45,15 @@ const FilterMultiCheckbox = React.forwardRef<
   return (
     <ConnectForm>
       {(form) => (
-        <div
-          ref={ref}
-          className={twMerge("flex flex-col gap-4", className)}
+        <Accordion
           {...props}
+          ref={ref}
+          trigger={
+            <Label className="text-base font-semibold text-zinc-300 select-none cursor-pointer">
+              {label}
+            </Label>
+          }
         >
-          <Label className="text-base font-semibold text-zinc-300 select-none">
-            {label}
-          </Label>
           <Controller
             name={name}
             control={form.control}
@@ -97,7 +102,7 @@ const FilterMultiCheckbox = React.forwardRef<
               );
             }}
           />
-        </div>
+        </Accordion>
       )}
     </ConnectForm>
   );

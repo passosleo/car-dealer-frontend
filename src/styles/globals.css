@@ -97,6 +97,16 @@ body {
   }
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 ::-webkit-scrollbar {
   background: transparent;
   width: 6px;
@@ -104,11 +114,11 @@ body {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 12px;
-  background: #CCCCCC;
+  background: #cccccc;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C0C0C0;
+  background: #c0c0c0;
 }
 
 /* IE10+ */
@@ -124,11 +134,10 @@ body {
   display: none;
 }
 
-
 .Toastify__toast {
   font-family: var(--font-poppins), sans-serif;
 }
 
 .Toastify__close-button {
-  color: var(--secondary)
+  color: var(--secondary);
 }

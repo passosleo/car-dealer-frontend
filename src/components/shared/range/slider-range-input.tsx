@@ -65,7 +65,7 @@ export function SliderRangeInput({
 
   return (
     <div className={twMerge("flex flex-col gap-1", className)}>
-      <div className="flex items-center justify-between text-sm text-zinc-300">
+      <div className="flex items-center justify-between text-sm text-zinc-300 select-none">
         <span className="tabular-nums">
           {prefix}
           {format ? format(lo) : lo}

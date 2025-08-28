@@ -66,11 +66,11 @@ export const RangeInput = React.forwardRef<HTMLDivElement, RangeInputProps>(
       <div
         ref={ref}
         className={twMerge(
-          "flex gap-4 text-zinc-300 text-sm select-none",
+          "flex gap-4 text-zinc-300 text-xs select-none",
           className
         )}
       >
-        <div className="flex flex-col gap-1 flex-1">
+        <div className="flex flex-col flex-1">
           <label className="w-fit" htmlFor={names?.[0] ?? "min"}>
             {labels[0]}
           </label>
@@ -91,7 +91,7 @@ export const RangeInput = React.forwardRef<HTMLDivElement, RangeInputProps>(
           />
         </div>
 
-        <div className="flex flex-col gap-1 flex-1">
+        <div className="flex flex-col flex-1">
           <label className="w-fit" htmlFor={names?.[1] ?? "max"}>
             {labels[1]}
           </label>

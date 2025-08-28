@@ -16,6 +16,11 @@ import { Brand } from "@/types/brand";
 import { Category } from "@/types/category";
 import { useListBrandsService } from "@/services/private/brands/use-list-brands-service";
 import { useListCategoriesService } from "@/services/private/categories/use-list-categories-service";
+import {
+  DRIVE_TRAIN_TYPES,
+  FUEL_TYPES,
+  TRANSMISSION_TYPES,
+} from "@/constants/filters";
 
 type VehicleFormContentProps = {
   isLoading: boolean;
@@ -177,38 +182,21 @@ export function VehicleFormContent({
           <FormSelect
             label="Transmissão"
             name="transmission"
-            data={[
-              { label: "Manual", value: "MANUAL" },
-              { label: "Automática", value: "AUTOMATIC" },
-              { label: "Semi-Automática", value: "SEMI-AUTOMATIC" },
-            ]}
+            data={TRANSMISSION_TYPES}
             disabled={isLoading}
             allowClear
           />
           <FormSelect
             label="Combustível"
             name="fuelType"
-            data={[
-              { label: "Gasolina", value: "GASOLINE" },
-              { label: "Álcool", value: "ETHANOL" },
-              { label: "Diesel", value: "DIESEL" },
-              { label: "Elétrico", value: "ELECTRIC" },
-              { label: "Híbrido", value: "HYBRID" },
-              { label: "GNV", value: "CNG" },
-              { label: "Flex", value: "FLEX" },
-            ]}
+            data={FUEL_TYPES}
             disabled={isLoading}
             allowClear
           />
           <FormSelect
             label="Tração"
             name="driveTrain"
-            data={[
-              { label: "Dianteira (FWD)", value: "FWD" },
-              { label: "Traseira (RWD)", value: "RWD" },
-              { label: "Integral (AWD)", value: "AWD" },
-              { label: "Tração 4x4 (4WD)", value: "4WD" },
-            ]}
+            data={DRIVE_TRAIN_TYPES}
             disabled={isLoading}
             allowClear
           />
