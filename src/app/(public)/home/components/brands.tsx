@@ -4,29 +4,48 @@ import Image from "next/image";
 import Link from "next/link";
 import { useListActiveBrandsService } from "@/services/public/use-list-active-brands-service";
 import { Section } from "@/components/public/section/section";
+import { BrandsSkeleton } from "./skeletons/brands-skeleton";
 
 export function Brands() {
-  const { brands } = useListActiveBrandsService({
+  const maxBrandsToShow = 6;
+  const { brands, isPending } = useListActiveBrandsService({
     page: 1,
-    limit: 100,
+    limit: maxBrandsToShow,
   });
 
   return (
     <Section positionBlur="left" bgColor="zinc-900" title="Marcas" id="brands">
-      {brands.map((brand) => (
-        <Link href={`/brands/${brand.brandId}`} key={brand.brandId}>
-          <div
-            className={`flex justify-center items-center p-4 flex-col bg-zinc-950 shadow-md rounded-full transition-transform transform hover:scale-105 w-36 h-36`}
-          >
-            <Image
-              src={brand.imageUrl}
-              alt={`Link para a marca ${brand.name}`}
-              width={80}
-              height={80}
-            />
-          </div>
-        </Link>
-      ))}
+      {isPending ? (
+        <BrandsSkeleton count={maxBrandsToShow} />
+      ) : (
+        <div className="flex flex-wrap justify-center gap-6">
+          {brands.map((brand) => (
+            <Link
+              href={`/brands/${brand.brandId}`}
+              key={brand.brandId}
+              className="
+              group flex items-center justify-center
+              w-40 h-40 rounded-full
+              bg-zinc-950
+              transition-all duration-300
+              hover:bg-zinc-800 hover:scale-105
+            "
+            >
+              <Image
+                src={brand.imageUrl}
+                alt={`Link para a marca ${brand.name}`}
+                width={80}
+                height={80}
+                className="
+                object-contain drop-shadow
+                transition-transform duration-300
+                group-hover:scale-105
+              "
+              />
+            </Link>
+          ))}
+        </div>
+      )}
     </Section>
   );
 }

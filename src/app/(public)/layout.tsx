@@ -1,5 +1,7 @@
+import { Footer } from "@/layout/public/footer/footer";
 import { Header } from "@/layout/public/header/header";
 import { TopBar } from "@/layout/public/topbar";
+import { Suspense } from "react";
 
 const data = {
   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/2048px-Mercedes-Logo.svg.png",
@@ -52,6 +54,9 @@ export default function PublicLayout({
       <main className="flex flex-col w-full min-h-screen bg-zinc-900 mt-[115px]">
         {children}
       </main>
+      <Suspense>
+        <Footer />
+      </Suspense>
     </>
   );
 }
