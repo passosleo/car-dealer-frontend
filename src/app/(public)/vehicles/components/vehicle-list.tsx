@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useListActiveVehiclesService } from "@/services/public/use-list-active-vehicles-service";
 import { Vehicle as VehicleType } from "@/types/vehicle";
-import { VehicleCard } from "./vehicle-card";
+import { VehicleCard } from "../../../../components/public/vehicle/vehicle-card";
 import { useObserverCallback } from "@/hooks/use-observer-callback";
-import { VehicleCardSkeleton } from "@/app/(public)/vehicles/components/skeletons/vehicle-card-skeleton";
+import { VehicleCardSkeleton } from "@/components/public/vehicle/skeletons/vehicle-card-skeleton";
 import { DefaultFilters } from "@/types/generic";
 
 export function VehicleList({

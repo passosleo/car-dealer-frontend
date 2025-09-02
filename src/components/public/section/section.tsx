@@ -1,4 +1,5 @@
 import { TitleSection } from "@/components/public/section/title-section";
+import { twMerge } from "tailwind-merge";
 
 type Props = React.ComponentPropsWithoutRef<"section"> & {
   title?: string;
@@ -12,6 +13,7 @@ export function Section({
   bgColor,
   title,
   children,
+  className,
   ...props
 }: Props) {
   const blur = positionBlur === "left" ? "left-[15%]" : "right-[15%]";
@@ -19,7 +21,10 @@ export function Section({
   return (
     <section
       {...props}
-      className={`relative flex flex-col items-center justify-center py-12 px-6 bg-${bgColor}`}
+      className={twMerge(
+        `relative flex flex-col items-center justify-center py-12 px-6 bg-${bgColor}`,
+        className
+      )}
     >
       {positionBlur && (
         <div

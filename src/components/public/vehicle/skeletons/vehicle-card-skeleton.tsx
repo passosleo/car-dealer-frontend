@@ -10,9 +10,9 @@ export function VehicleCardSkeleton({ count = 1 }: VehicleCardSkeletonProps) {
       {Array.from({ length: count }).map((_, i) => (
         <Card
           key={i}
-          className="bg-zinc-900 transition-colors border border-none shadow-lg h-fit animate-pulse"
+          className="bg-zinc-900 transition-colors border border-none shadow-lg h-fit animate-pulse w-full"
         >
-          <CardContent className="p-4">
+          <CardContent className="p-4 w-full">
             <div className="relative w-full h-[200px] bg-zinc-700 rounded-xl" />
             <div className="mt-2 h-5 w-3/4 bg-zinc-700 rounded" />
             <div className="mt-1 h-4 w-full bg-zinc-700 rounded" />

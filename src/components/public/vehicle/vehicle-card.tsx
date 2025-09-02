@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Vehicle } from "@/types/vehicle";
 import Link from "next/link";
-import { useRecentlyViewedVehicles } from "../hooks/use-recently-viewed-vehicles";
+import { useRecentlyViewedVehicles } from "../../../app/(public)/vehicles/hooks/use-recently-viewed-vehicles";
 import { Card } from "@/components/public/card/card";
 
 const VehicleCard = React.forwardRef<HTMLDivElement, Vehicle>(
