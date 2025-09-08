@@ -20,6 +20,11 @@ const items: SidebarMenuOption[] = [
     icon: "Layout",
   },
   {
+    title: "Aparência",
+    url: "/admin/appearance",
+    icon: "Layout",
+  },
+  {
     title: "Banners",
     url: "/admin/banners",
     icon: "Image",
