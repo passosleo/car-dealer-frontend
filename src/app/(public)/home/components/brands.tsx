@@ -21,7 +21,7 @@ export function Brands() {
         <div className="flex flex-wrap justify-center gap-6">
           {brands.map((brand) => (
             <Link
-              href={`/brands/${brand.brandId}`}
+              href={`/vehicles?brands=${brand.brandId}`}
               key={brand.brandId}
               className="
               group flex items-center justify-center

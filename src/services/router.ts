@@ -199,6 +199,11 @@ const routes = {
     uri: "/api/v1/admin/layout",
     headers: ["Authorization"],
   },
+  listGroupedLayoutComponents: {
+    method: "GET",
+    uri: "/api/v1/admin/layout/grouped",
+    headers: ["Authorization"],
+  },
   updateLayoutComponentPositions: {
     method: "PUT",
     uri: "/api/v1/admin/layout/position/:page",
