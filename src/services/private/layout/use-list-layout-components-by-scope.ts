@@ -40,7 +40,7 @@ export function useListLayoutComponentsByScopeService(
   });
 
   const layoutComponents = res ? res.data : [];
-  const isEmpty = res ? res.data.length === 0 : true;
+  const isEmpty = res ? (res.data || []).length === 0 : true;
 
   return {
     layoutComponents,

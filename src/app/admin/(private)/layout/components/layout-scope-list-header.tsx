@@ -1,7 +1,7 @@
 "use client";
 import { InfoIcon } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
+import { Badge, BadgeProps } from "@/components/ui/badge";
 import { twMerge } from "tailwind-merge";
 
 type LayoutScopeListHeaderProps = Omit<
@@ -10,6 +10,8 @@ type LayoutScopeListHeaderProps = Omit<
 > & {
   title: string;
   badgeLabel: string;
+  badgeClassName?: string;
+  badgeVariant?: BadgeProps["variant"];
   description: string;
 };
 
@@ -17,6 +19,8 @@ export function LayoutScopeListHeader({
   className,
   title,
   badgeLabel,
+  badgeClassName,
+  badgeVariant,
   description,
   ...props
 }: LayoutScopeListHeaderProps) {
@@ -24,7 +28,9 @@ export function LayoutScopeListHeader({
     <div className={twMerge("mt-8 mb-4 space-y-2", className)} {...props}>
       <div className="flex items-center gap-2">
         <h2 className="text-sm font-medium">{title}</h2>
-        <Badge variant="outline">{badgeLabel}</Badge>
+        <Badge variant={badgeVariant} className={badgeClassName}>
+          {badgeLabel}
+        </Badge>
       </div>
       <div className="flex items-start gap-2 text-sm text-muted-foreground">
         <InfoIcon className="h-4 w-4 mt-0.5" />

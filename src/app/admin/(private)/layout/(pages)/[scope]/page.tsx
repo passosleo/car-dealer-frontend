@@ -11,35 +11,24 @@ import {
 import { DropResult } from "@hello-pangea/dnd";
 import { useUpdateLayoutComponentPositionsService } from "@/services/private/layout/use-update-layout-component-positions-service";
 import { useParams } from "next/navigation";
-import { SCOPE_DESCRIPTION, SCOPE_LABEL } from "../../constants";
+import {
+  DEFAULT_LAYOUT_COMPONENTS_ORDER,
+  SCOPE_DESCRIPTION,
+  SCOPE_LABEL,
+} from "../../constants";
 import { LayoutComponentList } from "../../components/layout-component-list";
 import { useListLayoutComponentsByScopeService } from "@/services/private/layout/use-list-layout-components-by-scope";
 
-const DEFAULT_LAYOUT_ORDER = [
-  "top-bar",
-  "header",
-  "banners",
-  "info",
-  "footer",
-  "categories",
-  "brands",
-  "sellers",
-  "location",
-] as const;
-
 export default function LayoutComponentsPage() {
-  const { scope } = useParams<{
-    scope: LayoutComponentScope;
-  }>();
+  const { scope } = useParams<{ scope: LayoutComponentScope }>();
 
   const [isDragAndDropEnabled, setIsDragAndDropEnabled] = useState(false);
-
   const [layoutComponentsState, setLayoutComponentsState] = useState<
     LayoutComponentType[]
   >([]);
 
   const {
-    layoutComponents,
+    layoutComponents = [],
     isPending: isListPending,
     isEmpty,
   } = useListLayoutComponentsByScopeService(scope, {
@@ -60,36 +49,36 @@ export default function LayoutComponentsPage() {
       const [moved] = updatedComponents.splice(source.index, 1);
       updatedComponents.splice(destination.index, 0, moved);
 
-      const isSameOrder = updatedComponents.every(
-        (component, index) =>
-          component.layoutComponentId ===
-          layoutComponentsState[index].layoutComponentId
-      );
-
-      if (!isSameOrder) {
-        setLayoutComponentsState(updatedComponents);
-      }
+      setLayoutComponentsState(updatedComponents);
     },
     [layoutComponentsState]
   );
 
   const hasUnsavedChanges = useMemo(() => {
-    return layoutComponentsState.some(
-      (component, index) =>
-        component.layoutComponentId !==
-        layoutComponents[index]?.layoutComponentId
-    );
-  }, [layoutComponentsState, layoutComponents]);
+    if (layoutComponents.length !== layoutComponentsState.length) return true;
 
-  const isDefaultOrder = useMemo(() => {
-    return layoutComponentsState.every((component, index) => {
+    return !layoutComponentsState.every((component, index) => {
       return (
-        component.name === DEFAULT_LAYOUT_ORDER[index] &&
         component.layoutComponentId ===
-          layoutComponents[index]?.layoutComponentId
+        layoutComponents[index]?.layoutComponentId
       );
     });
   }, [layoutComponentsState, layoutComponents]);
+
+  const isDefaultOrder = useMemo(() => {
+    const defaultNames = DEFAULT_LAYOUT_COMPONENTS_ORDER[scope];
+    if (!defaultNames) return false;
+
+    return layoutComponentsState.every((component, index) => {
+      const defaultName = defaultNames[index];
+      return (
+        component.name === defaultName &&
+        component.layoutComponentId ===
+          layoutComponents.find((c) => c.name === defaultName)
+            ?.layoutComponentId
+      );
+    });
+  }, [layoutComponentsState, layoutComponents, scope]);
 
   const onClickSave = useCallback(() => {
     if (!hasUnsavedChanges) {
@@ -109,6 +98,7 @@ export default function LayoutComponentsPage() {
   }, [
     hasUnsavedChanges,
     layoutComponentsState,
+    scope,
     updateLayoutComponentPositions,
   ]);
 
@@ -129,9 +119,14 @@ export default function LayoutComponentsPage() {
     );
     if (!confirm) return;
 
-    const reorderedComponents = DEFAULT_LAYOUT_ORDER.map((name) => {
-      return layoutComponents.find((component) => component.name === name);
-    }).filter(Boolean) as LayoutComponentType[];
+    const defaultNames = DEFAULT_LAYOUT_COMPONENTS_ORDER[scope];
+    if (!defaultNames) return;
+
+    const reorderedComponents = defaultNames
+      .map((name) =>
+        layoutComponents.find((component) => component.name === name)
+      )
+      .filter(Boolean) as LayoutComponentType[];
 
     updateLayoutComponentPositions(
       {
@@ -147,7 +142,7 @@ export default function LayoutComponentsPage() {
         },
       }
     );
-  }, [layoutComponents, updateLayoutComponentPositions]);
+  }, [layoutComponents, scope, updateLayoutComponentPositions]);
 
   return (
     <PageLayout withBackButton>
@@ -164,6 +159,7 @@ export default function LayoutComponentsPage() {
             <ShuffleIcon />
             Reordenar
           </Button>
+
           <Button
             className="flex gap-1 items-center justify-center transition-all"
             variant="outline"
@@ -175,6 +171,7 @@ export default function LayoutComponentsPage() {
           </Button>
         </div>
       </PageHeader>
+
       <LayoutComponentList
         isDragAndDropEnabled={isDragAndDropEnabled}
         layoutComponents={layoutComponentsState}

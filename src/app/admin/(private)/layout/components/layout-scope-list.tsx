@@ -43,7 +43,7 @@ export function LayoutScopeList() {
 
     if (groupedLayoutComponents) {
       Object.entries(groupedLayoutComponents).forEach(([rawKey, items]) => {
-        const slug = RESPONSE_TO_SCOPE[rawKey] as ScopeSlug | undefined;
+        const slug = RESPONSE_TO_SCOPE[rawKey];
         if (!slug) return;
         counts[slug] = items?.length ?? 0;
       });
@@ -112,6 +112,7 @@ export function LayoutScopeList() {
       <LayoutScopeListHeader
         title="Elementos compartilhados"
         badgeLabel="Escopo global"
+        badgeVariant="secondary"
         description="Alterações feitas em elementos compartilhados refletem em todo o
             site."
       />
@@ -123,6 +124,7 @@ export function LayoutScopeList() {
       <LayoutScopeListHeader
         title="Elementos não compartilhados"
         badgeLabel="Escopo por página"
+        badgeVariant="outline"
         description="Alterações feitas em elementos não compartilhados refletem apenas na
             página na qual estão vinculados."
       />

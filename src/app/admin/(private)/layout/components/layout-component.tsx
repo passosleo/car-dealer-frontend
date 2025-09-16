@@ -1,11 +1,15 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
-import { LayoutComponent as LayoutComponentType } from "@/types/layout-component";
+import {
+  LayoutComponentScope,
+  LayoutComponent as LayoutComponentType,
+} from "@/types/layout-component";
 import { TextNormal } from "@/components/admin/text/text-normal";
 import { GripVerticalIcon, LayoutDashboardIcon, LockIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { DraggableStateSnapshot } from "@hello-pangea/dnd";
+import { useParams } from "next/navigation";
 
 interface LayoutComponentProps extends LayoutComponentType {
   isDraggable?: boolean;
@@ -14,13 +18,16 @@ interface LayoutComponentProps extends LayoutComponentType {
 
 const LayoutComponent = React.forwardRef<HTMLDivElement, LayoutComponentProps>(
   ({ isDraggable, ...layoutComponent }, ref) => {
-    const isActive = layoutComponent.active;
+    const { scope } = useParams<{ scope: LayoutComponentScope }>();
 
+    const isActive = layoutComponent.active;
     const Wrapper: React.ElementType = isActive ? Link : "div";
 
     return (
       <Wrapper
-        {...(isActive ? { href: `/admin/layout/${layoutComponent.name}` } : {})}
+        {...(isActive
+          ? { href: `/admin/layout/${scope}/${layoutComponent.name}` }
+          : {})}
         className={twMerge(!isActive && "opacity-50")}
       >
         <Card
