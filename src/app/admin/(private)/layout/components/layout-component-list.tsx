@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
-import { LayoutComponent } from "./layout-component";
+
 import { PageContentDraggable } from "@/components/admin/page/page-content-draggable";
 import { DropResult, ResponderProvided } from "@hello-pangea/dnd";
 import { LayoutComponent as LayoutComponentType } from "@/types/layout-component";
+import { LayoutComponent } from "./layout-component";
 
 export function LayoutComponentList({
   isLoading,

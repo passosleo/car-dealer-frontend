@@ -2,13 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { JSX, useMemo } from "react";
-import {
-  ChevronRightIcon,
-  PanelBottomDashedIcon,
-  PanelTopBottomDashedIcon,
-  PanelTopDashedIcon,
-} from "lucide-react";
+import { useMemo } from "react";
+import { ChevronRightIcon } from "lucide-react";
 
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { TextNormal } from "@/components/admin/text/text-normal";
@@ -17,44 +12,12 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useListGroupedLayoutComponentsService } from "@/services/private/layout/user-list-grouped-layout-components-service";
 import { LayoutScopeListHeader } from "./layout-scope-list-header";
-
-const RESPONSE_TO_SCOPE: Record<
-  string,
-  "header" | "footer" | "home-page" | "search-page" | "vehicle-page"
-> = {
-  header: "header",
-  footer: "footer",
-  homePage: "home-page",
-  searchPage: "search-page",
-  vehiclePage: "vehicle-page",
-};
-
-const ICON_MAP: Record<
-  "header" | "footer" | "home-page" | "search-page" | "vehicle-page",
-  JSX.Element
-> = {
-  header: <PanelTopDashedIcon />,
-  footer: <PanelBottomDashedIcon />,
-  "home-page": <PanelTopBottomDashedIcon />,
-  "search-page": <PanelTopBottomDashedIcon />,
-  "vehicle-page": <PanelTopBottomDashedIcon />,
-};
-
-const SCOPE_LABEL: Record<keyof typeof ICON_MAP, string> = {
-  header: "Cabeçalho",
-  footer: "Rodapé",
-  "home-page": "Página Inicial",
-  "search-page": "Página de Busca",
-  "vehicle-page": "Página do Veículo",
-};
-
-const SCOPE_DESCRIPTION: Record<keyof typeof ICON_MAP, string> = {
-  header: "Elementos comuns de topo exibidos em todo o site.",
-  footer: "Elementos comuns de rodapé exibidos em todo o site.",
-  "home-page": "Componentes específicos da página inicial.",
-  "search-page": "Componentes específicos da listagem/busca.",
-  "vehicle-page": "Componentes específicos da página do veículo.",
-};
+import {
+  ICON_MAP,
+  RESPONSE_TO_SCOPE,
+  SCOPE_DESCRIPTION,
+  SCOPE_LABEL,
+} from "../constants";
 
 type ScopeSlug = keyof typeof ICON_MAP;
 
@@ -104,7 +67,7 @@ export function LayoutScopeList() {
   }, [groupedLayoutComponents]);
 
   const renderScopeCard = (scope: ScopeCard) => (
-    <Link href={`/admin/appearance/${scope.slug}`} key={scope.slug}>
+    <Link href={`/admin/layout/${scope.slug}`} key={scope.slug}>
       <Card className="flex items-center p-4 gap-4 hover:bg-primary-foreground cursor-pointer transition-all">
         {ICON_MAP[scope.slug]}
         <div className="min-w-0">

@@ -1,8 +1,15 @@
+export type LayoutComponentScope =
+  | "header"
+  | "footer"
+  | "home-page"
+  | "search-page"
+  | "vehicle-page";
+
 export type LayoutComponent = {
   layoutComponentId: string;
   label: string;
   name: string;
-  scope: "header" | "footer" | "home-page" | "search-page" | "vehicle-page";
+  scope: LayoutComponentScope;
   description: string | null;
   position: number;
   shared: boolean;

@@ -204,9 +204,14 @@ const routes = {
     uri: "/api/v1/admin/layout/grouped",
     headers: ["Authorization"],
   },
+  listLayoutComponentsByScope: {
+    method: "GET",
+    uri: "/api/v1/admin/layout/:scope",
+    headers: ["Authorization"],
+  },
   updateLayoutComponentPositions: {
     method: "PUT",
-    uri: "/api/v1/admin/layout/position/:page",
+    uri: "/api/v1/admin/layout/position/:scope",
     headers: ["Authorization"],
   },
   listActiveVehicles: {
