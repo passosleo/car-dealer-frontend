@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
-import { SellerFormContent } from "./seller-form-content";
-import { useParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
+import { Button } from "@/components/ui/button";
+import { config } from "@/config";
+import { useDeleteSellerService } from "@/services/private/sellers/use-delete-seller-service";
 import { useGetSellerByIdService } from "@/services/private/sellers/use-get-seller-by-id-service";
 import { useUpdateSellerService } from "@/services/private/sellers/use-update-seller-service";
-import { useDeleteSellerService } from "@/services/private/sellers/use-delete-seller-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { SellerFormContent } from "./seller-form-content";
 
 const messages = config.messages.validation;
 
@@ -75,13 +75,13 @@ export function UpdateSellerForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          firstName: seller?.firstName || "",
-          lastName: seller?.lastName || "",
-          email: seller?.email || "",
-          phone: seller?.phone || "",
-          image: seller?.imageUrl || "",
-          customMessage: seller?.customMessage || "",
-          active: seller?.active,
+          firstName: seller?.firstName ?? "",
+          lastName: seller?.lastName ?? "",
+          email: seller?.email ?? "",
+          phone: seller?.phone ?? "",
+          image: seller?.imageUrl ?? "",
+          customMessage: seller?.customMessage ?? "",
+          active: seller?.active ?? true,
         },
       }}
     >

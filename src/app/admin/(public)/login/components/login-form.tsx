@@ -1,9 +1,13 @@
 "use client";
 
+import { FormCheckbox } from "@/components/admin/form/form-checkbox";
+import { FormInput } from "@/components/admin/form/form-input";
+import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
-import { z } from "zod";
 import { config } from "@/config";
+import { useCookies } from "@/hooks/use-cookies";
+import { useCreateSessionService } from "@/services/private/session/use-create-session-service";
 import {
   EyeClosedIcon,
   EyeIcon,
@@ -11,12 +15,8 @@ import {
   LogInIcon,
   MailIcon,
 } from "lucide-react";
-import { FormContext } from "@/components/shared/form/form-context";
-import { FormInput } from "@/components/admin/form/form-input";
-import { LoaderCircle } from "@/components/admin/loader/loader-circle";
-import { FormCheckbox } from "@/components/admin/form/form-checkbox";
-import { useCookies } from "@/hooks/use-cookies";
-import { useCreateSessionService } from "@/services/private/session/use-create-session-service";
+import React, { useEffect, useState } from "react";
+import { z } from "zod";
 
 const messages = config.messages.validation;
 
@@ -91,7 +91,8 @@ export function LoginForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          email: savedEmail,
+          email: savedEmail ?? "",
+          password: "",
           rememberMe: !!savedEmail,
         },
       }}

@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
-import { CategoryFormContent } from "./category-form-content";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { useParams } from "next/navigation";
+import { config } from "@/config";
+import { useDeleteCategoryService } from "@/services/private/categories/use-delete-category-service";
 import { useGetCategoryByIdService } from "@/services/private/categories/use-get-category-by-id-service";
 import { useUpdateCategoryService } from "@/services/private/categories/use-update-category-service";
-import { useDeleteCategoryService } from "@/services/private/categories/use-delete-category-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { CategoryFormContent } from "./category-form-content";
 
 const messages = config.messages.validation;
 
@@ -69,9 +69,9 @@ export function UpdateCategoryForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          name: category?.name || "",
-          image: category?.imageUrl || "",
-          active: category?.active,
+          name: category?.name ?? "",
+          image: category?.imageUrl ?? "",
+          active: category?.active ?? true,
         },
       }}
     >

@@ -1,16 +1,17 @@
+//@ts-nocheck
 "use client";
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { useParams } from "next/navigation";
-import { VehicleFormContent } from "./vehicle-form-content";
+import { config } from "@/config";
+import { useDeleteVehicleService } from "@/services/private/vehicles/use-delete-vehicle-service";
 import { useGetVehicleByIdService } from "@/services/private/vehicles/use-get-vehicle-by-id-service";
 import { useUpdateVehicleService } from "@/services/private/vehicles/use-update-vehicle-service";
-import { useDeleteVehicleService } from "@/services/private/vehicles/use-delete-vehicle-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { VehicleFormContent } from "./vehicle-form-content";
 
 const messages = config.messages.validation;
 

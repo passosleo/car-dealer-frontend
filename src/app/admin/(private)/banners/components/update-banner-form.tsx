@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { useParams } from "next/navigation";
-import { BannerFormContent } from "./banner-form-content";
+import { config } from "@/config";
+import { useDeleteBannerService } from "@/services/private/banners/use-delete-banner-service";
 import { useGetBannerByIdService } from "@/services/private/banners/use-get-banner-by-id-service";
 import { useUpdateBannerService } from "@/services/private/banners/use-update-banner-service";
-import { useDeleteBannerService } from "@/services/private/banners/use-delete-banner-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { BannerFormContent } from "./banner-form-content";
 
 const messages = config.messages.validation;
 
@@ -81,12 +81,12 @@ export function UpdateBannerForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          title: banner?.title || "",
-          imageDesktop: banner?.imageDesktopUrl || "",
-          imageMobile: banner?.imageMobileUrl || "",
-          startAt: banner?.startAt || "",
-          endAt: banner?.endAt || "",
-          active: banner?.active,
+          title: banner?.title ?? "",
+          imageDesktop: banner?.imageDesktopUrl ?? "",
+          imageMobile: banner?.imageMobileUrl ?? "",
+          startAt: banner?.startAt ?? "",
+          endAt: banner?.endAt ?? "",
+          active: banner?.active ?? true,
         },
       }}
     >

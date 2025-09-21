@@ -1,16 +1,16 @@
 "use client";
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { useParams } from "next/navigation";
-import { UserFormContent } from "./user-form-content";
+import { config } from "@/config";
+import { useDeleteUserService } from "@/services/private/users/use-delete-user-service";
 import { useGetUserByIdService } from "@/services/private/users/use-get-user-by-id-service";
 import { useUpdateUserService } from "@/services/private/users/use-update-user-service";
-import { useDeleteUserService } from "@/services/private/users/use-delete-user-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { UserFormContent } from "./user-form-content";
 
 const messages = config.messages.validation;
 
@@ -68,11 +68,11 @@ export function UpdateUserForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          firstName: user?.firstName || "",
-          lastName: user?.lastName || "",
-          email: user?.email || "",
-          profileId: user?.profile.profileId || "",
-          active: user?.active,
+          firstName: user?.firstName ?? "",
+          lastName: user?.lastName ?? "",
+          email: user?.email ?? "",
+          profileId: user?.profile.profileId ?? "",
+          active: user?.active ?? true,
         },
       }}
     >

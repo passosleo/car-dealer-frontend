@@ -1,27 +1,28 @@
+import { replaceEmptyWithNull } from "@/utils/object";
+import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import {
   FormProvider,
-  UseFormProps,
-  FieldValues,
-  UseFormReturn,
   useForm,
+  UseFormProps,
+  UseFormReturn,
 } from "react-hook-form";
 import { twMerge } from "tailwind-merge";
-import { z, ZodSchema } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { replaceEmptyWithNull } from "@/utils/object";
+import { z, ZodTypeAny } from "zod";
 
-type Props<T extends FieldValues> = {
-  onSubmit: (data: T, formMethods: UseFormReturn<T>) => void;
-  useFormProps?: Omit<UseFormProps<Partial<T>>, "resolver">;
-  children: React.ReactNode | ((form: UseFormReturn<T>) => React.ReactNode);
-  zodSchema?: ZodSchema;
+type FormContextProps<S extends ZodTypeAny> = {
+  zodSchema: S;
+  onSubmit: (data: z.infer<S>, formMethods: UseFormReturn<z.infer<S>>) => void;
+  children:
+    | React.ReactNode
+    | ((form: UseFormReturn<z.infer<S>>) => React.ReactNode);
+  useFormProps?: Omit<UseFormProps<z.infer<S>>, "resolver">;
   resetOnSubmit?: boolean;
   className?: string;
   preventEnterSubmit?: boolean;
 };
 
-export function FormContext<T extends FieldValues>({
+export function FormContext<S extends ZodTypeAny>({
   children,
   className,
   onSubmit: onSubmitProp,
@@ -29,14 +30,17 @@ export function FormContext<T extends FieldValues>({
   useFormProps,
   resetOnSubmit,
   preventEnterSubmit,
-}: Props<T>) {
-  const methods = useForm<z.infer<typeof zodSchema | any>>({
+}: FormContextProps<S>) {
+  const methods = useForm<z.infer<S>>({
     reValidateMode: "onChange",
     ...useFormProps,
-    resolver: zodResolver(zodSchema || z.object({})),
+    resolver: zodResolver(zodSchema),
   });
 
-  function onSubmit(data: T, hookFormMethods: UseFormReturn<T>) {
+  function onSubmit(
+    data: z.infer<S>,
+    hookFormMethods: UseFormReturn<z.infer<S>>
+  ) {
     const normalizedData = replaceEmptyWithNull(data);
     onSubmitProp(normalizedData, hookFormMethods);
     if (resetOnSubmit) methods.reset(undefined, { keepIsSubmitted: false });

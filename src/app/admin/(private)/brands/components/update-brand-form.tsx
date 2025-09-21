@@ -1,17 +1,17 @@
 "use client";
 
-import React from "react";
-import { z } from "zod";
-import { config } from "@/config";
-import { FormContext } from "@/components/shared/form/form-context";
-import { BrandFormContent } from "./brand-form-content";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
+import { FormContext } from "@/components/shared/form/form-context";
 import { Button } from "@/components/ui/button";
-import { Trash2Icon } from "lucide-react";
-import { useParams } from "next/navigation";
+import { config } from "@/config";
+import { useDeleteBrandService } from "@/services/private/brands/use-delete-brand-service";
 import { useGetBrandByIdService } from "@/services/private/brands/use-get-brand-by-id-service";
 import { useUpdateBrandService } from "@/services/private/brands/use-update-brand-service";
-import { useDeleteBrandService } from "@/services/private/brands/use-delete-brand-service";
+import { Trash2Icon } from "lucide-react";
+import { useParams } from "next/navigation";
+import React from "react";
+import { z } from "zod";
+import { BrandFormContent } from "./brand-form-content";
 
 const messages = config.messages.validation;
 
@@ -67,9 +67,9 @@ export function UpdateBrandForm(
       onSubmit={onSubmit}
       useFormProps={{
         values: {
-          name: brand?.name || "",
-          image: brand?.imageUrl || "",
-          active: brand?.active,
+          name: brand?.name ?? "",
+          image: brand?.imageUrl ?? "",
+          active: brand?.active ?? true,
         },
       }}
     >
