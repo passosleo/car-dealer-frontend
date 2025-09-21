@@ -1,5 +1,7 @@
+import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { FormContext } from "@/components/shared/form/form-context";
 import { config } from "@/config";
+import { useGetActiveLayoutComponentTopBarConfigService } from "@/services/private/layout/use-get-active-layout-component-top-bar-config-service";
 import React from "react";
 import { z } from "zod";
 import { TopBarConfigFormContent } from "./top-bar-config-form-content";
@@ -37,33 +39,57 @@ const configureTopBarSchema = z.object({
 
 export type ConfigureTopBarSchema = z.infer<typeof configureTopBarSchema>;
 
-type TopBarConfigFormProps = {
-  isLoading: boolean;
-  additionalButton?: React.ReactNode;
-};
+export function TopBarConfigForm(
+  props: Omit<
+    React.ComponentProps<typeof FormContext>,
+    "zodSchema" | "onSubmit" | "children"
+  >
+) {
+  const { topBarConfig, isPending } =
+    useGetActiveLayoutComponentTopBarConfigService();
 
-export function TopBarConfigForm({
-  isLoading,
-  additionalButton,
-}: TopBarConfigFormProps) {
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center w-full py-8">
+        <LoaderCustom />
+      </div>
+    );
+  }
+
+  if (!topBarConfig) {
+    return (
+      <div className="flex flex-col items-center justify-center my-auto">
+        Nenhuma configuração ativa encontrada para a barra superior.
+      </div>
+    );
+  }
+
   return (
     <FormContext
-      // {...props}
+      {...props}
       zodSchema={configureTopBarSchema}
       onSubmit={(data) => console.log(data)}
       useFormProps={{
         defaultValues: {
-          layoutTopBarMessages: [{ message: "", link: "", active: true }],
+          maxItems: topBarConfig?.maxItems ?? 1,
+          loop: topBarConfig?.loop ?? true,
+          delay: topBarConfig?.delay ?? 3000,
+          direction: topBarConfig?.direction ?? "rtl",
+          jump: topBarConfig?.jump ?? false,
+          hideOnMobile: topBarConfig?.hideOnMobile ?? false,
+          hideOnDesktop: topBarConfig?.hideOnDesktop ?? false,
+          layoutTopBarMessages: topBarConfig?.layoutTopBarMessages.map(
+            (msg) => ({
+              message: msg.message,
+              link: msg.link ?? "",
+              active: msg.active,
+            })
+          ) ?? [{ message: "", link: "", active: true }],
         },
+        ...props.useFormProps,
       }}
     >
-      {(form) => (
-        <TopBarConfigFormContent
-          form={form}
-          isLoading={isLoading}
-          additionalButton={additionalButton}
-        />
-      )}
+      {(form) => <TopBarConfigFormContent form={form} isLoading={isPending} />}
     </FormContext>
   );
 }

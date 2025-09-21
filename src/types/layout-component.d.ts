@@ -29,3 +29,30 @@ export type GroupedLayoutComponents = {
 export type UpdateLayoutComponentPositionsRequest = {
   layoutComponentId: string;
 }[];
+
+export type LayoutComponentTopBarConfig = {
+  layoutTopBarConfigId: string;
+  layoutComponentId: string;
+  maxItems: number;
+  loop: boolean;
+  delay: number;
+  direction: "ltr" | "rtl";
+  jump: boolean;
+  hideOnMobile: boolean;
+  hideOnDesktop: boolean;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  layoutTopBarMessages: [
+    {
+      layoutTopBarMessageId: string;
+      layoutTopBarConfigId: string;
+      message: string;
+      link: string | null;
+      position: number;
+      active: boolean;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
+};

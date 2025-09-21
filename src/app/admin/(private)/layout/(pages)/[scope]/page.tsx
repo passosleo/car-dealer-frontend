@@ -1,23 +1,23 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { ListRestartIcon, ShuffleIcon } from "lucide-react";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
-import { useCallback, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useListLayoutComponentsByScopeService } from "@/services/private/layout/use-list-layout-components-by-scope-service";
+import { useUpdateLayoutComponentPositionsService } from "@/services/private/layout/use-update-layout-component-positions-service";
 import {
   LayoutComponentScope,
   LayoutComponent as LayoutComponentType,
 } from "@/types/layout-component";
 import { DropResult } from "@hello-pangea/dnd";
-import { useUpdateLayoutComponentPositionsService } from "@/services/private/layout/use-update-layout-component-positions-service";
+import { ListRestartIcon, ShuffleIcon } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
+import { LayoutComponentList } from "../../components/layout-component-list";
 import {
   DEFAULT_LAYOUT_COMPONENTS_ORDER,
   SCOPE_DESCRIPTION,
   SCOPE_LABEL,
 } from "../../constants";
-import { LayoutComponentList } from "../../components/layout-component-list";
-import { useListLayoutComponentsByScopeService } from "@/services/private/layout/use-list-layout-components-by-scope";
 
 export default function LayoutComponentsPage() {
   const { scope } = useParams<{ scope: LayoutComponentScope }>();

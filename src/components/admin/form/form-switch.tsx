@@ -23,7 +23,7 @@ const FormSwitch = React.forwardRef<HTMLButtonElement, FormSwitchProps>(
             defaultValue={defaultChecked}
             render={({ field, fieldState }) => (
               <>
-                <div className="flex flex-col gap-1 w-full">
+                <div className="flex flex-col gap-1 w-fit">
                   <Label
                     htmlFor={name}
                     className={twMerge(

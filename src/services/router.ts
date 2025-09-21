@@ -214,6 +214,11 @@ const routes = {
     uri: "/api/v1/admin/layout/position/:scope",
     headers: ["Authorization"],
   },
+  getActiveLayoutComponentTopBarConfig: {
+    method: "GET",
+    uri: "/api/v1/admin/layout/top-bar",
+    headers: ["Authorization"],
+  },
   listActiveVehicles: {
     method: "GET",
     uri: "/api/v1/public/vehicle",

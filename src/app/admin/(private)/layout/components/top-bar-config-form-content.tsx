@@ -1,9 +1,19 @@
 import { FormInput } from "@/components/admin/form/form-input";
+import { FormSelect } from "@/components/admin/form/form-select";
 import { FormSwitch } from "@/components/admin/form/form-switch";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { TextSubheading } from "@/components/admin/text/text-subheading";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TopBar } from "@/layout/public/topbar";
-import { SaveIcon, TypeIcon, XIcon } from "lucide-react";
+import {
+  EyeIcon,
+  PlusCircleIcon,
+  SaveIcon,
+  Trash2Icon,
+  TypeIcon,
+  XIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
@@ -33,54 +43,82 @@ export function TopBarConfigFormContent({
 
   return (
     <>
-      <TopBar isEnabled={true} />
-      <div className="flex flex-col gap-6 w-full mt-8">
-        {/* Linha 1: Inputs numéricos */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormInput
-            label="Número máximo de itens"
-            name="maxItems"
-            type="number"
-            disabled={isLoading}
-            leftIcon={<TypeIcon size={18} />}
-          />
+      <Card className="border-2 border-dashed bg-muted/40 shadow-none">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-sm font-medium text-muted-foreground">
+            Pré-visualizar
+            <EyeIcon size={18} className="inline-block ml-2" />
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <TopBar isEnabled={true} />
+        </CardContent>
+      </Card>
 
-          <FormInput
-            label="Delay (ms)"
-            name="delay"
-            type="number"
-            disabled={isLoading}
-            leftIcon={<TypeIcon size={18} />}
-          />
-        </div>
+      <div className="flex flex-col w-full">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 pt-6">
+          <div className="flex flex-col md:col-span-2 gap-2">
+            <FormInput
+              label="Número máximo de mensagens"
+              name="maxItems"
+              type="number"
+              disabled={isLoading}
+              leftIcon={<TypeIcon size={18} />}
+            />
 
-        {/* Linha 2: Switches organizados em duas colunas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-4">
-            <FormSwitch label="Loop" name="loop" disabled={isLoading} />
-            <FormSwitch label="Jump" name="jump" disabled={isLoading} />
+            <FormInput
+              label="Tempo de exibição de cada mensagem (ms)"
+              name="delay"
+              type="number"
+              disabled={isLoading}
+              leftIcon={<TypeIcon size={18} />}
+            />
+
+            <FormSelect
+              label="Direção das mensagens"
+              name="direction"
+              data={[
+                { label: "Esquerda para direita", value: "ltr" },
+                { label: "Direita para esquerda", value: "rtl" },
+              ]}
+              disabled={isLoading}
+            />
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-8 md:col-span-1">
             <FormSwitch
-              label="Esconder no mobile"
+              label="Repetir infinitamente"
+              name="loop"
+              disabled={isLoading}
+            />
+            <FormSwitch
+              label="Pular animação de transição"
+              name="jump"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="flex flex-col gap-8 md:col-span-1">
+            <FormSwitch
+              label="Não mostrar no mobile"
               name="hideOnMobile"
               disabled={isLoading}
             />
             <FormSwitch
-              label="Esconder no desktop"
+              label="Não mostrar no desktop"
               name="hideOnDesktop"
               disabled={isLoading}
             />
           </div>
         </div>
 
-        <div className="w-full border-t py-4">
+        <div className="w-full border-t pt-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-medium">Mensagens da Top Bar</h3>
+            <TextSubheading className="text-muted-foreground">
+              Mensagens
+            </TextSubheading>
             <Button
               type="button"
-              variant="outline"
               size="sm"
               onClick={() =>
                 appendTopBarMessage({
@@ -91,34 +129,33 @@ export function TopBarConfigFormContent({
               }
               disabled={isLoading}
             >
+              <PlusCircleIcon />
               Adicionar Mensagem
             </Button>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 max-h-96 overflow-y-auto pr-2">
             {topBarMessagesFields.map((field, index) => (
-              <div
-                key={field.id}
-                className="border p-4 rounded-lg relative bg-gray-50"
-              >
-                <div className="absolute top-2 right-2">
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => removeTopBarMessage(index)}
+              <Card key={field.id} className="p-4 flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <FormInput
+                    label={`Mensagem ${index + 1}`}
+                    name={`layoutTopBarMessages.${index}.message`}
+                    type="text"
                     disabled={isLoading}
+                    className="flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeTopBarMessage(index)}
+                    className="h-8 w-8 flex items-center justify-center text-destructive rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:text-primary disabled:hover:text-primary"
+                    disabled={index === 0 || isLoading}
                   >
-                    Remover
-                  </Button>
+                    <Trash2Icon size={20} />
+                  </button>
                 </div>
+
                 <FormInput
-                  label={`Mensagem ${index + 1}`}
-                  name={`layoutTopBarMessages.${index}.message`}
-                  type="text"
-                  disabled={isLoading}
-                />
-                <FormInput
-                  label={`Link ${index + 1} (opcional)`}
+                  label={`Link ${index + 1}`}
                   name={`layoutTopBarMessages.${index}.link`}
                   type="text"
                   disabled={isLoading}
@@ -128,12 +165,11 @@ export function TopBarConfigFormContent({
                   name={`layoutTopBarMessages.${index}.active`}
                   disabled={isLoading}
                 />
-              </div>
+              </Card>
             ))}
           </div>
         </div>
 
-        {/* Linha 3: Botões */}
         <div className="flex flex-col-reverse sm:flex-row gap-4 justify-end w-full mt-4">
           {additionalButton && additionalButton}
 
