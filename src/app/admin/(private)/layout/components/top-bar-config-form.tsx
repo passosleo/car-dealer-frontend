@@ -19,6 +19,7 @@ const configureTopBarSchema = z.object({
     .min(1000, { message: "O delay mínimo é 1000ms." }),
   direction: z.enum(["ltr", "rtl"]).default("ltr"),
   jump: z.boolean().default(false),
+  active: z.boolean().default(true),
   hideOnMobile: z.boolean().default(false),
   hideOnDesktop: z.boolean().default(false),
   layoutTopBarMessages: z

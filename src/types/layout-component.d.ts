@@ -43,16 +43,14 @@ export type LayoutComponentTopBarConfig = {
   active: boolean;
   createdAt: string;
   updatedAt: string;
-  layoutTopBarMessages: [
-    {
-      layoutTopBarMessageId: string;
-      layoutTopBarConfigId: string;
-      message: string;
-      link: string | null;
-      position: number;
-      active: boolean;
-      createdAt: string;
-      updatedAt: string;
-    }
-  ];
+  layoutTopBarMessages: {
+    layoutTopBarMessageId: string;
+    layoutTopBarConfigId: string;
+    message: string;
+    link: string | null;
+    position: number;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+  }[];
 };

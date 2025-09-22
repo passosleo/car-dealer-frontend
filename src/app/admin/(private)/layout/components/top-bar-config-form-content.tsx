@@ -51,7 +51,7 @@ export function TopBarConfigFormContent({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <TopBar isEnabled={true} />
+          <TopBar previewMode {...form.watch()} />
         </CardContent>
       </Card>
 
@@ -87,7 +87,7 @@ export function TopBarConfigFormContent({
 
           <div className="flex flex-col gap-8 md:col-span-1">
             <FormSwitch
-              label="Repetir infinitamente"
+              label="Rolagem contínua"
               name="loop"
               disabled={isLoading}
             />

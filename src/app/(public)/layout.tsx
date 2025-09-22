@@ -48,7 +48,24 @@ export default function PublicLayout({
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50 max-h-28 h-full">
-        <TopBar isEnabled />
+        <TopBar
+          layoutTopBarMessages={[
+            { message: "Frete grátis para todo o Brasil!", active: true },
+            {
+              message: "Compre seu carro novo com 10% de desconto!",
+              active: true,
+            },
+            {
+              message: "Consulte nossas ofertas de financiamento!",
+              active: true,
+            },
+          ]}
+          active
+          delay={4000}
+          direction="rtl"
+          loop
+          jump={false}
+        />
         <Header data={data} />
       </div>
       <main className="flex flex-col w-full min-h-screen bg-zinc-900 mt-[115px]">

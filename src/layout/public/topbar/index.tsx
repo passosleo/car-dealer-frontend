@@ -1,43 +1,90 @@
 "use client";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { LayoutComponentTopBarConfig } from "@/types/layout-component";
+import Autoplay from "embla-carousel-autoplay";
+import Link from "next/link";
 
-type Props = {
-  isEnabled: boolean;
-};
+type TopBarMessageProps = Required<
+  Pick<
+    LayoutComponentTopBarConfig["layoutTopBarMessages"][number],
+    "message" | "active"
+  >
+> &
+  Partial<
+    Omit<
+      LayoutComponentTopBarConfig["layoutTopBarMessages"][number],
+      "message" | "active"
+    >
+  >;
 
-const data = [
-  "Descontos imperdíveis em modelos selecionados!",
-  "Avaliação gratuita do seu carro usado!",
-  "Parcelas a partir de R$ 399,00!",
-  "Garantia estendida de 5 anos em todos os modelos!",
-  "Explore nossa linha de veículos elétricos e sustentáveis!",
-];
+type TopBarProps = {
+  previewMode?: boolean;
+} & Required<
+  Pick<
+    LayoutComponentTopBarConfig,
+    "active" | "loop" | "delay" | "direction" | "jump"
+  >
+> & {
+    layoutTopBarMessages: TopBarMessageProps[];
+  } & Partial<
+    Omit<
+      LayoutComponentTopBarConfig,
+      | "layoutTopBarConfigId"
+      | "layoutComponentId"
+      | "maxItems"
+      | "hideOnMobile"
+      | "hideOnDesktop"
+      | "createdAt"
+      | "updatedAt"
+      | "layoutTopBarMessages"
+    >
+  >;
 
-export function TopBar({ isEnabled }: Props) {
-  return isEnabled ? (
+export function TopBar({
+  active = true,
+  previewMode = false,
+  layoutTopBarMessages = [],
+  delay = 3000,
+  direction = "rtl",
+  loop = true,
+  jump = false,
+}: TopBarProps & {
+  previewMode?: boolean;
+}) {
+  const shouldShow = (layoutTopBarMessages.length > 0 && active) || previewMode;
+
+  return shouldShow ? (
     <div className="flex justify-center items-center h-9 w-full bg-zinc-950 px-6 py-2">
       <Carousel
+        dir={direction}
         plugins={[
           Autoplay({
-            // delay: 3000,
+            delay: Number(delay),
+            jump,
           }),
         ]}
         opts={{
-          loop: true,
+          loop,
+          direction,
         }}
       >
         <CarouselContent>
-          {data.map((item, index) => (
+          {layoutTopBarMessages.map((item, index) => (
             <CarouselItem
               key={index}
               className="text-white text-sm flex justify-center select-none"
             >
-              {item}
+              <Link
+                href={item.link || "#"}
+                target={item.link ? "_blank" : "_self"}
+                dir="ltr"
+              >
+                {item.message}
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
