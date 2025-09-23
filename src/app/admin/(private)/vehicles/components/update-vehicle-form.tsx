@@ -1,4 +1,3 @@
-//@ts-nocheck
 "use client";
 import { AlertDialog } from "@/components/admin/alert-dialog/alert-dialog";
 import { FormContext } from "@/components/shared/form/form-context";
@@ -173,18 +172,18 @@ export function UpdateVehicleForm(
       useFormProps={{
         values: {
           model: vehicle?.model || "",
-          year: vehicle?.year || undefined,
+          year: vehicle?.year as number,
           plate: vehicle?.plate || "",
           description: vehicle?.description || "",
-          price: vehicle?.price || undefined,
-          mileage: vehicle?.mileage || undefined,
+          price: vehicle?.price as number,
+          mileage: vehicle?.mileage as number,
           color: vehicle?.color || "",
           transmission: vehicle?.transmission || "",
           fuelType: vehicle?.fuelType || "",
-          doors: vehicle?.doors || undefined,
-          seats: vehicle?.seats || undefined,
-          horsepower: vehicle?.horsepower || undefined,
-          torque: vehicle?.torque || undefined,
+          doors: vehicle?.doors as number,
+          seats: vehicle?.seats as number,
+          horsepower: vehicle?.horsepower as number,
+          torque: vehicle?.torque as number,
           driveTrain: vehicle?.driveTrain || "",
           brandId: vehicle?.brand.brandId || "",
           categoryId: vehicle?.category.categoryId || "",
