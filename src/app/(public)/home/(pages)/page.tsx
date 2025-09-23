@@ -12,7 +12,28 @@ export default function HomePage() {
   return (
     <Suspense>
       <Banners />
-      <InfoBar />
+      <InfoBar
+        items={[
+          {
+            icon: "crown",
+            title: "Campeão de vendas",
+            description: "Somos o maior portal de carros do Brasil.",
+            link: "https://example.com",
+          },
+          {
+            icon: "instagram",
+            title: "Conheça nosso Instagram",
+            description: "@example",
+            link: "https://example.com/contact",
+          },
+          {
+            icon: "key-square",
+            title: "Saia com seu carro novo hoje",
+            description: "Financiamento na hora",
+            link: "https://example.com/financing",
+          },
+        ]}
+      />
       <Opportunities />
       <Categories />
       <Brands />
