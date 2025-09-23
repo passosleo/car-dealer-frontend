@@ -4,19 +4,16 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { LayoutComponentTopBarConfig } from "@/types/layout-component";
+import { LayoutTopBarConfig } from "@/types/layout-component";
 import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
 
 type TopBarMessageProps = Required<
-  Pick<
-    LayoutComponentTopBarConfig["layoutTopBarMessages"][number],
-    "message" | "active"
-  >
+  Pick<LayoutTopBarConfig["layoutTopBarMessages"][number], "message" | "active">
 > &
   Partial<
     Omit<
-      LayoutComponentTopBarConfig["layoutTopBarMessages"][number],
+      LayoutTopBarConfig["layoutTopBarMessages"][number],
       "message" | "active"
     >
   >;
@@ -24,15 +21,12 @@ type TopBarMessageProps = Required<
 type TopBarProps = {
   previewMode?: boolean;
 } & Required<
-  Pick<
-    LayoutComponentTopBarConfig,
-    "active" | "loop" | "delay" | "direction" | "jump"
-  >
+  Pick<LayoutTopBarConfig, "active" | "loop" | "delay" | "direction" | "jump">
 > & {
     layoutTopBarMessages: TopBarMessageProps[];
   } & Partial<
     Omit<
-      LayoutComponentTopBarConfig,
+      LayoutTopBarConfig,
       | "layoutTopBarConfigId"
       | "layoutComponentId"
       | "maxItems"

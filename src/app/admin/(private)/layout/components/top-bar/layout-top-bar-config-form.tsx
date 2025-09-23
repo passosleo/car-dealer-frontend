@@ -1,10 +1,11 @@
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { FormContext } from "@/components/shared/form/form-context";
 import { config } from "@/config";
-import { useGetActiveLayoutComponentTopBarConfigService } from "@/services/private/layout/use-get-active-layout-component-top-bar-config-service";
+import { useGetLayoutTopBarConfigService } from "@/services/private/layout/top-bar/use-get-layout-top-bar-config-service";
+import { useUpdateLayoutTopBarConfigService } from "@/services/private/layout/top-bar/use-update-layout-top-bar-config-service";
 import React from "react";
 import { z } from "zod";
-import { TopBarConfigFormContent } from "./top-bar-config-form-content";
+import { LayoutTopBarConfigFormContent } from "./layout-top-bar-config-form-content";
 
 const messages = config.messages.validation;
 
@@ -28,10 +29,10 @@ const configureTopBarSchema = z.object({
         message: z
           .string({ required_error: messages.required_error })
           .nonempty({ message: messages.nonempty_error }),
-        link: z
-          .string({ required_error: messages.required_error })
-          .url({ message: messages.url_error })
-          .optional(),
+        link: z.union([
+          z.literal(""),
+          z.string().url({ message: messages.url_error }),
+        ]),
         active: z.boolean().default(true),
       })
     )
@@ -40,14 +41,16 @@ const configureTopBarSchema = z.object({
 
 export type ConfigureTopBarSchema = z.infer<typeof configureTopBarSchema>;
 
-export function TopBarConfigForm(
+export function LayoutTopBarConfigForm(
   props: Omit<
     React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
   >
 ) {
-  const { topBarConfig, isPending } =
-    useGetActiveLayoutComponentTopBarConfigService();
+  const { topBarConfig, isPending } = useGetLayoutTopBarConfigService();
+
+  const { updateTopBarConfig, isPending: isUpdating } =
+    useUpdateLayoutTopBarConfigService();
 
   if (isPending) {
     return (
@@ -65,11 +68,18 @@ export function TopBarConfigForm(
     );
   }
 
+  function onSubmit(data: ConfigureTopBarSchema) {
+    updateTopBarConfig({
+      params: { layoutTopBarConfigId: topBarConfig!.layoutTopBarConfigId },
+      payload: data,
+    });
+  }
+
   return (
     <FormContext
       {...props}
       zodSchema={configureTopBarSchema}
-      onSubmit={(data) => console.log(data)}
+      onSubmit={onSubmit}
       useFormProps={{
         defaultValues: {
           maxItems: topBarConfig?.maxItems ?? 1,
@@ -82,15 +92,20 @@ export function TopBarConfigForm(
           layoutTopBarMessages: topBarConfig?.layoutTopBarMessages.map(
             (msg) => ({
               message: msg.message,
-              link: msg.link ?? "",
+              link: msg.link ?? undefined,
               active: msg.active,
             })
-          ) ?? [{ message: "", link: "", active: true }],
+          ) ?? [{ message: "", link: undefined, active: true }],
         },
         ...props.useFormProps,
       }}
     >
-      {(form) => <TopBarConfigFormContent form={form} isLoading={isPending} />}
+      {(form) => (
+        <LayoutTopBarConfigFormContent
+          form={form}
+          isLoading={isPending || isUpdating}
+        />
+      )}
     </FormContext>
   );
 }

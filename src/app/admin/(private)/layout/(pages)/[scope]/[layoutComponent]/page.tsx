@@ -1,19 +1,45 @@
 "use client";
+import { PageContentCard } from "@/components/admin/page/page-content-card";
 import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
-import { TopBarConfigForm } from "../../../components/top-bar-config-form";
-import { PageContentCard } from "@/components/admin/page/page-content-card";
+import { LayoutComponentName } from "@/types/layout-component";
+import { useParams } from "next/navigation";
+import { LayoutInfoBarConfigForm } from "../../../components/info-bar/layout-info-bar-config-form";
+import { LayoutTopBarConfigForm } from "../../../components/top-bar/layout-top-bar-config-form";
 
-export default function LayoutComponentPage() {
+const PAGE_CONTENT_MAP: Record<
+  LayoutComponentName,
+  { title: string; description: string; component: React.ReactNode }
+> = {
+  "top-bar": {
+    title: "Top Bar",
+    description:
+      "Gerencie a aparência das mensagens rotativas no topo do site.",
+    component: <LayoutTopBarConfigForm />,
+  },
+  "info-bar": {
+    title: "Info Bar",
+    description:
+      "Gerencie a aparência da barra de informações da página principal.",
+    component: <LayoutInfoBarConfigForm />,
+  },
+} as Record<
+  LayoutComponentName,
+  { title: string; description: string; component: React.ReactNode }
+>;
+
+export default function LayoutComponentConfigPage() {
+  const { layoutComponent } = useParams<{
+    layoutComponent: LayoutComponentName;
+  }>();
+  const pageContent = PAGE_CONTENT_MAP[layoutComponent];
   return (
     <PageLayout withBackButton>
       <PageHeader
-        title="Top Bar"
-        description="Gerencie a aparência das mensagens rotativas no topo do site."
+        title={pageContent.title}
+        description={pageContent.description}
       />
-      <PageContentCard>
-        <TopBarConfigForm isLoading={false} />
-      </PageContentCard>
+      <PageContentCard>{pageContent.component}</PageContentCard>
     </PageLayout>
   );
 }

@@ -17,7 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
-import { ConfigureTopBarSchema } from "./top-bar-config-form";
+import { ConfigureTopBarSchema } from "./layout-top-bar-config-form";
 
 type TopBarConfigFormContentProps = {
   form: UseFormReturn<ConfigureTopBarSchema>;
@@ -25,7 +25,7 @@ type TopBarConfigFormContentProps = {
   additionalButton?: React.ReactNode;
 };
 
-export function TopBarConfigFormContent({
+export function LayoutTopBarConfigFormContent({
   form,
   isLoading,
   additionalButton,

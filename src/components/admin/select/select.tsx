@@ -1,10 +1,10 @@
 import {
-  Select as ShadcnSelect,
   SelectContent,
   SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Select as ShadcnSelect,
 } from "@/components/ui/select";
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -14,7 +14,7 @@ type SelectProps = React.ComponentProps<typeof ShadcnSelect> & {
   placeholder?: string;
   allowClear?: boolean;
   data?: {
-    label: string;
+    label: string | React.ReactNode;
     value: string;
   }[];
 };

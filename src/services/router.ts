@@ -214,9 +214,14 @@ const routes = {
     uri: "/api/v1/admin/layout/position/:scope",
     headers: ["Authorization"],
   },
-  getActiveLayoutComponentTopBarConfig: {
+  getLayoutTopBarConfig: {
     method: "GET",
     uri: "/api/v1/admin/layout/top-bar",
+    headers: ["Authorization"],
+  },
+  updateLayoutTopBarConfig: {
+    method: "PUT",
+    uri: "/api/v1/admin/layout/top-bar/:layoutTopBarConfigId",
     headers: ["Authorization"],
   },
   listActiveVehicles: {
