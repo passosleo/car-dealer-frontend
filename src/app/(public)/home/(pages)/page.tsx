@@ -2,7 +2,7 @@ import { WhatsappButton } from "@/layout/public/whatsapp-button";
 import { Suspense } from "react";
 import { Banners } from "../components/banners";
 import { Brands } from "../components/brands";
-import { Categories } from "../components/categories";
+import { CategoriesList } from "../components/categories-list";
 import { Contact } from "../components/contact";
 import { InfoBar } from "../components/info-bar";
 import { Opportunities } from "../components/opportunities";
@@ -35,7 +35,7 @@ export default function HomePage() {
         ]}
       />
       <Opportunities />
-      <Categories />
+      <CategoriesList />
       <Brands />
       <Sellers />
       <Contact />

@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { LayoutComponentName } from "@/types/layout-component";
 import { useParams } from "next/navigation";
+import { FeaturedCategoriesConfigForm } from "../../../components/featured-categories/featured-categories-config-form";
 import { LayoutInfoBarConfigForm } from "../../../components/info-bar/layout-info-bar-config-form";
 import { LayoutTopBarConfigForm } from "../../../components/top-bar/layout-top-bar-config-form";
 
@@ -22,6 +23,12 @@ const PAGE_CONTENT_MAP: Record<
     description:
       "Gerencie a aparência da barra de informações da página principal.",
     component: <LayoutInfoBarConfigForm />,
+  },
+  "featured-categories": {
+    title: "Featured Categories",
+    description:
+      "Gerencie a aparência das categorias em destaque na página principal.",
+    component: <FeaturedCategoriesConfigForm />,
   },
 } as Record<
   LayoutComponentName,
