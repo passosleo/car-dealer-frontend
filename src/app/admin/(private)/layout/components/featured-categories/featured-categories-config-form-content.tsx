@@ -1,4 +1,4 @@
-import { CategoriesList } from "@/app/(public)/home/components/categories-list";
+import { CategoriesSection } from "@/app/(public)/home/components/categories-section";
 import { FormInput } from "@/components/admin/form/form-input";
 import { FormSelect } from "@/components/admin/form/form-select";
 import { FormSwitch } from "@/components/admin/form/form-switch";
@@ -7,7 +7,15 @@ import { LoaderCircle } from "@/components/admin/loader/loader-circle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
-import { EyeIcon, SaveIcon, TypeIcon, XIcon } from "lucide-react";
+import {
+  ChevronRightIcon,
+  EyeIcon,
+  SaveIcon,
+  TagsIcon,
+  TypeIcon,
+  XIcon,
+} from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -15,17 +23,17 @@ import { ConfigureFeaturedCategoriesSchema } from "./featured-categories-config-
 import { FeaturedCategoriesVariantOption } from "./featured-categories-variant-option";
 import { STYLE_VARIANTS } from "./style-variants";
 
-type TopBarConfigFormContentProps = {
+type FeaturedCategoriesConfigFormContentProps = {
   form: UseFormReturn<ConfigureFeaturedCategoriesSchema>;
   isLoading: boolean;
   additionalButton?: React.ReactNode;
 };
 
-export function LayoutTopBarConfigFormContent({
+export function FeaturedCategoriesConfigFormContent({
   form,
   isLoading,
   additionalButton,
-}: TopBarConfigFormContentProps) {
+}: FeaturedCategoriesConfigFormContentProps) {
   const router = useRouter();
 
   const { categories, isPending } = useListActiveCategoriesService({
@@ -44,11 +52,16 @@ export function LayoutTopBarConfigFormContent({
   }
 
   const orderOptions = [
-    { label: "Ordem alfabética (A-Z)", value: "name_ASC" },
-    { label: "Ordem alfabética (Z-A)", value: "name_DESC" },
+    { label: "Ordem alfabética (A-Z)", value: "asc" },
+    { label: "Ordem alfabética (Z-A)", value: "desc" },
     { label: "Mais populares", value: "most_popular" },
     { label: "Menos populares", value: "least_popular" },
   ];
+
+  console.log(
+    "🚀 ~ FeaturedCategoriesConfigFormContent ~ form.getValues():",
+    form.getValues()
+  );
 
   return (
     <>
@@ -60,7 +73,7 @@ export function LayoutTopBarConfigFormContent({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CategoriesList previewMode {...form.watch()} />
+          <CategoriesSection previewMode {...form.watch()} />
         </CardContent>
       </Card>
 
@@ -75,8 +88,8 @@ export function LayoutTopBarConfigFormContent({
           />
 
           <FormTextArea
-            label="Descrição"
-            name="description"
+            label="Subtítulo da seção"
+            name="subtitle"
             disabled={isLoading}
           />
 
@@ -96,24 +109,33 @@ export function LayoutTopBarConfigFormContent({
             leftIcon={<TypeIcon size={18} />}
           />
 
-          <div className="grid grid-cols-2 gap-4">
-            <FormSwitch
-              label={`Mostrar botão "Ver mais"`}
-              name="showSeeAllButton"
-              defaultChecked
-              disabled={isLoading}
-            />
+          <div className="flex gap-4 flex-wrap md:flex-nowrap items-center">
+            <div className="flex w-full gap-20">
+              <FormSwitch
+                label={`Mostrar botão "Ver mais"`}
+                name="showSeeMoreButton"
+                defaultChecked
+                disabled={isLoading}
+              />
 
-            <FormSwitch
-              label="Ativo"
-              name="active"
-              defaultChecked
-              disabled={isLoading}
-            />
+              <FormSwitch
+                label="Ativo"
+                name="active"
+                defaultChecked
+                disabled={isLoading}
+              />
+            </div>
+
+            <Link href="/admin/categories" passHref>
+              <Button type="button">
+                <TagsIcon size={18} className="mr-2" />
+                Gerenciar categorias
+                <ChevronRightIcon size={16} className="ml-1 opacity-70" />
+              </Button>
+            </Link>
           </div>
         </div>
 
-        {/* Coluna direita: variants em grid 2x2 */}
         <div className="flex flex-col gap-2">
           <label className="text-xs font-medium text-muted-foreground">
             Modo de exibição
@@ -123,8 +145,9 @@ export function LayoutTopBarConfigFormContent({
               <FeaturedCategoriesVariantOption
                 key={variant.name}
                 category={category}
-                isSelected={index === 0}
+                isSelected={form.watch("styleVariant") === variant.variant}
                 className="w-full"
+                onClick={() => form.setValue("styleVariant", variant.variant)}
                 {...variant}
               />
             ))}
@@ -132,7 +155,6 @@ export function LayoutTopBarConfigFormContent({
         </div>
       </div>
 
-      {/* Botões */}
       <div className="flex flex-col-reverse sm:flex-row gap-4 justify-end w-full mt-4">
         {additionalButton && additionalButton}
 

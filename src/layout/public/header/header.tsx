@@ -1,7 +1,7 @@
 import { Logo } from "@/components/public/logo/logo";
-import { Navbar, Page } from "./components/Navbar";
-import Link from "next/link";
 import { Search } from "lucide-react"; // Ícone de busca
+import Link from "next/link";
+import { Navbar, Page } from "./components/Navbar";
 
 type Props = {
   data: {

@@ -1,4 +1,4 @@
-import { STYLE_VARIANT } from "@/app/admin/(private)/layout/components/featured-categories/style-variants";
+import { StyleVariant } from "@/app/admin/(private)/layout/components/featured-categories/style-variants";
 import { Category as CategoryType } from "@/types/category";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 type CategoryProps = CategoryType & {
   previewMode?: boolean;
   className?: string;
-  variant: STYLE_VARIANT;
+  variant: StyleVariant;
 };
 
 const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(

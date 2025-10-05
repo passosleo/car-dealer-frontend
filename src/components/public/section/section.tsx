@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 type Props = React.ComponentPropsWithoutRef<"section"> & {
   title?: string;
+  subtitle?: string;
   bgColor: string;
   positionBlur?: "left" | "right" | undefined;
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export function Section({
   positionBlur,
   bgColor,
   title,
+  subtitle,
   children,
   className,
   ...props
@@ -32,7 +34,10 @@ export function Section({
         />
       )}
       <div className="flex flex-col gap-6 max-w-9xl w-full z-10">
-        {title && <TitleSection title={title} />}
+        <div className="flex flex-col gap-1">
+          {title && <TitleSection title={title} />}
+          {subtitle && <p className="text-gray-400 max-w-3xl">{subtitle}</p>}
+        </div>
         <div className="flex flex-wrap gap-8">{children}</div>
       </div>
     </section>
