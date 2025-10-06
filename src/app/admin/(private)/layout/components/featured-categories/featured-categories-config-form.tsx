@@ -83,7 +83,7 @@ export function FeaturedCategoriesConfigForm(
           orderBy: "asc",
           styleVariant: "square-row",
           maxItems: 6,
-          showSeeMoreButton: true,
+          showSeeMoreButton: false,
           active: true,
         },
       }}
