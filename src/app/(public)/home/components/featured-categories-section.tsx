@@ -22,7 +22,7 @@ export function FeaturedCategoriesSection({
   orderBy = "asc",
   maxItems = 6,
   styleVariant = "square-row",
-  showSeeMoreButton = true,
+  // showSeeMoreButton = true,
   active = true,
   previewMode = false,
 }: FeaturedCategoriesSectionProps) {
