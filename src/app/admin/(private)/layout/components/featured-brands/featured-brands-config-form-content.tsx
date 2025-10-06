@@ -1,4 +1,4 @@
-import { FeaturedCategoriesSection } from "@/app/(public)/home/components/featured-categories-section";
+import { FeaturedBrandsSection } from "@/app/(public)/home/components/featured-brands-section";
 import { FormInput } from "@/components/admin/form/form-input";
 import { FormSelect } from "@/components/admin/form/form-select";
 import { FormSwitch } from "@/components/admin/form/form-switch";
@@ -9,12 +9,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ORDER_OPTIONS } from "@/constants/filters";
 import { STYLE_VARIANTS } from "@/constants/style-variants";
-import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
+import { useListActiveBrandsService } from "@/services/public/use-list-active-brands-service";
 import {
   ChevronRightIcon,
   EyeIcon,
   SaveIcon,
-  TagsIcon,
+  ShieldEllipsisIcon,
   TypeIcon,
   XIcon,
 } from "lucide-react";
@@ -22,23 +22,23 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { UseFormReturn } from "react-hook-form";
-import { ConfigureFeaturedCategoriesSchema } from "./featured-categories-config-form";
-import { FeaturedCategoriesVariantOption } from "./featured-categories-variant-option";
+import { ConfigureFeaturedBrandsSchema } from "./featured-brands-config-form";
+import { FeaturedBrandsVariantOption } from "./featured-brands-variant-option";
 
-type FeaturedCategoriesConfigFormContentProps = {
-  form: UseFormReturn<ConfigureFeaturedCategoriesSchema>;
+type FeaturedBrandsConfigFormContentProps = {
+  form: UseFormReturn<ConfigureFeaturedBrandsSchema>;
   isLoading: boolean;
   additionalButton?: React.ReactNode;
 };
 
-export function FeaturedCategoriesConfigFormContent({
+export function FeaturedBrandsConfigFormContent({
   form,
   isLoading,
   additionalButton,
-}: FeaturedCategoriesConfigFormContentProps) {
+}: FeaturedBrandsConfigFormContentProps) {
   const router = useRouter();
 
-  const { categories, isPending } = useListActiveCategoriesService({
+  const { brands, isPending } = useListActiveBrandsService({
     page: 1,
     limit: 1,
   });
@@ -51,9 +51,9 @@ export function FeaturedCategoriesConfigFormContent({
     );
   }
 
-  const category = categories[0];
+  const brand = brands[0];
 
-  if (!category) {
+  if (!brand) {
     return (
       <div className="flex flex-col items-center justify-center my-auto">
         Nenhuma configuração ativa encontrada para a barra superior.
@@ -71,7 +71,7 @@ export function FeaturedCategoriesConfigFormContent({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <FeaturedCategoriesSection previewMode {...form.watch()} />
+          <FeaturedBrandsSection previewMode {...form.watch()} />
         </CardContent>
       </Card>
 
@@ -116,6 +116,13 @@ export function FeaturedCategoriesConfigFormContent({
               />
 
               <FormSwitch
+                label="Mostrar nome da marca"
+                name="showName"
+                defaultChecked
+                disabled={isLoading}
+              />
+
+              <FormSwitch
                 label="Ativo"
                 name="active"
                 defaultChecked
@@ -125,8 +132,8 @@ export function FeaturedCategoriesConfigFormContent({
 
             <Link href="/admin/categories" passHref>
               <Button type="button">
-                <TagsIcon size={18} className="mr-2" />
-                Gerenciar categorias
+                <ShieldEllipsisIcon size={18} className="mr-2" />
+                Gerenciar marcas
                 <ChevronRightIcon size={16} className="ml-1 opacity-70" />
               </Button>
             </Link>
@@ -139,9 +146,10 @@ export function FeaturedCategoriesConfigFormContent({
           </label>
           <div className="grid grid-cols-2 gap-4 w-full">
             {STYLE_VARIANTS.map((variant) => (
-              <FeaturedCategoriesVariantOption
+              <FeaturedBrandsVariantOption
                 key={variant.name}
-                category={category}
+                brand={brand}
+                showName={form.watch("showName")}
                 isSelected={form.watch("styleVariant") === variant.variant}
                 onClick={() => form.setValue("styleVariant", variant.variant)}
                 {...variant}

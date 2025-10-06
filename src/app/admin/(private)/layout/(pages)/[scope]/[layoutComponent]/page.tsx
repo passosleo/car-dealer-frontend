@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/admin/page/page-header";
 import { PageLayout } from "@/components/admin/page/page-layout";
 import { LayoutComponentName } from "@/types/layout-component";
 import { useParams } from "next/navigation";
+import { FeaturedBrandsConfigForm } from "../../../components/featured-brands/featured-brands-config-form";
 import { FeaturedCategoriesConfigForm } from "../../../components/featured-categories/featured-categories-config-form";
 import { LayoutInfoBarConfigForm } from "../../../components/info-bar/layout-info-bar-config-form";
 import { LayoutTopBarConfigForm } from "../../../components/top-bar/layout-top-bar-config-form";
@@ -25,10 +26,16 @@ const PAGE_CONTENT_MAP: Record<
     component: <LayoutInfoBarConfigForm />,
   },
   "featured-categories": {
-    title: "Featured Categories",
+    title: "Categorias em Destaque",
     description:
       "Gerencie a aparência das categorias em destaque na página principal.",
     component: <FeaturedCategoriesConfigForm />,
+  },
+  "featured-brands": {
+    title: "Marcas em Destaque",
+    description:
+      "Gerencie a aparência das marcas em destaque na página principal.",
+    component: <FeaturedBrandsConfigForm />,
   },
 } as Record<
   LayoutComponentName,

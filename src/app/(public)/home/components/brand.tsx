@@ -1,25 +1,27 @@
 import { StyleVariant } from "@/constants/style-variants";
-import { Category as CategoryType } from "@/types/category";
+import { Brand as BrandType } from "@/types/brand";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-type CategoryProps = CategoryType & {
+type BrandProps = BrandType & {
   previewMode?: boolean;
   className?: string;
   variant: StyleVariant;
+  showName?: boolean;
 };
 
-const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
+const Brand = React.forwardRef<HTMLAnchorElement, BrandProps>(
   (
     {
-      categoryId,
+      brandId,
       name,
       imageUrl,
       className,
       variant = "square-row",
       previewMode = false,
+      showName = false,
     },
     ref
   ) => {
@@ -27,15 +29,15 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
       ? "group relative overflow-hidden bg-zinc-950 select-none"
       : "group relative overflow-hidden bg-zinc-950 hover:bg-zinc-800 transition-all duration-300 select-none";
 
-    const variants: Record<CategoryProps["variant"], string> = {
+    const variants: Record<BrandProps["variant"], string> = {
       "square-row":
         "rounded-xl w-fit h-28 px-8 flex flex-row items-center gap-6",
       "square-column":
         "rounded-xl w-32 h-32 flex flex-col items-center justify-center gap-3 p-4",
       "circle-border":
-        "rounded-full w-32 h-32 flex flex-col items-center justify-center gap-3 p-4 border-4 border-blue-600",
+        "rounded-full w-40 h-40 flex flex-col items-center justify-center gap-3 p-4 border-4 border-blue-600",
       "circle-column":
-        "rounded-full w-32 h-32 flex flex-col items-center justify-center gap-3 p-4",
+        "rounded-full w-40 h-40 flex flex-col items-center justify-center gap-3 p-4",
     };
 
     const content = (
@@ -43,20 +45,20 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
         <Image
           src={imageUrl}
           alt={name}
-          width={56}
-          height={56}
+          width={80}
+          height={80}
           className={twMerge(
             "object-contain drop-shadow",
             previewMode
               ? ""
-              : "transition-transform duration-300 group-hover:scale-[1.25]"
+              : "transition-transform duration-300 group-hover:scale-[1.10]"
           )}
         />
 
-        {name ? (
+        {showName && name ? (
           <p
             className={twMerge(
-              "text-lg font-semibold text-zinc-200 text-center",
+              "text-sm font-medium text-zinc-200 text-center mt-2",
               previewMode ? "" : "transition-colors group-hover:text-white"
             )}
           >
@@ -80,7 +82,7 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
     return (
       <Link
         ref={ref}
-        href={`/vehicles?categories=${categoryId}`}
+        href={`/vehicles?brands=${brandId}`}
         className={twMerge(baseClasses, variants[variant], className)}
       >
         {content}
@@ -89,6 +91,6 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
   }
 );
 
-Category.displayName = "Category";
+Brand.displayName = "Brand";
 
-export { Category };
+export { Brand };

@@ -3,11 +3,11 @@ import { config } from "@/config";
 import { STYLE_VARIANTS, StyleVariant } from "@/constants/style-variants";
 import React from "react";
 import { z } from "zod";
-import { FeaturedCategoriesConfigFormContent } from "./featured-categories-config-form-content";
+import { FeaturedBrandsConfigFormContent } from "./featured-brands-config-form-content";
 
 const messages = config.messages.validation;
 
-const configureFeaturedCategoriesSchema = z.object({
+const configureFeaturedBrandsSchema = z.object({
   title: z
     .string()
     .nonempty({ message: messages.required_error })
@@ -30,14 +30,15 @@ const configureFeaturedCategoriesSchema = z.object({
     .min(1, { message: "O número mínimo de itens é 1." })
     .max(20, { message: "O número máximo de itens é 20." }),
   showSeeMoreButton: z.boolean().optional(),
+  showName: z.boolean().optional(),
   active: z.boolean().optional(),
 });
 
-export type ConfigureFeaturedCategoriesSchema = z.infer<
-  typeof configureFeaturedCategoriesSchema
+export type ConfigureFeaturedBrandsSchema = z.infer<
+  typeof configureFeaturedBrandsSchema
 >;
 
-export function FeaturedCategoriesConfigForm(
+export function FeaturedBrandsConfigForm(
   props: Omit<
     React.ComponentProps<typeof FormContext>,
     "zodSchema" | "onSubmit" | "children"
@@ -64,7 +65,7 @@ export function FeaturedCategoriesConfigForm(
   //   );
   // }
 
-  // function onSubmit(data: ConfigureFeaturedCategoriesSchema) {
+  // function onSubmit(data: ConfigureFeaturedBrandsSchema) {
   //   updateTopBarConfig({
   //     params: { layoutTopBarConfigId: topBarConfig!.layoutTopBarConfigId },
   //     payload: data,
@@ -74,22 +75,23 @@ export function FeaturedCategoriesConfigForm(
   return (
     <FormContext
       {...props}
-      zodSchema={configureFeaturedCategoriesSchema}
+      zodSchema={configureFeaturedBrandsSchema}
       onSubmit={(data) => console.log(data)}
       useFormProps={{
         defaultValues: {
-          title: "Categorias",
-          subtitle: "Explore nossas categorias",
+          title: "Marcas",
+          subtitle: "Confira as marcas disponíveis em nosso estoque",
           orderBy: "asc",
           styleVariant: "square-row",
           maxItems: 6,
           showSeeMoreButton: true,
           active: true,
+          showName: false,
         },
       }}
     >
       {(form) => (
-        <FeaturedCategoriesConfigFormContent
+        <FeaturedBrandsConfigFormContent
           form={form}
           isLoading={false}
           // isLoading={isPending || isUpdating}

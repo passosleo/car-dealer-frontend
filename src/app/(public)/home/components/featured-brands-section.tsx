@@ -1,11 +1,11 @@
 "use client";
 import { Section } from "@/components/public/section/section";
 import { StyleVariant } from "@/constants/style-variants";
-import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
-import { Category } from "./category";
-import { CategoriesSkeleton } from "./skeletons/categories-skeleton";
+import { useListActiveBrandsService } from "@/services/public/use-list-active-brands-service";
+import { Brand } from "./brand";
+import { BrandsSkeleton } from "./skeletons/brands-skeleton";
 
-type FeaturedCategoriesSectionProps = {
+type FeaturedBrandsSectionProps = {
   title?: string;
   subtitle?: string;
   orderBy?: "asc" | "desc";
@@ -14,9 +14,10 @@ type FeaturedCategoriesSectionProps = {
   showSeeMoreButton?: boolean;
   active?: boolean;
   previewMode?: boolean;
+  showName?: boolean;
 };
 
-export function FeaturedCategoriesSection({
+export function FeaturedBrandsSection({
   title,
   subtitle,
   orderBy = "asc",
@@ -25,10 +26,11 @@ export function FeaturedCategoriesSection({
   showSeeMoreButton = true,
   active = true,
   previewMode = false,
-}: FeaturedCategoriesSectionProps) {
+  showName = false,
+}: FeaturedBrandsSectionProps) {
   const shouldShow = active || previewMode;
 
-  const { categories, isPending } = useListActiveCategoriesService({
+  const { brands, isPending } = useListActiveBrandsService({
     page: 1,
     limit: maxItems,
     orderBy,
@@ -36,22 +38,23 @@ export function FeaturedCategoriesSection({
 
   return shouldShow ? (
     <Section
-      title={title || "Categorias"}
-      subtitle={subtitle}
-      positionBlur="right"
+      positionBlur="left"
       bgColor="zinc-900"
-      id="categories"
+      title={title || "Marcas"}
+      subtitle={subtitle}
+      id="brands"
     >
       {isPending ? (
-        <CategoriesSkeleton count={maxItems} />
+        <BrandsSkeleton count={maxItems} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-          {categories.map((category) => (
-            <Category
-              key={category.categoryId}
+        <div className="flex flex-wrap justify-center gap-6">
+          {brands.map((brand) => (
+            <Brand
+              key={brand.brandId}
               variant={styleVariant}
               previewMode={previewMode}
-              {...category}
+              showName={showName}
+              {...brand}
             />
           ))}
         </div>

@@ -20,3 +20,8 @@ export const DRIVE_TRAIN_TYPES = [
   { label: "Integral (AWD)", value: "AWD" },
   { label: "Tração 4x4 (4WD)", value: "4WD" },
 ];
+
+export const ORDER_OPTIONS = [
+  { label: "Ordem alfabética (A-Z)", value: "asc" },
+  { label: "Ordem alfabética (Z-A)", value: "desc" },
+];

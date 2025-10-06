@@ -1,8 +1,8 @@
 import { WhatsappButton } from "@/layout/public/whatsapp-button";
 import { Suspense } from "react";
 import { Banners } from "../components/banners";
-import { Brands } from "../components/brands";
 import { Contact } from "../components/contact";
+import { FeaturedBrandsSection } from "../components/featured-brands-section";
 import { FeaturedCategoriesSection } from "../components/featured-categories-section";
 import { InfoBar } from "../components/info-bar";
 import { Opportunities } from "../components/opportunities";
@@ -36,7 +36,7 @@ export default function HomePage() {
       />
       <Opportunities />
       <FeaturedCategoriesSection />
-      <Brands />
+      <FeaturedBrandsSection styleVariant="circle-column" />
       <Sellers />
       <Contact />
       <WhatsappButton />
