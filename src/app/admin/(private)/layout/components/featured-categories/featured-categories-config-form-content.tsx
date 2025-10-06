@@ -1,9 +1,10 @@
-import { CategoriesSection } from "@/app/(public)/home/components/categories-section";
+import { FeaturedCategoriesSection } from "@/app/(public)/home/components/featured-categories-section";
 import { FormInput } from "@/components/admin/form/form-input";
 import { FormSelect } from "@/components/admin/form/form-select";
 import { FormSwitch } from "@/components/admin/form/form-switch";
 import { FormTextArea } from "@/components/admin/form/form-textarea";
 import { LoaderCircle } from "@/components/admin/loader/loader-circle";
+import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useListActiveCategoriesService } from "@/services/public/use-list-active-categories-service";
@@ -42,26 +43,27 @@ export function FeaturedCategoriesConfigFormContent({
   });
 
   if (isPending) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="flex justify-center items-center w-full py-8">
+        <LoaderCustom />
+      </div>
+    );
   }
 
   const category = categories[0];
 
   if (!category) {
-    return <div>Nenhuma categoria encontrada.</div>;
+    return (
+      <div className="flex flex-col items-center justify-center my-auto">
+        Nenhuma configuração ativa encontrada para a barra superior.
+      </div>
+    );
   }
 
   const orderOptions = [
     { label: "Ordem alfabética (A-Z)", value: "asc" },
     { label: "Ordem alfabética (Z-A)", value: "desc" },
-    { label: "Mais populares", value: "most_popular" },
-    { label: "Menos populares", value: "least_popular" },
   ];
-
-  console.log(
-    "🚀 ~ FeaturedCategoriesConfigFormContent ~ form.getValues():",
-    form.getValues()
-  );
 
   return (
     <>
@@ -73,12 +75,11 @@ export function FeaturedCategoriesConfigFormContent({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CategoriesSection previewMode {...form.watch()} />
+          <FeaturedCategoriesSection previewMode {...form.watch()} />
         </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full my-6">
-        {/* Coluna esquerda: inputs */}
         <div className="flex flex-col gap-2">
           <FormInput
             label="Título da seção"
@@ -141,12 +142,11 @@ export function FeaturedCategoriesConfigFormContent({
             Modo de exibição
           </label>
           <div className="grid grid-cols-2 gap-4 w-full">
-            {STYLE_VARIANTS.map((variant, index) => (
+            {STYLE_VARIANTS.map((variant) => (
               <FeaturedCategoriesVariantOption
                 key={variant.name}
                 category={category}
                 isSelected={form.watch("styleVariant") === variant.variant}
-                className="w-full"
                 onClick={() => form.setValue("styleVariant", variant.variant)}
                 {...variant}
               />

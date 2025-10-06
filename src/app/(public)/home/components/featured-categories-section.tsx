@@ -5,7 +5,7 @@ import { useListActiveCategoriesService } from "@/services/public/use-list-activ
 import { Category } from "./category";
 import { CategoriesSkeleton } from "./skeletons/categories-skeleton";
 
-type CategoriesSectionProps = {
+type FeaturedCategoriesSectionProps = {
   title?: string;
   subtitle?: string;
   orderBy?: "asc" | "desc";
@@ -16,7 +16,7 @@ type CategoriesSectionProps = {
   previewMode?: boolean;
 };
 
-export function CategoriesSection({
+export function FeaturedCategoriesSection({
   title,
   subtitle,
   orderBy = "asc",
@@ -25,7 +25,7 @@ export function CategoriesSection({
   showSeeMoreButton = true,
   active = true,
   previewMode = false,
-}: CategoriesSectionProps) {
+}: FeaturedCategoriesSectionProps) {
   const shouldShow = active || previewMode;
 
   const { categories, isPending } = useListActiveCategoriesService({
@@ -50,6 +50,7 @@ export function CategoriesSection({
             <Category
               key={category.categoryId}
               variant={styleVariant}
+              previewMode={previewMode}
               {...category}
             />
           ))}

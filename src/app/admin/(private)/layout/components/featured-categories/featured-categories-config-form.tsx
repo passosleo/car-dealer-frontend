@@ -3,7 +3,7 @@ import { config } from "@/config";
 import React from "react";
 import { z } from "zod";
 import { FeaturedCategoriesConfigFormContent } from "./featured-categories-config-form-content";
-import { STYLE_VARIANTS } from "./style-variants";
+import { STYLE_VARIANTS, StyleVariant } from "./style-variants";
 
 const messages = config.messages.validation;
 
@@ -16,11 +16,11 @@ const configureFeaturedCategoriesSchema = z.object({
     .string()
     .max(200, { message: "O subtítulo deve ter no máximo 200 caracteres." })
     .optional(),
-  orderBy: z.enum(["asc", "desc", "most_popular", "least_popular"], {
+  orderBy: z.enum(["asc", "desc"], {
     errorMap: () => ({ message: "Seleção de ordenação inválida." }),
   }),
   styleVariant: z.enum(
-    STYLE_VARIANTS.map((v) => v.variant) as [string, ...string[]],
+    STYLE_VARIANTS.map((v) => v.variant) as [StyleVariant, ...StyleVariant[]],
     {
       errorMap: () => ({ message: "Seleção de variante inválida." }),
     }

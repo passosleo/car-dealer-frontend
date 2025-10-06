@@ -23,24 +23,27 @@ const FeaturedCategoriesVariantOption = React.forwardRef<
   return (
     <Card
       className={twMerge(
-        "bg-muted/40 p-4 w-fit flex items-center justify-center cursor-pointer",
+        "relative bg-muted/40 pb-3 pt-4 flex items-center justify-center cursor-pointer w-full transition-all duration-200",
         isSelected
-          ? "scale-[1.00] shadow-md shadow-primary/20 bg-primary/10"
-          : "hover:scale-[1.00] hover:shadow",
+          ? "scale-[1.00] shadow-md shadow-primary/30 bg-primary/10"
+          : "hover:scale-[1.00] hover:shadow-md hover:shadow-primary/20 hover:bg-primary/10",
         className
       )}
       ref={ref}
       {...props}
     >
       <CardContent className="flex flex-col items-center justify-between h-full gap-2 py-0 px-0">
-        <Category {...category} variant={variant} />
+        <Category {...category} variant={variant} previewMode />
         <TextSubheading className="text-center text-sm text-muted-foreground pt-0 pb-0 p-0">
           {name}
         </TextSubheading>
       </CardContent>
-      <div className="absolute top-2 right-2 bg-primary text-white rounded-full p-1">
-        <CheckIcon size={14} />
-      </div>
+
+      {isSelected && (
+        <div className="absolute top-2 right-2 bg-primary text-white rounded-full p-1">
+          <CheckIcon size={14} />
+        </div>
+      )}
     </Card>
   );
 });
