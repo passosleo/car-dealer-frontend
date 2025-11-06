@@ -1,20 +1,22 @@
 "use client";
 
-import Image from "next/image";
-import { Brand } from "./brand";
-import { TextNormal } from "@/components/admin/text/text-normal";
 import { LoaderCustom } from "@/components/admin/loader/loader-custom";
 import { PageContentGrid } from "@/components/admin/page/page-content-grid";
-import { DefaultPrivateFilters } from "@/types/generic";
+import { TextNormal } from "@/components/admin/text/text-normal";
 import { useListBrandsService } from "@/services/private/brands/use-list-brands-service";
+import { DefaultPrivateFilters } from "@/types/generic";
+import Image from "next/image";
+import { Brand } from "./brand";
 
 export function BrandGrid({
   appliedFilters,
 }: {
   appliedFilters: Partial<DefaultPrivateFilters>;
 }) {
-  const { brands, totalPages, isPending, isEmpty } =
-    useListBrandsService(appliedFilters);
+  const { brands, totalPages, isPending, isEmpty } = useListBrandsService({
+    limit: 16,
+    ...appliedFilters,
+  });
 
   return (
     <>

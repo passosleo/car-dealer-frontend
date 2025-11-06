@@ -21,7 +21,7 @@ export function FeaturedBrandsSection({
   title,
   subtitle,
   orderBy = "asc",
-  maxItems = 6,
+  maxItems = 9,
   styleVariant = "square-row",
   // showSeeMoreButton = true,
   active = true,

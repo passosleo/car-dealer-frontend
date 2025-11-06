@@ -1,3 +1,4 @@
+import { DefaultResponse } from "@/types/generic";
 import type { AxiosError } from "axios";
 import { routes } from "./router";
 
