@@ -24,18 +24,20 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
     ref
   ) => {
     const baseClasses = previewMode
-      ? "group relative overflow-hidden bg-zinc-950 select-none"
-      : "group relative overflow-hidden bg-zinc-950 hover:bg-zinc-800 transition-all duration-300 select-none";
+      ? "group relative bg-zinc-950 select-none overflow-visible"
+      : "group relative bg-zinc-950 hover:bg-zinc-800 transition-all duration-300 select-none overflow-visible";
+
+    const hasGap = variant === "square-row";
 
     const variants: Record<CategoryProps["variant"], string> = {
       "square-row":
-        "rounded-xl w-fit h-28 px-8 flex flex-row items-center gap-6",
+        "rounded-xl w-[280px] h-32 px-8 flex flex-row items-center justify-center gap-6 sm:w-[280px] sm:h-32",
       "square-column":
-        "rounded-xl w-32 h-32 flex flex-col items-center justify-center gap-3 p-4",
+        "rounded-xl w-40 h-40 flex flex-col items-center justify-center p-4 sm:w-44 sm:h-44",
       "circle-border":
-        "rounded-full w-32 h-32 flex flex-col items-center justify-center gap-3 p-4 border-4 border-blue-600",
+        "rounded-full w-44 h-44 flex flex-col items-center justify-center p-4 border-4 border-blue-600 sm:w-48 sm:h-48",
       "circle-column":
-        "rounded-full w-32 h-32 flex flex-col items-center justify-center gap-3 p-4",
+        "rounded-full w-44 h-44 flex flex-col items-center justify-center p-4 sm:w-48 sm:h-48",
     };
 
     const content = (
@@ -43,20 +45,21 @@ const Category = React.forwardRef<HTMLAnchorElement, CategoryProps>(
         <Image
           src={imageUrl}
           alt={name}
-          width={56}
-          height={56}
+          width={100}
+          height={100}
           className={twMerge(
-            "object-contain drop-shadow",
+            "object-contain drop-shadow max-w-[85%] max-h-[70%]",
             previewMode
               ? ""
-              : "transition-transform duration-300 group-hover:scale-[1.25]"
+              : "transition-transform duration-300 group-hover:scale-[1.06]"
           )}
         />
 
         {name ? (
           <p
             className={twMerge(
-              "text-lg font-semibold text-zinc-200 text-center",
+              "text-lg sm:text-xl font-semibold text-zinc-200 text-center leading-snug mt-1 break-words whitespace-normal max-w-[95%]",
+              !hasGap && "-mt-1",
               previewMode ? "" : "transition-colors group-hover:text-white"
             )}
           >

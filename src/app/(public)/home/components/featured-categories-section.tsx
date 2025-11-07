@@ -20,9 +20,8 @@ export function FeaturedCategoriesSection({
   title,
   subtitle,
   orderBy = "asc",
-  maxItems = 6,
+  maxItems = 7,
   styleVariant = "square-row",
-  // showSeeMoreButton = true,
   active = true,
   previewMode = false,
 }: FeaturedCategoriesSectionProps) {
@@ -45,7 +44,14 @@ export function FeaturedCategoriesSection({
       {isPending ? (
         <CategoriesSkeleton count={maxItems} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <div
+          className={`
+            flex flex-wrap justify-start
+            gap-6 sm:gap-8
+            w-full
+            -mx-6 px-6
+          `}
+        >
           {categories.map((category) => (
             <Category
               key={category.categoryId}

@@ -35,7 +35,7 @@ export default function HomePage() {
         ]}
       />
       <Opportunities />
-      <FeaturedCategoriesSection />
+      <FeaturedCategoriesSection styleVariant="square-column" />
       <FeaturedBrandsSection styleVariant="circle-column" />
       <Sellers />
       <Contact />

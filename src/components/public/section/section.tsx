@@ -30,10 +30,10 @@ export function Section({
     >
       {positionBlur && (
         <div
-          className={`h-52 w-72 absolute opacity-50 bg-gray-700 ${blur} blur-3xl rounded-full z-10`}
+          className={`h-52 w-72 absolute opacity-50 bg-gray-700 ${blur} blur-3xl rounded-full`}
         />
       )}
-      <div className="flex flex-col gap-6 max-w-9xl w-full z-10">
+      <div className="flex flex-col gap-6 max-w-9xl w-full">
         <div className="flex flex-col gap-1">
           {title && <TitleSection title={title} />}
           {subtitle && <p className="text-gray-400 max-w-3xl">{subtitle}</p>}
